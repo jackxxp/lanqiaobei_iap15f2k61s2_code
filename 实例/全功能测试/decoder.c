@@ -3,7 +3,7 @@
 
 void decoder_init()
 {
-	P2 = (P2 & 0x1F) | ((0x00 << 5) & 0xE0);
+	P2 = P2 & 0x1F;
 }
 
 void decoder_set(uint8 pin)
