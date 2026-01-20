@@ -11,9 +11,11 @@
 #include "decoder.h"
 #include "led.h"
 #include "seg.h"
+#include "key.h"
 
 void sys_init();
 void sys_sleep_1s();
+void sys_sleep_100ms();
 
 void gpio_init();
 void sys_timer_init();

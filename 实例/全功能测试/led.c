@@ -59,3 +59,8 @@ void led_run()
 		led_last = led_temp;
 	}	
 }
+
+void led_set0()
+{
+	led_ram[0]=0;led_ram[1]=0;led_ram[2]=0;led_ram[3]=0;led_ram[4]=0;led_ram[5]=0;led_ram[6]=0;led_ram[7]=0;
+}

@@ -3,9 +3,8 @@
 #define __MAIN_H__
 
 #include "sys.h"
-#include "led.h"
-#include "seg.h"
-#include "key.h"
+
+#include "appled.h"
 
 
 

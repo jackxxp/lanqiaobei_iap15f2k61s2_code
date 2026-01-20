@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   SYS                                                               01/20/2026 19:06:22 PAGE 1   
+C51 COMPILER V9.60.7.0   SYS                                                               01/20/2026 21:19:07 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE SYS
@@ -62,7 +62,7 @@ line level    source
   52   1      
   53   1        _nop_();
   54   1        _nop_();
-C51 COMPILER V9.60.7.0   SYS                                                               01/20/2026 19:06:22 PAGE 2   
+C51 COMPILER V9.60.7.0   SYS                                                               01/20/2026 21:19:07 PAGE 2   
 
   55   1        i = 46;
   56   1        j = 153;
@@ -76,10 +76,28 @@ line level    source
   64   2        } while (--i);
   65   1      }
   66          
+  67          void sys_sleep_100ms()//12mhz
+  68          {
+  69   1        unsigned char data i, j, k;
+  70   1      
+  71   1        _nop_();
+  72   1        _nop_();
+  73   1        i = 5;
+  74   1        j = 144;
+  75   1        k = 71;
+  76   1        do
+  77   1        {
+  78   2          do
+  79   2          {
+  80   3            while (--k);
+  81   3          } while (--j);
+  82   2        } while (--i);
+  83   1      }
+  84          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     85    ----
+   CODE SIZE        =    100    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

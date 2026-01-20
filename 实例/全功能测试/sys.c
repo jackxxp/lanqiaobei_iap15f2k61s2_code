@@ -64,3 +64,21 @@ void sys_sleep_1s()//12mhz
 	} while (--i);
 }
 
+void sys_sleep_100ms()//12mhz
+{
+	unsigned char data i, j, k;
+
+	_nop_();
+	_nop_();
+	i = 5;
+	j = 144;
+	k = 71;
+	do
+	{
+		do
+		{
+			while (--k);
+		} while (--j);
+	} while (--i);
+}
+

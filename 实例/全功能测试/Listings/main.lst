@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   MAIN                                                              01/20/2026 19:06:22 PAGE 1   
+C51 COMPILER V9.60.7.0   MAIN                                                              01/20/2026 21:19:07 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
@@ -36,35 +36,67 @@ line level    source
   26          
   27          void main()
   28          {
-  29   1        sys_init();
-  30   1        seg_set(0, 5);seg_set(1, 26);seg_set(2, 12);seg_set(3, 16);seg_set(4, 2);seg_set(5, 12);seg_set(6,25);seg
+  29   1        static uint16 page = 1;
+  30   1        
+  31   1        sys_init();
+  32   1        
+  33   1        seg_set(0, 5);seg_set(1, 26);seg_set(2, 12);seg_set(3, 16);seg_set(4, 2);seg_set(5, 12);seg_set(6,25);seg
              -_set(7, 25);
-  31   1        sys_sleep_1s();
-  32   1        led_set(0,1);
-  33   1        seg_set0();
-  34   1        while(1)
-  35   1        {
-  36   2          uint8 temp = key_get();
-  37   2          if (temp != 201)
-  38   2          {
-  39   3            seg_set(5,temp/100);
-  40   3            seg_set(6,temp/10%10);    
-  41   3            seg_set(7,temp%10);       
-  42   3          }
-  43   2        
-  44   2          
-  45   2        }
-  46   1      }
+  34   1        led_set(0,1);sys_sleep_100ms();
+  35   1        led_set(1,1);sys_sleep_100ms();
+  36   1        led_set(2,1);sys_sleep_100ms();
+  37   1        led_set(3,1);sys_sleep_100ms();
+  38   1        led_set(4,1);sys_sleep_100ms();
+  39   1        led_set(5,1);sys_sleep_100ms();
+  40   1        led_set(6,1);sys_sleep_100ms();
+  41   1        led_set(7,1);sys_sleep_100ms();
+  42   1        seg_set0();
+  43   1        seg_set(0, 25);seg_set(1, 14);seg_set(2, 29);seg_set(3, 16);seg_set(4, 16);seg_set(5, 1+32);seg_set(6,0);
+             -seg_set(7, 1);
+  44   1        sys_sleep_1s();seg_set0();led_set0();
+  45   1        
+  46   1        while(1)
+  47   1        { 
+  48   2          uint8 temp;
+  49   2          while(1)
+  50   2          {
+  51   3            temp = key_get();
+  52   3            seg_set(0,page/10);seg_set(1,page%10+32);
+C51 COMPILER V9.60.7.0   MAIN                                                              01/20/2026 21:19:07 PAGE 2   
+
+  53   3            switch(page)
+  54   3            {
+  55   4              case 1:{seg_set(2, 16);seg_set(3, 16);seg_set(4, 16);seg_set(5, 21);seg_set(6,14);seg_set(7, 13);}brea
+             -k;
+  56   4              case 2:{seg_set(2, 16);seg_set(3, 16);seg_set(4, 16);seg_set(5, 5);seg_set(6,14);seg_set(7, 27);}break
+             -;
+  57   4              case 3:{seg_set(2, 16);seg_set(3, 16);seg_set(4, 16);seg_set(5, 20);seg_set(6,14);seg_set(7, 31);}brea
+             -k;
+  58   4              default:{seg_set(2, 16);seg_set(3, 16);seg_set(4, 22);seg_set(5, 23);seg_set(6,22);seg_set(7, 14);}     
+  59   4            }
+  60   3          
+  61   3            if (temp == 6 ){page += 1;if(page == 100){page = 1;}}   
+  62   3            if (temp == 7 ){page -= 1;if(page == 0){page = 99;}}
+  63   3            if (temp == 5)
+  64   3            {
+  65   4              
+  66   4              switch(page)
+  67   4              {
+  68   5                case 1:{appled_main();}break; 
+  69   5              }       
+  70   4            }   
+  71   3          }
+  72   2      
+  73   2        }
+  74   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    229    ----
+   CODE SIZE        =    609    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-C51 COMPILER V9.60.7.0   MAIN                                                              01/20/2026 19:06:22 PAGE 2   
-
-   DATA SIZE        =      1       1
+   DATA SIZE        =      3       1
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

@@ -4,6 +4,7 @@
 ".\Objects\sys.obj",
 ".\Objects\led.obj",
 ".\Objects\seg.obj",
-".\Objects\key.obj" 
+".\Objects\key.obj",
+".\Objects\appled.obj" 
 TO ".\Objects\全功能测试" 
 PRINT(".\Listings\全功能测试.m51") RAMSIZE(256) 
