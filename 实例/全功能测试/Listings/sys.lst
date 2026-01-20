@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   SYS                                                               01/20/2026 00:06:21 PAGE 1   
+C51 COMPILER V9.60.7.0   SYS                                                               01/20/2026 17:00:16 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE SYS
@@ -13,34 +13,73 @@ line level    source
    3          
    4          void sys_init()
    5          {
-   6   1        decoder_init();
-   7   1        led_init();
-   8   1        seg_init();
-   9   1        
-  10   1      
-  11   1      }
-  12          
-  13          void sys_sleep_1s()//12mhz
-  14          {
-  15   1        unsigned char data i, j, k;
-  16   1      
-  17   1        _nop_();
-  18   1        _nop_();
-  19   1        i = 46;
-  20   1        j = 153;
-  21   1        k = 245;
-  22   1        do
-  23   1        {
-  24   2          do
-  25   2          {
-  26   3            while (--k);
-  27   3          } while (--j);
-  28   2        } while (--i);
-  29   1      }
+   6   1        gpio_init();
+   7   1        
+   8   1        decoder_init();
+   9   1        led_init();
+  10   1        seg_init();
+  11   1        
+  12   1        sys_timer_init();
+  13   1      
+  14   1      }
+  15          
+  16          void gpio_init()
+  17          {
+  18   1        P0M0 = 0x00;
+  19   1        P0M1 = 0x00;
+  20   1        P1M0 = 0x00;
+  21   1        P1M1 = 0x00;
+  22   1        P2M0 = 0x00;
+  23   1        P2M1 = 0x00;
+  24   1        P3M0 = 0x00;
+  25   1        P3M1 = 0x00;
+  26   1        P4M0 = 0x00;
+  27   1        P4M1 = 0x00;
+  28   1        P5M0 = 0x00;
+  29   1        P5M1 = 0x00;
+  30   1        P6M0 = 0x00;
+  31   1        P6M1 = 0x00;
+  32   1        P7M0 = 0x00;
+  33   1        P7M1 = 0x00;
+  34   1      }
+  35          
+  36          void sys_timer_init()
+  37          {
+  38   1        AUXR &= 0xBF; // 定时器时钟12T模式
+  39   1        TMOD &= 0x0F; // 设置定时器模式
+  40   1        TL1 = 0x18;   // 设置定时初始值
+  41   1        TH1 = 0xFC;   // 设置定时初始值
+  42   1        TF1 = 0;      // 清除TF1标志
+  43   1        TR1 = 1;      // 定时器1开始计时
+  44   1        ET1 = 1;      // 使能定时器1中断
+  45   1        
+  46   1        EA = 1;
+  47   1      }
+  48          
+  49          void sys_sleep_1s()//12mhz
+  50          {
+  51   1        unsigned char data i, j, k;
+  52   1      
+  53   1        _nop_();
+  54   1        _nop_();
+C51 COMPILER V9.60.7.0   SYS                                                               01/20/2026 17:00:16 PAGE 2   
+
+  55   1        i = 46;
+  56   1        j = 153;
+  57   1        k = 245;
+  58   1        do
+  59   1        {
+  60   2          do
+  61   2          {
+  62   3            while (--k);
+  63   3          } while (--j);
+  64   2        } while (--i);
+  65   1      }
+  66          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     24    ----
+   CODE SIZE        =     85    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

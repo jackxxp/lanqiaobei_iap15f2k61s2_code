@@ -15,4 +15,7 @@
 void sys_init();
 void sys_sleep_1s();
 
+void gpio_init();
+void sys_timer_init();
+
 #endif
