@@ -4,6 +4,8 @@
 
 #include "sys.h"
 #include "led.h"
+#include "seg.h"
+#include "key.h"
 
 
 

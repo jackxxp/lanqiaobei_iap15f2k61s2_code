@@ -431,6 +431,16 @@
               <FileType>1</FileType>
               <FilePath>.\seg.c</FilePath>
             </File>
+            <File>
+              <FileName>key.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\key.h</FilePath>
+            </File>
+            <File>
+              <FileName>key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\key.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
