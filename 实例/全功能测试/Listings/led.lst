@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   LED                                                               01/20/2026 18:57:32 PAGE 1   
+C51 COMPILER V9.60.7.0   LED                                                               01/20/2026 19:06:22 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE LED
@@ -20,65 +20,65 @@ line level    source
   10   1        decoder_set(0);
   11   1      }
   12          
-  13          static uint8 led_state = 0x00; 
+  13          //static uint8 led_state = 0x00; 
   14          
-  15          void led_set(uint8 index, bit value) 
-  16          {
-  17   1        if (value)
-  18   1        {
-  19   2          led_state |= (1 << index);
-  20   2        }else
-  21   1        {
-  22   2          led_state &= ~(1 << index);
-  23   2        }
-  24   1      }
+  15          //void led_set(uint8 index, bit value) 
+  16          //{
+  17          //  if (value)
+  18          //  {
+  19          //    led_state |= (1 << index);
+  20          //  }else
+  21          //  {
+  22          //    led_state &= ~(1 << index);
+  23          //  }
+  24          //}
   25          
-  26          // 时间片调用（每 1～2ms 一次）
-  27          void led_run(void) 
-  28          {
-  29   1        decoder_set(4);
-  30   1        P0 = ~led_state; // 共阳：逻辑1 → 物理0
-  31   1      }
+  26          //// 时间片调用（每 1～2ms 一次）
+  27          //void led_run(void) 
+  28          //{
+  29          //  decoder_set(4);
+  30          //  P0 = ~led_state; // 共阳：逻辑1 → 物理0
+  31          //}
   32          
   33          
-  34          //uint8 led_ram[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+  34          uint8 led_ram[8] = {0, 0, 0, 0, 0, 0, 0, 0};
   35          
-  36          //void led_set(uint8 position, bit value){led_ram[position] = value;}
+  36          void led_set(uint8 position, bit value){led_ram[position] = value;}
   37          
-  38          //void led_run()
-  39          //{
-  40          //  static uint8 led_tick =0;
-  41          //  static uint8 led_last =0x00;
-  42          //  static uint8 led_temp = 0x00;
-  43          //  
-  44          //  if(led_ram[led_tick])
-  45          //  {
-  46          //    led_temp = led_temp | (0x01<<led_tick++);
-  47          //  }else
-  48          //  {
-  49          //    led_temp = led_temp & ~(0x01<<led_tick++);
-  50          //  }
-  51          //  
-  52          //  if(led_tick >= 8){led_tick = 0;}
-  53          //  
-  54          //  if(led_last != led_temp)
-C51 COMPILER V9.60.7.0   LED                                                               01/20/2026 18:57:32 PAGE 2   
+  38          void led_run()
+  39          {
+  40   1        static uint8 led_tick =0;
+  41   1        static uint8 led_last =0x00;
+  42   1        static uint8 led_temp = 0x00;
+  43   1        
+  44   1        if(led_ram[led_tick])
+  45   1        {
+  46   2          led_temp = led_temp | (0x01<<led_tick++);
+  47   2        }else
+  48   1        {
+  49   2          led_temp = led_temp & ~(0x01<<led_tick++);
+  50   2        }
+  51   1        
+  52   1        if(led_tick >= 8){led_tick = 0;}
+  53   1        
+  54   1        if(led_last != led_temp)
+C51 COMPILER V9.60.7.0   LED                                                               01/20/2026 19:06:22 PAGE 2   
 
-  55          //  {
-  56          //    decoder_set(4);
-  57          //    P0 = ~led_temp;
-  58          //    decoder_set(0);
-  59          //    led_last = led_temp;
-  60          //  } 
-  61          //}
+  55   1        {
+  56   2          decoder_set(4);
+  57   2          P0 = ~led_temp;
+  58   2          decoder_set(0);
+  59   2          led_last = led_temp;
+  60   2        } 
+  61   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     56    ----
+   CODE SIZE        =    105    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =      1    ----
+   DATA SIZE        =     11    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----       1
 END OF MODULE INFORMATION.

@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    01/20/2026  18:57:33  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    01/20/2026  19:06:22  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
@@ -30,15 +30,14 @@ LINK MAP OF MODULE:  .\Objects\全功能测试 (?C_STARTUP)
 
             * * * * * * *   D A T A   M E M O R Y   * * * * * * *
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
-            DATA    0008H     0009H     UNIT         ?DT?SEG
-            DATA    0011H     0004H     UNIT         ?DT?KEY
-            DATA    0015H     0003H     UNIT         _DATA_GROUP_
-            DATA    0018H     0001H     UNIT         ?DT?MAIN
-            DATA    0019H     0001H     UNIT         ?DT?LED
-                    001AH     0006H                  *** GAP ***
+            DATA    0008H     000BH     UNIT         ?DT?LED
+            DATA    0013H     0009H     UNIT         ?DT?SEG
+            DATA    001CH     0004H     UNIT         ?DT?KEY
             BIT     0020H.0   0000H.1   UNIT         _BIT_GROUP_
                     0020H.1   0000H.7                *** GAP ***
-            IDATA   0021H     0001H     UNIT         ?STACK
+            DATA    0021H     0003H     UNIT         _DATA_GROUP_
+            DATA    0024H     0001H     UNIT         ?DT?MAIN
+            IDATA   0025H     0001H     UNIT         ?STACK
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
             CODE    0000H     0003H     ABSOLUTE     
@@ -49,25 +48,25 @@ LINK MAP OF MODULE:  .\Objects\全功能测试 (?C_STARTUP)
             CODE    016EH     008CH     UNIT         ?C_C51STARTUP
             CODE    01FAH     007FH     UNIT         ?PR?MAIN?MAIN
             CODE    0279H     0066H     UNIT         ?PR?SYS_TIMER_1MS?MAIN
-            CODE    02DFH     004BH     UNIT         ?PR?SEG_RUN?SEG
-            CODE    032AH     002BH     UNIT         ?CO?SEG
-            CODE    0355H     0026H     UNIT         ?C?LIB_CODE
-            CODE    037BH     0022H     UNIT         ?PR?GPIO_INIT?SYS
-            CODE    039DH     0020H     UNIT         ?C_INITSEG
-            CODE    03BDH     0020H     UNIT         ?PR?_LED_SET?LED
-            CODE    03DDH     0019H     UNIT         ?PR?SEG_SET0?SEG
-            CODE    03F6H     0015H     UNIT         ?PR?SEG_INIT?SEG
-            CODE    040BH     0011H     UNIT         ?PR?_DECODER_SET?DECODER
-            CODE    041CH     000FH     UNIT         ?PR?SYS_INIT?SYS
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  18:57:33  PAGE 2
+            CODE    02DFH     0050H     UNIT         ?PR?LED_RUN?LED
+            CODE    032FH     004BH     UNIT         ?PR?SEG_RUN?SEG
+            CODE    037AH     0030H     UNIT         ?C_INITSEG
+            CODE    03AAH     002BH     UNIT         ?CO?SEG
+            CODE    03D5H     0026H     UNIT         ?C?LIB_CODE
+            CODE    03FBH     0022H     UNIT         ?PR?GPIO_INIT?SYS
+            CODE    041DH     0019H     UNIT         ?PR?SEG_SET0?SEG
+            CODE    0436H     0015H     UNIT         ?PR?SEG_INIT?SEG
+            CODE    044BH     0011H     UNIT         ?PR?_DECODER_SET?DECODER
+            CODE    045CH     000FH     UNIT         ?PR?SYS_INIT?SYS
+            CODE    046BH     000FH     UNIT         ?PR?SYS_SLEEP_1S?SYS
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  19:06:22  PAGE 2
 
 
-            CODE    042BH     000FH     UNIT         ?PR?SYS_SLEEP_1S?SYS
-            CODE    043AH     000DH     UNIT         ?PR?LED_INIT?LED
-            CODE    0447H     000BH     UNIT         ?PR?LED_RUN?LED
-            CODE    0452H     0007H     UNIT         ?PR?_SEG_SET?SEG
-            CODE    0459H     0006H     UNIT         ?PR?KEY_GET?KEY
-            CODE    045FH     0004H     UNIT         ?PR?DECODER_INIT?DECODER
+            CODE    047AH     000DH     UNIT         ?PR?LED_INIT?LED
+            CODE    0487H     000CH     UNIT         ?PR?_LED_SET?LED
+            CODE    0493H     0007H     UNIT         ?PR?_SEG_SET?SEG
+            CODE    049AH     0006H     UNIT         ?PR?KEY_GET?KEY
+            CODE    04A0H     0004H     UNIT         ?PR?DECODER_INIT?DECODER
 
 
 
@@ -81,7 +80,7 @@ SEGMENT                             BIT_GROUP          DATA_GROUP
   +--> ?PR?MAIN?MAIN
   +--> ?C_INITSEG
 
-?PR?MAIN?MAIN                    -----    -----      0015H    0001H
+?PR?MAIN?MAIN                    -----    -----      0021H    0001H
   +--> ?PR?SYS_INIT?SYS
   +--> ?PR?_SEG_SET?SEG
   +--> ?PR?SYS_SLEEP_1S?SYS
@@ -118,9 +117,9 @@ SEGMENT                             BIT_GROUP          DATA_GROUP
   +--> ?PR?_DECODER_SET?DECODER
   +--> ?CO?SEG
 
-?PR?KEY_RUN?KEY                  -----    -----      0016H    0002H
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  18:57:33  PAGE 3
+?PR?KEY_RUN?KEY                  -----    -----      0022H    0002H
 
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  19:06:22  PAGE 3
 
 
 
@@ -132,7 +131,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\全功能测试 (?C_STARTUP)
 
   -------         MODULE        ?C_STARTUP
   C:016EH         SEGMENT       ?C_C51STARTUP
-  I:0021H         SEGMENT       ?STACK
+  I:0025H         SEGMENT       ?STACK
   C:0000H         PUBLIC        ?C_STARTUP
   D:00E0H         SYMBOL        ACC
   D:00F0H         SYMBOL        B
@@ -179,15 +178,15 @@ SYMBOL TABLE OF MODULE:  .\Objects\全功能测试 (?C_STARTUP)
   D:00D8H         PUBLIC        CCON
   C:01FAH         PUBLIC        main
   D:0098H         PUBLIC        SCON
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  18:57:33  PAGE 4
-
-
   D:0088H         PUBLIC        TCON
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  19:06:22  PAGE 4
+
+
   C:0279H         PUBLIC        sys_timer_1ms
   D:00D0H         PUBLIC        PSW
   -------         PROC          SYS_TIMER_1MS
   -------         DO            
-  D:0018H         SYMBOL        sys_tick
+  D:0024H         SYMBOL        sys_tick
   -------         ENDDO         
   C:0279H         LINE#         4
   C:0296H         LINE#         8
@@ -208,7 +207,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\全功能测试 (?C_STARTUP)
   -------         ENDPROC       SYS_TIMER_1MS
   -------         PROC          MAIN
   -------         DO            
-  D:0015H         SYMBOL        temp
+  D:0021H         SYMBOL        temp
   -------         ENDDO         
   C:01FAH         LINE#         27
   C:01FAH         LINE#         28
@@ -239,31 +238,31 @@ SYMBOL TABLE OF MODULE:  .\Objects\全功能测试 (?C_STARTUP)
   D:00C0H         PUBLIC        P4
   D:00C8H         PUBLIC        P5
   D:00E8H         PUBLIC        P6
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  18:57:33  PAGE 5
-
-
   D:00F8H         PUBLIC        P7
-  C:040BH         PUBLIC        _decoder_set
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  19:06:22  PAGE 5
+
+
+  C:044BH         PUBLIC        _decoder_set
   D:00A8H         PUBLIC        IE
   D:00B8H         PUBLIC        IP
   D:00D8H         PUBLIC        CCON
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
-  C:045FH         PUBLIC        decoder_init
+  C:04A0H         PUBLIC        decoder_init
   D:00D0H         PUBLIC        PSW
   -------         PROC          DECODER_INIT
-  C:045FH         LINE#         4
-  C:045FH         LINE#         5
-  C:045FH         LINE#         6
-  C:0462H         LINE#         7
+  C:04A0H         LINE#         4
+  C:04A0H         LINE#         5
+  C:04A0H         LINE#         6
+  C:04A3H         LINE#         7
   -------         ENDPROC       DECODER_INIT
   -------         PROC          _DECODER_SET
   D:0007H         SYMBOL        pin
-  C:040BH         LINE#         9
-  C:040BH         LINE#         10
-  C:040BH         LINE#         11
-  C:040EH         LINE#         12
-  C:041BH         LINE#         13
+  C:044BH         LINE#         9
+  C:044BH         LINE#         10
+  C:044BH         LINE#         11
+  C:044EH         LINE#         12
+  C:045BH         LINE#         13
   -------         ENDPROC       _DECODER_SET
   -------         ENDMOD        DECODER
 
@@ -299,50 +298,50 @@ SYMBOL TABLE OF MODULE:  .\Objects\全功能测试 (?C_STARTUP)
   D:0098H         PUBLIC        SCON
   D:0089H         PUBLIC        TMOD
   D:0088H         PUBLIC        TCON
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  18:57:33  PAGE 6
-
-
   D:008EH         PUBLIC        AUXR
-  C:037BH         PUBLIC        gpio_init
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  19:06:22  PAGE 6
+
+
+  C:03FBH         PUBLIC        gpio_init
   B:00A8H.3       PUBLIC        ET1
   B:0088H.7       PUBLIC        TF1
   D:008DH         PUBLIC        TH1
   D:008BH         PUBLIC        TL1
   B:0088H.6       PUBLIC        TR1
-  C:042BH         PUBLIC        sys_sleep_1s
-  C:041CH         PUBLIC        sys_init
+  C:046BH         PUBLIC        sys_sleep_1s
+  C:045CH         PUBLIC        sys_init
   D:00D0H         PUBLIC        PSW
   C:0003H         PUBLIC        sys_timer_init
   D:0094H         PUBLIC        P0M0
   -------         PROC          SYS_INIT
-  C:041CH         LINE#         4
-  C:041CH         LINE#         5
-  C:041CH         LINE#         6
-  C:041FH         LINE#         8
-  C:0422H         LINE#         9
-  C:0425H         LINE#         10
-  C:0428H         LINE#         12
+  C:045CH         LINE#         4
+  C:045CH         LINE#         5
+  C:045CH         LINE#         6
+  C:045FH         LINE#         8
+  C:0462H         LINE#         9
+  C:0465H         LINE#         10
+  C:0468H         LINE#         12
   -------         ENDPROC       SYS_INIT
   -------         PROC          GPIO_INIT
-  C:037BH         LINE#         16
-  C:037BH         LINE#         17
-  C:037BH         LINE#         18
-  C:037EH         LINE#         19
-  C:0380H         LINE#         20
-  C:0382H         LINE#         21
-  C:0384H         LINE#         22
-  C:0386H         LINE#         23
-  C:0388H         LINE#         24
-  C:038AH         LINE#         25
-  C:038CH         LINE#         26
-  C:038EH         LINE#         27
-  C:0390H         LINE#         28
-  C:0392H         LINE#         29
-  C:0394H         LINE#         30
-  C:0396H         LINE#         31
-  C:0398H         LINE#         32
-  C:039AH         LINE#         33
-  C:039CH         LINE#         34
+  C:03FBH         LINE#         16
+  C:03FBH         LINE#         17
+  C:03FBH         LINE#         18
+  C:03FEH         LINE#         19
+  C:0400H         LINE#         20
+  C:0402H         LINE#         21
+  C:0404H         LINE#         22
+  C:0406H         LINE#         23
+  C:0408H         LINE#         24
+  C:040AH         LINE#         25
+  C:040CH         LINE#         26
+  C:040EH         LINE#         27
+  C:0410H         LINE#         28
+  C:0412H         LINE#         29
+  C:0414H         LINE#         30
+  C:0416H         LINE#         31
+  C:0418H         LINE#         32
+  C:041AH         LINE#         33
+  C:041CH         LINE#         34
   -------         ENDPROC       GPIO_INIT
   -------         PROC          SYS_TIMER_INIT
   C:0003H         LINE#         36
@@ -359,26 +358,26 @@ SYMBOL TABLE OF MODULE:  .\Objects\全功能测试 (?C_STARTUP)
   -------         ENDPROC       SYS_TIMER_INIT
   -------         PROC          SYS_SLEEP_1S
   -------         DO            
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  18:57:33  PAGE 7
-
-
   D:0007H         SYMBOL        i
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  19:06:22  PAGE 7
+
+
   D:0006H         SYMBOL        j
   D:0005H         SYMBOL        k
   -------         ENDDO         
-  C:042BH         LINE#         49
-  C:042BH         LINE#         50
-  C:042BH         LINE#         53
-  C:042CH         LINE#         54
-  C:042DH         LINE#         55
-  C:042FH         LINE#         56
-  C:0431H         LINE#         57
-  C:0433H         LINE#         59
-  C:0433H         LINE#         61
-  C:0433H         LINE#         62
-  C:0435H         LINE#         63
-  C:0437H         LINE#         64
-  C:0439H         LINE#         65
+  C:046BH         LINE#         49
+  C:046BH         LINE#         50
+  C:046BH         LINE#         53
+  C:046CH         LINE#         54
+  C:046DH         LINE#         55
+  C:046FH         LINE#         56
+  C:0471H         LINE#         57
+  C:0473H         LINE#         59
+  C:0473H         LINE#         61
+  C:0473H         LINE#         62
+  C:0475H         LINE#         63
+  C:0477H         LINE#         64
+  C:0479H         LINE#         65
   -------         ENDPROC       SYS_SLEEP_1S
   -------         ENDMOD        SYS
 
@@ -397,41 +396,50 @@ SYMBOL TABLE OF MODULE:  .\Objects\全功能测试 (?C_STARTUP)
   D:00D8H         PUBLIC        CCON
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
-  D:0019H         SYMBOL        led_state
-  C:043AH         PUBLIC        led_init
-  C:03BDH         PUBLIC        _led_set
-  C:0447H         PUBLIC        led_run
+  C:047AH         PUBLIC        led_init
+  D:000BH         PUBLIC        led_ram
+  C:0487H         PUBLIC        _led_set
+  C:02DFH         PUBLIC        led_run
   D:00D0H         PUBLIC        PSW
   -------         PROC          LED_INIT
-  C:043AH         LINE#         6
-  C:043AH         LINE#         7
-  C:043AH         LINE#         8
-  C:043FH         LINE#         9
-  C:0442H         LINE#         10
+  C:047AH         LINE#         6
+  C:047AH         LINE#         7
+  C:047AH         LINE#         8
+  C:047FH         LINE#         9
+  C:0482H         LINE#         10
   -------         ENDPROC       LED_INIT
   -------         PROC          _LED_SET
-  D:0007H         SYMBOL        index
+  D:0007H         SYMBOL        position
   B:0020H.0       SYMBOL        value
-  C:03BDH         LINE#         15
-  C:03BDH         LINE#         16
-  C:03BDH         LINE#         17
-  C:03C0H         LINE#         18
-  C:03C0H         LINE#         19
-  C:03CDH         LINE#         20
-  C:03CEH         LINE#         21
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  18:57:33  PAGE 8
-
-
-  C:03CEH         LINE#         22
-  C:03DCH         LINE#         23
-  C:03DCH         LINE#         24
+  C:0487H         LINE#         36
   -------         ENDPROC       _LED_SET
   -------         PROC          LED_RUN
-  C:0447H         LINE#         27
-  C:0447H         LINE#         28
-  C:0447H         LINE#         29
-  C:044CH         LINE#         30
-  C:0451H         LINE#         31
+  -------         DO            
+  D:0008H         SYMBOL        led_tick
+  D:0009H         SYMBOL        led_last
+  D:000AH         SYMBOL        led_temp
+  -------         ENDDO         
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  19:06:22  PAGE 8
+
+
+  C:02DFH         LINE#         38
+  C:02DFH         LINE#         39
+  C:02DFH         LINE#         44
+  C:02E7H         LINE#         45
+  C:02E7H         LINE#         46
+  C:02F8H         LINE#         47
+  C:02FAH         LINE#         48
+  C:02FAH         LINE#         49
+  C:030CH         LINE#         50
+  C:030CH         LINE#         52
+  C:0316H         LINE#         54
+  C:031CH         LINE#         55
+  C:031CH         LINE#         56
+  C:0321H         LINE#         57
+  C:0326H         LINE#         58
+  C:032BH         LINE#         59
+  C:032EH         LINE#         60
+  C:032EH         LINE#         61
   -------         ENDPROC       LED_RUN
   -------         ENDMOD        LED
 
@@ -447,56 +455,56 @@ SYMBOL TABLE OF MODULE:  .\Objects\全功能测试 (?C_STARTUP)
   D:00F8H         PUBLIC        P7
   D:00A8H         PUBLIC        IE
   D:00B8H         PUBLIC        IP
-  C:03DDH         PUBLIC        seg_set0
+  C:041DH         PUBLIC        seg_set0
   D:00D8H         PUBLIC        CCON
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
-  C:032AH         PUBLIC        seg_code
-  C:03F6H         PUBLIC        seg_init
-  D:0009H         PUBLIC        seg_ram
-  C:0452H         PUBLIC        _seg_set
-  C:02DFH         PUBLIC        seg_run
+  C:03AAH         PUBLIC        seg_code
+  C:0436H         PUBLIC        seg_init
+  D:0014H         PUBLIC        seg_ram
+  C:0493H         PUBLIC        _seg_set
+  C:032FH         PUBLIC        seg_run
   D:00D0H         PUBLIC        PSW
   -------         PROC          SEG_INIT
-  C:03F6H         LINE#         4
-  C:03F6H         LINE#         5
-  C:03F6H         LINE#         6
-  C:03FBH         LINE#         7
-  C:03FEH         LINE#         8
-  C:0403H         LINE#         9
-  C:0406H         LINE#         10
+  C:0436H         LINE#         4
+  C:0436H         LINE#         5
+  C:0436H         LINE#         6
+  C:043BH         LINE#         7
+  C:043EH         LINE#         8
+  C:0443H         LINE#         9
+  C:0446H         LINE#         10
   -------         ENDPROC       SEG_INIT
   -------         PROC          _SEG_SET
   D:0007H         SYMBOL        position
   D:0005H         SYMBOL        number
-  C:0452H         LINE#         24
+  C:0493H         LINE#         24
   -------         ENDPROC       _SEG_SET
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  19:06:22  PAGE 9
+
+
   -------         PROC          SEG_RUN
   -------         DO            
-  D:0008H         SYMBOL        seg_tick
+  D:0013H         SYMBOL        seg_tick
   -------         ENDDO         
-  C:02DFH         LINE#         26
-  C:02DFH         LINE#         27
-  C:02DFH         LINE#         30
-  C:02E2H         LINE#         31
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  18:57:33  PAGE 9
-
-
-  C:02E7H         LINE#         32
-  C:02ECH         LINE#         34
-  C:02FBH         LINE#         35
-  C:0300H         LINE#         36
-  C:0305H         LINE#         38
-  C:0315H         LINE#         39
-  C:031AH         LINE#         40
-  C:031FH         LINE#         42
-  C:0329H         LINE#         44
+  C:032FH         LINE#         26
+  C:032FH         LINE#         27
+  C:032FH         LINE#         30
+  C:0332H         LINE#         31
+  C:0337H         LINE#         32
+  C:033CH         LINE#         34
+  C:034BH         LINE#         35
+  C:0350H         LINE#         36
+  C:0355H         LINE#         38
+  C:0365H         LINE#         39
+  C:036AH         LINE#         40
+  C:036FH         LINE#         42
+  C:0379H         LINE#         44
   -------         ENDPROC       SEG_RUN
   -------         PROC          SEG_SET0
-  C:03DDH         LINE#         46
-  C:03DDH         LINE#         47
-  C:03DDH         LINE#         48
-  C:03F5H         LINE#         49
+  C:041DH         LINE#         46
+  C:041DH         LINE#         47
+  C:041DH         LINE#         48
+  C:0435H         LINE#         49
   -------         ENDPROC       SEG_SET0
   -------         ENDMOD        SEG
 
@@ -520,17 +528,20 @@ SYMBOL TABLE OF MODULE:  .\Objects\全功能测试 (?C_STARTUP)
   B:00C0H.4       PUBLIC        P44
   B:00B0H.6       PUBLIC        P36
   B:00B0H.7       PUBLIC        P37
-  D:0014H         SYMBOL        key_ram
-  C:0459H         PUBLIC        key_get
+  D:001FH         SYMBOL        key_ram
+  C:049AH         PUBLIC        key_get
   D:00D0H         PUBLIC        PSW
   -------         PROC          KEY_RUN
   -------         DO            
-  D:0011H         SYMBOL        key_step
-  D:0012H         SYMBOL        key_ptime
-  D:0013H         SYMBOL        saved_key
-  D:0016H         SYMBOL        key_now
-  D:0017H         SYMBOL        key_temp
+  D:001CH         SYMBOL        key_step
+  D:001DH         SYMBOL        key_ptime
+  D:001EH         SYMBOL        saved_key
+  D:0022H         SYMBOL        key_now
+  D:0023H         SYMBOL        key_temp
   -------         ENDDO         
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  19:06:22  PAGE 10
+
+
   C:001EH         LINE#         5
   C:001EH         LINE#         6
   C:001EH         LINE#         11
@@ -539,9 +550,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\全功能测试 (?C_STARTUP)
   C:0027H         LINE#         16
   C:0029H         LINE#         17
   C:002BH         LINE#         18
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  18:57:33  PAGE 10
-
-
   C:002FH         LINE#         19
   C:0033H         LINE#         20
   C:0039H         LINE#         22
@@ -591,6 +599,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\全功能测试 (?C_STARTUP)
   C:0118H         LINE#         76
   C:011AH         LINE#         77
   C:011CH         LINE#         78
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  19:06:22  PAGE 11
+
+
   C:0120H         LINE#         79
   C:0124H         LINE#         80
   C:012AH         LINE#         82
@@ -599,9 +610,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\全功能测试 (?C_STARTUP)
   C:0137H         LINE#         86
   C:013AH         LINE#         87
   C:013DH         LINE#         89
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  18:57:33  PAGE 11
-
-
   C:013DH         LINE#         90
   C:013FH         LINE#         92
   C:0142H         LINE#         93
@@ -628,18 +636,18 @@ SYMBOL TABLE OF MODULE:  .\Objects\全功能测试 (?C_STARTUP)
   -------         DO            
   D:0007H         SYMBOL        temp
   -------         ENDDO         
-  C:0459H         LINE#         117
-  C:0459H         LINE#         118
-  C:0459H         LINE#         119
-  C:045BH         LINE#         120
-  C:045EH         LINE#         121
-  C:045EH         LINE#         122
+  C:049AH         LINE#         117
+  C:049AH         LINE#         118
+  C:049AH         LINE#         119
+  C:049CH         LINE#         120
+  C:049FH         LINE#         121
+  C:049FH         LINE#         122
   -------         ENDPROC       KEY_GET
   -------         ENDMOD        KEY
 
   -------         MODULE        ?C?CCASE
-  C:0355H         PUBLIC        ?C?CCASE
+  C:03D5H         PUBLIC        ?C?CCASE
   -------         ENDMOD        ?C?CCASE
 
-Program Size: data=27.1 xdata=0 code=1120
+Program Size: data=37.1 xdata=0 code=1185
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
