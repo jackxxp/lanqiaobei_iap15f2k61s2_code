@@ -1,0 +1,38 @@
+C51 COMPILER V9.60.7.0   DECODER                                                           01/20/2026 00:06:21 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE DECODER
+OBJECT MODULE PLACED IN .\Objects\decoder.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE decoder.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND P
+                    -RINT(.\Listings\decoder.lst) TABS(2) OBJECT(.\Objects\decoder.obj)
+
+line level    source
+
+   1          //decoder.h
+   2          #include "decoder.h"
+   3          
+   4          void decoder_init()
+   5          {
+   6   1        P2 = (P2 & 0x1F) | ((0x00 << 5) & 0xE0);
+   7   1      }
+   8          
+   9          void decoder_set(uint8 pin)
+  10          {
+  11   1          pin &= 0x07;// 限制 pin 范围 0～7   
+  12   1          P2 = (P2 & 0x1F) | ((pin << 5) & 0xE0);// 读取当前 P2 值，保留低5位（P2.0～P2.4），替�
+             -�高3位（P2.5～P2.7）
+  13   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     21    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,286 @@
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    01/20/2026  00:06:21  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
+C:\PROGRAM FILES (X86)\KEIL\C51\BIN\BL51.EXE .\Objects\STARTUP.obj, .\Objects\main.obj, .\Objects\decoder.obj, .\Objects
+>> \sys.obj, .\Objects\led.obj, .\Objects\seg.obj TO .\Objects\全功能测试 PRINT (.\Listings\全功能测试.m51) RAMSIZE (256
+>> )
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\STARTUP.obj (?C_STARTUP)
+  .\Objects\main.obj (MAIN)
+  .\Objects\decoder.obj (DECODER)
+  .\Objects\sys.obj (SYS)
+  .\Objects\led.obj (LED)
+  .\Objects\seg.obj (SEG)
+
+
+LINK MAP OF MODULE:  .\Objects\全功能测试 (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0015H     UNIT         ?PR?SEG_INIT?SEG
+            CODE    0018H     0011H     UNIT         ?PR?_DECODER_SET?DECODER
+            CODE    0029H     000FH     UNIT         ?PR?SYS_SLEEP_1S?SYS
+            CODE    0038H     000DH     UNIT         ?PR?LED_INIT?LED
+            CODE    0045H     000CH     UNIT         ?C_C51STARTUP
+            CODE    0051H     0009H     UNIT         ?PR?SYS_INIT?SYS
+            CODE    005AH     0008H     UNIT         ?PR?MAIN?MAIN
+            CODE    0062H     0004H     UNIT         ?PR?DECODER_INIT?DECODER
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\全功能测试 (?C_STARTUP)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?MAIN
+
+?PR?MAIN?MAIN
+  +--> ?PR?SYS_INIT?SYS
+  +--> ?PR?SYS_SLEEP_1S?SYS
+
+?PR?SYS_INIT?SYS
+  +--> ?PR?DECODER_INIT?DECODER
+  +--> ?PR?LED_INIT?LED
+  +--> ?PR?SEG_INIT?SEG
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  00:06:21  PAGE 2
+
+
+
+?PR?LED_INIT?LED
+  +--> ?PR?_DECODER_SET?DECODER
+
+?PR?SEG_INIT?SEG
+  +--> ?PR?_DECODER_SET?DECODER
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\全功能测试 (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:0045H         SEGMENT       ?C_C51STARTUP
+  I:0008H         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:0048H         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:0045H         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:0045H         LINE#         133
+  C:0047H         LINE#         134
+  C:0048H         LINE#         135
+  C:0049H         LINE#         136
+  C:004BH         LINE#         185
+  C:004EH         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00C0H         PUBLIC        P4
+  D:00C8H         PUBLIC        P5
+  D:00E8H         PUBLIC        P6
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  00:06:21  PAGE 3
+
+
+  D:00F8H         PUBLIC        P7
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  D:00D8H         PUBLIC        CCON
+  C:005AH         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          MAIN
+  C:005AH         LINE#         3
+  C:005AH         LINE#         4
+  C:005AH         LINE#         5
+  C:005DH         LINE#         7
+  C:005DH         LINE#         8
+  C:005DH         LINE#         9
+  C:0060H         LINE#         11
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+  -------         MODULE        DECODER
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00C0H         PUBLIC        P4
+  D:00C8H         PUBLIC        P5
+  D:00E8H         PUBLIC        P6
+  D:00F8H         PUBLIC        P7
+  C:0018H         PUBLIC        _decoder_set
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  D:00D8H         PUBLIC        CCON
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:0062H         PUBLIC        decoder_init
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          DECODER_INIT
+  C:0062H         LINE#         4
+  C:0062H         LINE#         5
+  C:0062H         LINE#         6
+  C:0065H         LINE#         7
+  -------         ENDPROC       DECODER_INIT
+  -------         PROC          _DECODER_SET
+  D:0007H         SYMBOL        pin
+  C:0018H         LINE#         9
+  C:0018H         LINE#         10
+  C:0018H         LINE#         11
+  C:001BH         LINE#         12
+  C:0028H         LINE#         13
+  -------         ENDPROC       _DECODER_SET
+  -------         ENDMOD        DECODER
+
+  -------         MODULE        SYS
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  00:06:21  PAGE 4
+
+
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00C0H         PUBLIC        P4
+  D:00C8H         PUBLIC        P5
+  D:00E8H         PUBLIC        P6
+  D:00F8H         PUBLIC        P7
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  D:00D8H         PUBLIC        CCON
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:0029H         PUBLIC        sys_sleep_1s
+  C:0051H         PUBLIC        sys_init
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          SYS_INIT
+  C:0051H         LINE#         4
+  C:0051H         LINE#         5
+  C:0051H         LINE#         6
+  C:0054H         LINE#         7
+  C:0057H         LINE#         8
+  -------         ENDPROC       SYS_INIT
+  -------         PROC          SYS_SLEEP_1S
+  -------         DO            
+  D:0007H         SYMBOL        i
+  D:0006H         SYMBOL        j
+  D:0005H         SYMBOL        k
+  -------         ENDDO         
+  C:0029H         LINE#         13
+  C:0029H         LINE#         14
+  C:0029H         LINE#         17
+  C:002AH         LINE#         18
+  C:002BH         LINE#         19
+  C:002DH         LINE#         20
+  C:002FH         LINE#         21
+  C:0031H         LINE#         23
+  C:0031H         LINE#         25
+  C:0031H         LINE#         26
+  C:0033H         LINE#         27
+  C:0035H         LINE#         28
+  C:0037H         LINE#         29
+  -------         ENDPROC       SYS_SLEEP_1S
+  -------         ENDMOD        SYS
+
+  -------         MODULE        LED
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00C0H         PUBLIC        P4
+  D:00C8H         PUBLIC        P5
+  D:00E8H         PUBLIC        P6
+  D:00F8H         PUBLIC        P7
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  D:00D8H         PUBLIC        CCON
+  D:0098H         PUBLIC        SCON
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/20/2026  00:06:21  PAGE 5
+
+
+  D:0088H         PUBLIC        TCON
+  C:0038H         PUBLIC        led_init
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          LED_INIT
+  C:0038H         LINE#         4
+  C:0038H         LINE#         5
+  C:0038H         LINE#         6
+  C:003DH         LINE#         7
+  C:0040H         LINE#         8
+  -------         ENDPROC       LED_INIT
+  -------         ENDMOD        LED
+
+  -------         MODULE        SEG
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00C0H         PUBLIC        P4
+  D:00C8H         PUBLIC        P5
+  D:00E8H         PUBLIC        P6
+  D:00F8H         PUBLIC        P7
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  D:00D8H         PUBLIC        CCON
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:0003H         PUBLIC        seg_init
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          SEG_INIT
+  C:0003H         LINE#         4
+  C:0003H         LINE#         5
+  C:0003H         LINE#         6
+  C:0008H         LINE#         7
+  C:000BH         LINE#         8
+  C:0010H         LINE#         9
+  C:0013H         LINE#         10
+  -------         ENDPROC       SEG_INIT
+  -------         ENDMOD        SEG
+
+Program Size: data=9.0 xdata=0 code=102
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
