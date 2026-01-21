@@ -45,7 +45,7 @@ void main()
 	led_set(6,1);sys_sleep_100ms();
 	led_set(7,1);sys_sleep_100ms();
 	seg_set0();
-	seg_set(0, 25);seg_set(1, 14);seg_set(2, 29);seg_set(3, 16);seg_set(4, 16);seg_set(5, 1+32);seg_set(6,0);seg_set(7, 1);
+	seg_set(0, 25);seg_set(1, 14);seg_set(2, 29);seg_set(3, 16);seg_set(4, 16);seg_set(5, 1+32);seg_set(6,1);seg_set(7, 9);
 	sys_sleep_1s();seg_set0();led_set0();
 	
 	while(1)
