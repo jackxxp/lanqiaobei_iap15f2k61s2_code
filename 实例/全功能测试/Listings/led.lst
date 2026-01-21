@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   LED                                                               01/20/2026 21:19:07 PAGE 1   
+C51 COMPILER V9.60.7.0   LED                                                               01/21/2026 13:47:37 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE LED
@@ -8,74 +8,126 @@ COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE led.c OPTIMIZE(
 
 line level    source
 
-   1          //led.c
-   2          #include "led.h"
+   1          // led.c
+   2          
    3          
-   4          
+   4          #include "led.h"
    5          
-   6          void led_init()
-   7          {
-   8   1        decoder_set(4);
-   9   1        P0=0xff;
-  10   1        decoder_set(0);
-  11   1      }
-  12          
-  13          //static uint8 led_state = 0x00; 
+   6          
+   7          
+   8          void led_init()
+   9          {
+  10   1        decoder_set(4);
+  11   1        P0=0xff;
+  12   1        decoder_set(0);
+  13   1      }
   14          
-  15          //void led_set(uint8 index, bit value) 
-  16          //{
-  17          //  if (value)
-  18          //  {
-  19          //    led_state |= (1 << index);
-  20          //  }else
-  21          //  {
-  22          //    led_state &= ~(1 << index);
-  23          //  }
-  24          //}
-  25          
-  26          //// 时间片调用（每 1～2ms 一次）
-  27          //void led_run(void) 
-  28          //{
-  29          //  decoder_set(4);
-  30          //  P0 = ~led_state; // 共阳：逻辑1 → 物理0
-  31          //}
-  32          
-  33          
-  34          uint8 led_ram[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+  15          //static uint8 led_state = 0x00; 
+  16          
+  17          //void led_set(uint8 index, bit value) 
+  18          //{
+  19          //  if (value)
+  20          //  {
+  21          //    led_state |= (1 << index);
+  22          //  }else
+  23          //  {
+  24          //    led_state &= ~(1 << index);
+  25          //  }
+  26          //}
+  27          
+  28          //// 时间片调用（每 1～2ms 一次）
+  29          //void led_run(void) 
+  30          //{
+  31          //  decoder_set(4);
+  32          //  P0 = ~led_state; // 共阳：逻辑1 → 物理0
+  33          //}
+  34          
   35          
-  36          void led_set(uint8 position, bit value){led_ram[position] = value;}
+  36          uint8 led_ram[8] = {0, 0, 0, 0, 0, 0, 0, 0};
   37          
-  38          void led_run()
-  39          {
-  40   1        static uint8 led_tick =0;
-  41   1        static uint8 led_last =0x00;
-  42   1        static uint8 led_temp = 0x00;
-  43   1        
-  44   1        if(led_ram[led_tick])
-  45   1        {
-  46   2          led_temp = led_temp | (0x01<<led_tick++);
-  47   2        }else
-  48   1        {
-  49   2          led_temp = led_temp & ~(0x01<<led_tick++);
-  50   2        }
-  51   1        
-  52   1        if(led_tick >= 8){led_tick = 0;}
+  38          void led_set(uint8 position, bit value){led_ram[position] = value;}
+  39          
+  40          void led_run()
+  41          {
+  42   1        static uint8 led_tick =0;
+  43   1        static uint8 led_last =0x00;
+  44   1        static uint8 led_temp = 0x00;
+  45   1        
+  46   1        if(led_ram[led_tick])
+  47   1        {
+  48   2          led_temp = led_temp | (0x01<<led_tick++);
+  49   2        }else
+  50   1        {
+  51   2          led_temp = led_temp & ~(0x01<<led_tick++);
+  52   2        }
   53   1        
-  54   1        if(led_last != led_temp)
-C51 COMPILER V9.60.7.0   LED                                                               01/20/2026 21:19:07 PAGE 2   
+  54   1        if(led_tick >= 8){led_tick = 0;}
+C51 COMPILER V9.60.7.0   LED                                                               01/21/2026 13:47:37 PAGE 2   
 
-  55   1        {
-  56   2          decoder_set(4);
-  57   2          P0 = ~led_temp;
-  58   2          decoder_set(0);
-  59   2          led_last = led_temp;
-  60   2        } 
-  61   1      }
-  62          
-  63          void led_set0()
-  64          {
-  65   1        led_ram[0]=0;led_ram[1]=0;led_ram[2]=0;led_ram[3]=0;led_ram[4]=0;led_ram[5]=0;led_ram[6]=0;led_ram[7]=0;
-  66   1      }
+  55   1        
+  56   1        if(led_last != led_temp)
+  57   1        {
+  58   2          decoder_set(4);
+  59   2          P0 = ~led_temp;
+  60   2          decoder_set(0);
+  61   2          led_last = led_temp;
+  62   2        } 
+  63   1      }
+  64          
+  65          void led_set0()
+  66          {
+  67   1        led_ram[0]=0;led_ram[1]=0;led_ram[2]=0;led_ram[3]=0;led_ram[4]=0;led_ram[5]=0;led_ram[6]=0;led_ram[7]=0;
+  68   1      }
+  69          
+  70          
+  71          //#include "led.h"
+  72          
+  73          //uint8 led_ram[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+  74          
+  75          //void led_init()
+  76          //{
+  77          //    decoder_set(4);
+  78          //    P0 = 0xFF; // 共阳全灭
+  79          //    decoder_set(0);
+  80          //}
+  81          
+  82          //void led_set(uint8 position, bit value)
+  83          //{
+  84          //    led_ram[position] = value;
+  85          //}
+  86          
+  87          //void led_run()
+  88          //{
+  89          //    static uint8 led_last = 0x00; 
+  90          //    uint8 led_temp = 0x00;
+  91          //    uint8 i; // ✅ 变量声明必须在块开头（C90 要求）
+  92          
+  93          //    // 重建整个 led_temp
+  94          //    for (i = 0; i < 8; i++) {
+  95          //        if (led_ram[i]) {
+  96          //            led_temp |= (1 << i);
+  97          //        }
+  98          //    }
+  99          
+ 100          
+ 101          
+ 102          //    if (led_last != led_temp) {
+ 103          //        decoder_set(4);
+ 104          //        P0 = ~led_temp; // ✅ 改为半角 ～
+ 105          //        decoder_set(0);
+ 106          //        led_last = led_temp;
+ 107          //    }
+ 108          //}
+ 109          
+ 110          //void led_set0()
+ 111          //{
+ 112          //    uint8 i; // ✅ 同样，for 循环变量要提前声明
+ 113          //    for (i = 0; i < 8; i++) {
+ 114          //        led_ram[i] = 0;
+ 115          //    }
+ 116          //}
+C51 COMPILER V9.60.7.0   LED                                                               01/21/2026 13:47:37 PAGE 3   
+
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE

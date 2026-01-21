@@ -1,6 +1,13 @@
 //sys.c
 #include "sys.h"
 
+
+static uint16 app_tick = 0;
+
+// 新增：一次性标志位（由中断置1，由用户函数读取后清0）
+static bit flag_100ms = 0;
+static bit flag_1s = 0;
+
 void sys_init()
 {
 	gpio_init();
@@ -82,3 +89,58 @@ void sys_sleep_100ms()//12mhz
 	} while (--i);
 }
 
+//void sys_sleep_1ms()//12mhz
+//{
+//	unsigned char data i, j;
+
+//	i = 12;
+//	j = 169;
+//	do
+//	{
+//		while (--j);
+//	} while (--i);
+//}
+
+// 定时器中断中更新 tick 和标志
+void app_tick_run()
+{
+	  static uint8 cnt_100ms = 0;
+    static uint8 cnt_1s = 0;
+    app_tick++;
+    if (app_tick >= 60000) app_tick = 0;
+
+    // 每 10 次 tick（即 10ms？）→ 但你想 100ms，所以应为 100
+    // 注意：你的 app_tick 是每 1ms 增1 吗？
+    // 从 TL1=0x18, TH1=0xFC 推算：定时约 1ms，所以：
+    
+
+
+    if (++cnt_100ms >= 10) {   // 100 * 1ms = 100ms
+        cnt_100ms = 0;
+        flag_100ms = 1;         // 置位一次
+    }
+
+    if (++cnt_1s >= 100) {     // 1000 * 1ms = 1s
+        cnt_1s = 0;
+        flag_1s = 1;            // 置位一次
+    }
+}
+
+// ✅ 提供“用完即清”的接口函数
+bit get_100ms_flag(void)
+{
+    if (flag_100ms) {
+        flag_100ms = 0; // 读取后立即清除
+        return 1;
+    }
+    return 0;
+}
+
+bit get_1s_flag(void)
+{
+    if (flag_1s) {
+        flag_1s = 0;
+        return 1;
+    }
+    return 0;
+}

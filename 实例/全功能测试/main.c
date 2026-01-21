@@ -5,6 +5,11 @@ void sys_timer_1ms() interrupt 3
 {
 	static uint8 sys_tick = 0;
 	
+	if(sys_tick % 10 == 0)
+	{
+		app_tick_run();
+	}	
+	
 	if(sys_tick % 3 == 0)
 	{
 		led_run();

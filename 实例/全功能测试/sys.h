@@ -16,6 +16,13 @@
 void sys_init();
 void sys_sleep_1s();
 void sys_sleep_100ms();
+//void sys_sleep_1ms();
+
+void app_tick_run();
+//void app_tick_set0();
+bit get_100ms_flag(void);
+bit get_1s_flag(void);
+
 
 void gpio_init();
 void sys_timer_init();
