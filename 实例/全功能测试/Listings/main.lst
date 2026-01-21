@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   MAIN                                                              01/21/2026 17:11:19 PAGE 1   
+C51 COMPILER V9.60.7.0   MAIN                                                              01/21/2026 19:19:38 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   50   1        
   51   1        while(1)
   52   1        { 
-C51 COMPILER V9.60.7.0   MAIN                                                              01/21/2026 17:11:19 PAGE 2   
+C51 COMPILER V9.60.7.0   MAIN                                                              01/21/2026 19:19:38 PAGE 2   
 
   53   2          uint8 temp;
   54   2          while(1)
@@ -88,16 +88,18 @@ line level    source
   71   4              switch(page)
   72   4              {
   73   5                case 1:{appled_main();}break; 
-  74   5              }       
-  75   4            }   
-  76   3          }
-  77   2      
-  78   2        }
-  79   1      }
+  74   5                case 2:{appseg_main();}break;
+  75   5                case 3:{appkey_main();}break;
+  76   5              }       
+  77   4            }   
+  78   3          }
+  79   2      
+  80   2        }
+  81   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    622    ----
+   CODE SIZE        =    642    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

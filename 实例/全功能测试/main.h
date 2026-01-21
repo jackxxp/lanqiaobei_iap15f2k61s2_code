@@ -5,6 +5,8 @@
 #include "sys.h"
 
 #include "appled.h"
+#include "appseg.h"
+#include "appkey.h"
 
 
 

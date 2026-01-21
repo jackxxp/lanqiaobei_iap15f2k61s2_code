@@ -71,6 +71,8 @@ void main()
 				switch(page)
 				{
 					case 1:{appled_main();}break;	
+					case 2:{appseg_main();}break;
+					case 3:{appkey_main();}break;
 				}				
 			}		
 		}

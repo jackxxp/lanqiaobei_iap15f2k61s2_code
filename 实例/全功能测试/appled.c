@@ -7,7 +7,7 @@ void appled_main()
 	uint8 key_temp;
 	bit appled_tick_0 = 1;
 	uint8 appled_tick_1 = 0;
-
+	uint8 appled_tick_2 = 0;
 
 	
 	seg_set0();
@@ -49,6 +49,27 @@ void appled_main()
         {
 					if(appled_tick_1  < 8){led_set(appled_tick_1 ++,1);}
 					else if(appled_tick_1  < 16){led_set((appled_tick_1 ++ - 8),0);}
+					if(appled_tick_1  >= 16){appled_tick_1  = 0;}							
+        }
+       } break;
+      case 5:
+      {
+				if(get_100ms_flag())
+				{
+					led_set0();led_set(appled_tick_2++,1);
+					if(appled_tick_2 >= 8){appled_tick_2 = 0;}
+				
+				}
+							
+
+       } break;
+      case 6:
+      {
+             
+        if(get_100ms_flag())
+        {
+					if(appled_tick_1  < 8){led_set(appled_tick_1 ++,1);}
+					else if(appled_tick_1  < 16){led_set((7 - (appled_tick_1 ++ - 8)),0);}
 					if(appled_tick_1  >= 16){appled_tick_1  = 0;}							
         }
        } break;

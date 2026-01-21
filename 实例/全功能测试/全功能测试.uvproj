@@ -451,6 +451,26 @@
               <FileType>1</FileType>
               <FilePath>.\appled.c</FilePath>
             </File>
+            <File>
+              <FileName>appseg.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\appseg.h</FilePath>
+            </File>
+            <File>
+              <FileName>appseg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\appseg.c</FilePath>
+            </File>
+            <File>
+              <FileName>appkey.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\appkey.h</FilePath>
+            </File>
+            <File>
+              <FileName>appkey.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\appkey.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

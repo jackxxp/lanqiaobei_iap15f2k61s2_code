@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   APPLED                                                            01/21/2026 17:11:19 PAGE 1   
+C51 COMPILER V9.60.7.0   APPLED                                                            01/21/2026 19:19:39 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE APPLED
@@ -17,7 +17,7 @@ line level    source
    7   1        uint8 key_temp;
    8   1        bit appled_tick_0 = 1;
    9   1        uint8 appled_tick_1 = 0;
-  10   1      
+  10   1        uint8 appled_tick_2 = 0;
   11   1      
   12   1        
   13   1        seg_set0();
@@ -62,26 +62,47 @@ line level    source
   49   4              {
   50   5                if(appled_tick_1  < 8){led_set(appled_tick_1 ++,1);}
   51   5                else if(appled_tick_1  < 16){led_set((appled_tick_1 ++ - 8),0);}
-C51 COMPILER V9.60.7.0   APPLED                                                            01/21/2026 17:11:19 PAGE 2   
+C51 COMPILER V9.60.7.0   APPLED                                                            01/21/2026 19:19:39 PAGE 2   
 
   52   5                if(appled_tick_1  >= 16){appled_tick_1  = 0;}             
   53   5              }
   54   4             } break;
-  55   3            default:{led_set0();seg_set(0, 22);seg_set(1, 0);seg_set(2, 16);seg_set(3, 16);seg_set(4,16);seg_set(5,
+  55   3            case 5:
+  56   3            {
+  57   4              if(get_100ms_flag())
+  58   4              {
+  59   5                led_set0();led_set(appled_tick_2++,1);
+  60   5                if(appled_tick_2 >= 8){appled_tick_2 = 0;}
+  61   5              
+  62   5              }
+  63   4                    
+  64   4      
+  65   4             } break;
+  66   3            case 6:
+  67   3            {
+  68   4                   
+  69   4              if(get_100ms_flag())
+  70   4              {
+  71   5                if(appled_tick_1  < 8){led_set(appled_tick_1 ++,1);}
+  72   5                else if(appled_tick_1  < 16){led_set((7 - (appled_tick_1 ++ - 8)),0);}
+  73   5                if(appled_tick_1  >= 16){appled_tick_1  = 0;}             
+  74   5              }
+  75   4             } break;
+  76   3            default:{led_set0();seg_set(0, 22);seg_set(1, 0);seg_set(2, 16);seg_set(3, 16);seg_set(4,16);seg_set(5,
              - 16);seg_set(6, 16);}     
-  56   3          }
-  57   2          
-  58   2        
-  59   2        }
-  60   1      }
+  77   3          }
+  78   2          
+  79   2        
+  80   2        }
+  81   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    431    ----
+   CODE SIZE        =    537    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----       3
+   DATA SIZE        =   ----       4
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----       1
 END OF MODULE INFORMATION.
