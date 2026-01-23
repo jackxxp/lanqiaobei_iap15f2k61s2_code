@@ -1,0 +1,62 @@
+C51 COMPILER V9.60.7.0   APPSEG                                                            01/23/2026 16:43:38 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE APPSEG
+OBJECT MODULE PLACED IN .\Objects\appseg.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE appseg.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PR
+                    -INT(.\Listings\appseg.lst) TABS(2) OBJECT(.\Objects\appseg.obj)
+
+line level    source
+
+   1          #include "appseg.h"
+   2          
+   3          
+   4          void appseg_main()
+   5          {
+   6   1        uint8 mode = 1;
+   7   1        uint8 key_temp;
+   8   1        uint8 appseg_tick_0 = 0;
+   9   1        
+  10   1        seg_set0();led_set0();
+  11   1        while(1)
+  12   1        {
+  13   2          
+  14   2          key_temp = key_get();
+  15   2          if (key_temp == 6 ){mode += 1;if(mode == 10){mode = 1;}seg_set0();led_set0();}    
+  16   2          if (key_temp == 7 ){mode -= 1;if(mode == 0){mode = 9;}seg_set0();led_set0();}
+  17   2          if (key_temp == 4 ){seg_set0();led_set0();break;}   
+  18   2            
+  19   2          seg_set(0,mode+32);
+  20   2          
+  21   2          switch(mode)
+  22   2          {
+  23   3            case 1:
+  24   3            {
+  25   4                   
+  26   4              if(get_1s_flag())
+  27   4              {
+  28   5                seg_set(4,appseg_tick_0/10);seg_set(5,appseg_tick_0%10);seg_set(6,17);seg_set(7,appseg_tick_0++);
+  29   5                if(appseg_tick_0 >= 43){appseg_tick_0 = 0;}
+  30   5              } break;
+  31   4      
+  32   4            } break;
+  33   3            default:{led_set0();seg_set(2, 22);seg_set(3, 0);seg_set(1, 16);seg_set(7, 16);seg_set(4,16);seg_set(5,
+             - 16);seg_set(6, 16);}     
+  34   3          }
+  35   2      
+  36   2        }
+  37   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    194    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

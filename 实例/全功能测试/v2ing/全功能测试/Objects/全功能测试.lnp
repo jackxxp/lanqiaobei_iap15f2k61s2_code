@@ -1,0 +1,12 @@
+".\Objects\STARTUP.obj",
+".\Objects\main.obj",
+".\Objects\decoder.obj",
+".\Objects\sys.obj",
+".\Objects\led.obj",
+".\Objects\seg.obj",
+".\Objects\key.obj",
+".\Objects\appled.obj",
+".\Objects\appseg.obj",
+".\Objects\appkey.obj" 
+TO ".\Objects\全功能测试" 
+PRINT(".\Listings\全功能测试.m51") RAMSIZE(256) 
