@@ -35,7 +35,7 @@ void main()
 	
 	sys_init();
 	
-	seg_set(0, 5);seg_set(1, 26);seg_set(2, 12);seg_set(3, 16);seg_set(4, 2);seg_set(5, 12);seg_set(6,25);seg_set(7, 25);
+	seg_set_all(5,26,12,16,2,12,25,25);
 	led_set(0,1);sys_sleep_100ms();
 	led_set(1,1);sys_sleep_100ms();
 	led_set(2,1);sys_sleep_100ms();
@@ -45,7 +45,7 @@ void main()
 	led_set(6,1);sys_sleep_100ms();
 	led_set(7,1);sys_sleep_100ms();
 	seg_set0();
-	seg_set(0, 25);seg_set(1, 14);seg_set(2, 29);seg_set(3, 16);seg_set(4, 16);seg_set(5, 2+32);seg_set(6,0);seg_set(7, 0);
+	seg_set_all(25,14,29,16,16,2+32,0,1);
 	sys_sleep_1s();seg_set0();led_set0();
 	
 	while(1)

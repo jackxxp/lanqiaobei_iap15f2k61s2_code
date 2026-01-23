@@ -47,3 +47,8 @@ void seg_set0()
 {
 	seg_ram[0]=16;seg_ram[1]=16;seg_ram[2]=16;seg_ram[3]=16;seg_ram[4]=16;seg_ram[5]=16;seg_ram[6]=16;seg_ram[7]=16;
 }
+
+void seg_set_all(uint8 s0,s1,s2,s3,s4,s5,s6,s7)
+{
+	seg_ram[0]=s0;seg_ram[1]=s1;seg_ram[2]=s2;seg_ram[3]=s3;seg_ram[4]=s4;seg_ram[5]=s5;seg_ram[6]=s6;seg_ram[7]=s7;
+}
