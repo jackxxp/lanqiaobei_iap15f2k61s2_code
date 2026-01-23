@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   LED                                                               01/23/2026 19:18:20 PAGE 1   
+C51 COMPILER V9.60.7.0   LED                                                               01/23/2026 19:48:12 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE LED
@@ -62,7 +62,7 @@ line level    source
   52   2        }
   53   1        
   54   1        if(led_tick >= 8){led_tick = 0;}
-C51 COMPILER V9.60.7.0   LED                                                               01/23/2026 19:18:20 PAGE 2   
+C51 COMPILER V9.60.7.0   LED                                                               01/23/2026 19:48:12 PAGE 2   
 
   55   1        
   56   1        if(led_last != led_temp)
@@ -126,7 +126,7 @@ line level    source
  114          //        led_ram[i] = 0;
  115          //    }
  116          //}
-C51 COMPILER V9.60.7.0   LED                                                               01/23/2026 19:18:20 PAGE 3   
+C51 COMPILER V9.60.7.0   LED                                                               01/23/2026 19:48:12 PAGE 3   
 
 
 

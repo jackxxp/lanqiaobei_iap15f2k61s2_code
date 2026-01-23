@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   KEY                                                               01/23/2026 19:18:21 PAGE 1   
+C51 COMPILER V9.60.7.0   KEY                                                               01/23/2026 19:48:13 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE KEY
@@ -52,92 +52,97 @@ line level    source
   42   3                      // 识别键值
   43   3                      switch (key_now) 
   44   3                      {
-  45   4                          case 0x77: saved_key = 4; break;
-  46   4                          case 0x7B: saved_key = 5; break;
-  47   4                          case 0x7D: saved_key = 6; break;
-  48   4                          case 0x7E: saved_key = 7; break;
-  49   4      
-  50   4                          case 0xB7: saved_key = 8; break;
-  51   4                          case 0xBB: saved_key = 9; break;
-  52   4                          case 0xBD: saved_key = 10; break;
-  53   4                          case 0xBE: saved_key = 11; break;
+  45   4                        case 0xF7: saved_key = 4; break;   //独立按键   只用独立按键矩阵按键部分可不写
+  46   4                        case 0xFB: saved_key = 5; break;   //独立按键     只用矩阵键盘独立键盘可不
+  47   4                          case 0xFD: saved_key = 6; break;   //独立按键   如果都写则都可以使用
+  48   4                          case 0xFE: saved_key = 7; break;   //独立按键
+  49   4                        
+  50   4                          case 0x77: saved_key = 4; break;   //矩阵按键
+  51   4                          case 0x7B: saved_key = 5; break;   //矩阵按键
+  52   4                          case 0x7D: saved_key = 6; break;//矩阵按键
+  53   4                          case 0x7E: saved_key = 7; break;//矩阵按键
   54   4      
-C51 COMPILER V9.60.7.0   KEY                                                               01/23/2026 19:18:21 PAGE 2   
+C51 COMPILER V9.60.7.0   KEY                                                               01/23/2026 19:48:13 PAGE 2   
 
-  55   4                          case 0xD7: saved_key = 12; break;
-  56   4                          case 0xDB: saved_key = 13; break;
-  57   4                          case 0xDD: saved_key = 14; break;
-  58   4                          case 0xDE: saved_key = 15; break;
+  55   4                          case 0xB7: saved_key = 8; break;//矩阵按键
+  56   4                          case 0xBB: saved_key = 9; break;//矩阵按键
+  57   4                          case 0xBD: saved_key = 10; break;//矩阵按键
+  58   4                          case 0xBE: saved_key = 11; break;//矩阵按键
   59   4      
-  60   4                          case 0xE7: saved_key = 16; break;
-  61   4                          case 0xEB: saved_key = 17; break;
-  62   4                          case 0xED: saved_key = 18; break;
-  63   4                          case 0xEE: saved_key = 19; break;
-  64   4                          default:
-  65   4                              key_step = 0;
-  66   4                              saved_key = 201;
-  67   4                              return; // 退出，不更新 key_ram
-  68   4                      }
-  69   3                      key_step = 2;
-  70   3                  }
-  71   2                  break;
-  72   2      
-  73   2              case 2: // 等待释放（短按）或进入长按
-  74   2                  // 重新读取行状态
-  75   2                  P3 = 0x0F;
-  76   2                  P42 = 0;
-  77   2                  P44 = 0;
-  78   2                  P36 = P42;
-  79   2                  P37 = P44;
-  80   2                  key_now = P3 & 0x0F;
-  81   2      
-  82   2                  if (key_now != 0x0F) {
-  83   3                      // 按键仍按下，计时
-  84   3                      key_ptime++;
-  85   3                      if (key_ptime > 70) { // 长按阈值
-  86   4                          key_ptime = 0;
-  87   4                          key_step = 3;
-  88   4                          // 注意：长按结果在松手时才上报
-  89   4                      }
-  90   3                  } else {
-  91   3                      // 短按：松手了
-  92   3                      key_ptime = 0;
-  93   3                      key_step = 0;
-  94   3                      key_temp = saved_key; // 👈 使用保存的键值
-  95   3                  }
-  96   2                  break;
-  97   2      
-  98   2              case 3: // 长按等待松手
-  99   2                  P3 = 0x0F;
- 100   2                  P42 = 0;
- 101   2                  P44 = 0;
- 102   2                  P36 = P42;
- 103   2                  P37 = P44;
- 104   2                  key_now = P3 & 0x0F;
- 105   2      
- 106   2                  if (key_now == 0x0F) {
- 107   3                      // 松手，上报长按
- 108   3                      key_step = 0;
- 109   3                      key_temp = saved_key + 100; // 👈 正确：原始键值+100
- 110   3                  }
- 111   2                  break;
- 112   2          }
- 113   1      
- 114   1          key_ram = key_temp;
- 115   1      }
- 116          
-C51 COMPILER V9.60.7.0   KEY                                                               01/23/2026 19:18:21 PAGE 3   
+  60   4                          case 0xD7: saved_key = 12; break;//矩阵按键
+  61   4                          case 0xDB: saved_key = 13; break;//矩阵按键
+  62   4                          case 0xDD: saved_key = 14; break;//矩阵按键
+  63   4                          case 0xDE: saved_key = 15; break;//矩阵按键
+  64   4      
+  65   4                          case 0xE7: saved_key = 16; break;//矩阵按键
+  66   4                          case 0xEB: saved_key = 17; break;//矩阵按键
+  67   4                          case 0xED: saved_key = 18; break;//矩阵按键
+  68   4                          case 0xEE: saved_key = 19; break;//矩阵按键
+  69   4                          default:
+  70   4                              key_step = 0;
+  71   4                              saved_key = 201;
+  72   4                              return; // 退出，不更新 key_ram
+  73   4                      }
+  74   3                      key_step = 2;
+  75   3                  }
+  76   2                  break;
+  77   2      
+  78   2              case 2: // 等待释放（短按）或进入长按
+  79   2                  // 重新读取行状态
+  80   2                  P3 = 0x0F;
+  81   2                  P42 = 0;
+  82   2                  P44 = 0;
+  83   2                  P36 = P42;
+  84   2                  P37 = P44;
+  85   2                  key_now = P3 & 0x0F;
+  86   2      
+  87   2                  if (key_now != 0x0F) {
+  88   3                      // 按键仍按下，计时
+  89   3                      key_ptime++;
+  90   3                      if (key_ptime > 70) { // 长按阈值
+  91   4                          key_ptime = 0;
+  92   4                          key_step = 3;
+  93   4                          // 注意：长按结果在松手时才上报
+  94   4                      }
+  95   3                  } else {
+  96   3                      // 短按：松手了
+  97   3                      key_ptime = 0;
+  98   3                      key_step = 0;
+  99   3                      key_temp = saved_key; // 👈 使用保存的键值
+ 100   3                  }
+ 101   2                  break;
+ 102   2      
+ 103   2              case 3: // 长按等待松手
+ 104   2                  P3 = 0x0F;
+ 105   2                  P42 = 0;
+ 106   2                  P44 = 0;
+ 107   2                  P36 = P42;
+ 108   2                  P37 = P44;
+ 109   2                  key_now = P3 & 0x0F;
+ 110   2      
+ 111   2                  if (key_now == 0x0F) {
+ 112   3                      // 松手，上报长按
+ 113   3                      key_step = 0;
+ 114   3                      key_temp = saved_key + 100; // 👈 正确：原始键值+100
+ 115   3                  }
+ 116   2                  break;
+C51 COMPILER V9.60.7.0   KEY                                                               01/23/2026 19:48:13 PAGE 3   
 
- 117          uint8 key_get()
- 118          {
- 119   1          uint8 temp = key_ram;
- 120   1          key_ram = 201; // 清除，避免重复上报
- 121   1          return temp;
- 122   1      }
+ 117   2          }
+ 118   1      
+ 119   1          key_ram = key_temp;
+ 120   1      }
+ 121          
+ 122          uint8 key_get()
+ 123          {
+ 124   1          uint8 temp = key_ram;
+ 125   1          key_ram = 201; // 清除，避免重复上报
+ 126   1          return temp;
+ 127   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    342    ----
+   CODE SIZE        =    360    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

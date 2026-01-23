@@ -42,25 +42,30 @@ void key_run()
                 // 识别键值
                 switch (key_now) 
                 {
-                    case 0x77: saved_key = 4; break;
-                    case 0x7B: saved_key = 5; break;
-                    case 0x7D: saved_key = 6; break;
-                    case 0x7E: saved_key = 7; break;
+									case 0xF7: saved_key = 4; break;   //独立按键   只用独立按键矩阵按键部分可不写
+									case 0xFB: saved_key = 5; break;   //独立按键     只用矩阵键盘独立键盘可不
+                    case 0xFD: saved_key = 6; break;   //独立按键   如果都写则都可以使用
+                    case 0xFE: saved_key = 7; break;   //独立按键
+									
+                    case 0x77: saved_key = 4; break;   //矩阵按键
+                    case 0x7B: saved_key = 5; break;   //矩阵按键
+                    case 0x7D: saved_key = 6; break;//矩阵按键
+                    case 0x7E: saved_key = 7; break;//矩阵按键
 
-                    case 0xB7: saved_key = 8; break;
-                    case 0xBB: saved_key = 9; break;
-                    case 0xBD: saved_key = 10; break;
-                    case 0xBE: saved_key = 11; break;
+                    case 0xB7: saved_key = 8; break;//矩阵按键
+                    case 0xBB: saved_key = 9; break;//矩阵按键
+                    case 0xBD: saved_key = 10; break;//矩阵按键
+                    case 0xBE: saved_key = 11; break;//矩阵按键
 
-                    case 0xD7: saved_key = 12; break;
-                    case 0xDB: saved_key = 13; break;
-                    case 0xDD: saved_key = 14; break;
-                    case 0xDE: saved_key = 15; break;
+                    case 0xD7: saved_key = 12; break;//矩阵按键
+                    case 0xDB: saved_key = 13; break;//矩阵按键
+                    case 0xDD: saved_key = 14; break;//矩阵按键
+                    case 0xDE: saved_key = 15; break;//矩阵按键
 
-                    case 0xE7: saved_key = 16; break;
-                    case 0xEB: saved_key = 17; break;
-                    case 0xED: saved_key = 18; break;
-                    case 0xEE: saved_key = 19; break;
+                    case 0xE7: saved_key = 16; break;//矩阵按键
+                    case 0xEB: saved_key = 17; break;//矩阵按键
+                    case 0xED: saved_key = 18; break;//矩阵按键
+                    case 0xEE: saved_key = 19; break;//矩阵按键
                     default:
                         key_step = 0;
                         saved_key = 201;
