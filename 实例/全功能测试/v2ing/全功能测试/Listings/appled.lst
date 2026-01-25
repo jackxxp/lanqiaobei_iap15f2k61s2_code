@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   APPLED                                                            01/23/2026 19:48:13 PAGE 1   
+C51 COMPILER V9.60.7.0   APPLED                                                            01/23/2026 22:03:14 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE APPLED
@@ -62,7 +62,7 @@ line level    source
   49   4              {
   50   5                if(appled_tick_1  < 8){led_set(appled_tick_1 ++,1);}
   51   5                else if(appled_tick_1  < 16){led_set((appled_tick_1 ++ - 8),0);}
-C51 COMPILER V9.60.7.0   APPLED                                                            01/23/2026 19:48:13 PAGE 2   
+C51 COMPILER V9.60.7.0   APPLED                                                            01/23/2026 22:03:14 PAGE 2   
 
   52   5                if(appled_tick_1  >= 16){appled_tick_1  = 0;}             
   53   5              }

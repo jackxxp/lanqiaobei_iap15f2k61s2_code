@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   MAIN                                                              01/23/2026 19:48:12 PAGE 1   
+C51 COMPILER V9.60.7.0   MAIN                                                              01/23/2026 22:03:14 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
@@ -32,72 +32,77 @@ line level    source
   22   1        {
   23   2          key_run();
   24   2        }
-  25   1        
-  26   1        sys_tick++;
-  27   1        if(sys_tick >= 200){sys_tick = 0;}
-  28   1      }
-  29          
-  30          
-  31          
-  32          void main()
-  33          {
-  34   1        static uint16 page = 1;
-  35   1        
-  36   1        sys_init();
-  37   1        
-  38   1        seg_set_all(5,26,12,16,2,12,25,25);
-  39   1        led_set(0,1);sys_sleep_100ms();
-  40   1        led_set(1,1);sys_sleep_100ms();
-  41   1        led_set(2,1);sys_sleep_100ms();
-  42   1        led_set(3,1);sys_sleep_100ms();
-  43   1        led_set(4,1);sys_sleep_100ms();
-  44   1        led_set(5,1);sys_sleep_100ms();
-  45   1        led_set(6,1);sys_sleep_100ms();
-  46   1        led_set(7,1);sys_sleep_100ms();
-  47   1        seg_set0();
-  48   1        seg_set_all(25,14,29,16,16,2+32,0,1);
-  49   1        sys_sleep_1s();seg_set0();led_set0();
-  50   1        
-  51   1        while(1)
-  52   1        { 
-  53   2          uint8 temp;
-  54   2          while(1)
-C51 COMPILER V9.60.7.0   MAIN                                                              01/23/2026 19:48:12 PAGE 2   
+  25   1        if(sys_tick % 50  == 0)
+  26   1        {
+  27   2          y5driver_run();
+  28   2        } 
+  29   1        sys_tick++;
+  30   1        if(sys_tick >= 200){sys_tick = 0;}
+  31   1      }
+  32          
+  33          
+  34          
+  35          void main()
+  36          {
+  37   1        static uint16 page = 1;
+  38   1        
+  39   1        sys_init();
+  40   1        
+  41   1        seg_set_all(5,26,12,16,2,12,25,25);
+  42   1        led_set(0,1);sys_sleep_100ms();
+  43   1        led_set(1,1);sys_sleep_100ms();
+  44   1        led_set(2,1);sys_sleep_100ms();
+  45   1        led_set(3,1);sys_sleep_100ms();
+  46   1        led_set(4,1);sys_sleep_100ms();
+  47   1        led_set(5,1);sys_sleep_100ms();
+  48   1        led_set(6,1);sys_sleep_100ms();
+  49   1        led_set(7,1);sys_sleep_100ms();
+  50   1        seg_set0();
+  51   1        seg_set_all(25,14,29,16,16,2+32,0,1);
+  52   1        sys_sleep_1s();seg_set0();led_set0();
+  53   1        relay_set(1);sys_sleep_100ms(); buzz_set(1);sys_sleep_100ms();buzz_set(0);sys_sleep_100ms();relay_set(0);
+  54   1        
+C51 COMPILER V9.60.7.0   MAIN                                                              01/23/2026 22:03:14 PAGE 2   
 
-  55   2          {
-  56   3            temp = key_get();
-  57   3            seg_set(0,page/10);seg_set(1,page%10+32);
-  58   3            switch(page)
-  59   3            {
-  60   4              case 1:{seg_set(2, 16);seg_set(3, 16);seg_set(4, 16);seg_set(5, 21);seg_set(6,14);seg_set(7, 13);}brea
+  55   1        while(1)
+  56   1        { 
+  57   2          uint8 temp;
+  58   2      
+  59   2          while(1)
+  60   2          {
+  61   3            temp = key_get();
+  62   3            seg_set(0,page/10);seg_set(1,page%10+32);
+  63   3            switch(page)
+  64   3            {
+  65   4              case 1:{seg_set(2, 16);seg_set(3, 16);seg_set(4, 16);seg_set(5, 21);seg_set(6,14);seg_set(7, 13);}brea
              -k;
-  61   4              case 2:{seg_set(2, 16);seg_set(3, 16);seg_set(4, 16);seg_set(5, 5);seg_set(6,14);seg_set(7, 27);}break
+  66   4              case 2:{seg_set(2, 16);seg_set(3, 16);seg_set(4, 16);seg_set(5, 5);seg_set(6,14);seg_set(7, 27);}break
              -;
-  62   4              case 3:{seg_set(2, 16);seg_set(3, 16);seg_set(4, 16);seg_set(5, 20);seg_set(6,14);seg_set(7, 31);}brea
+  67   4              case 3:{seg_set(2, 16);seg_set(3, 16);seg_set(4, 16);seg_set(5, 20);seg_set(6,14);seg_set(7, 31);}brea
              -k;
-  63   4              default:{seg_set(2, 16);seg_set(3, 16);seg_set(4, 22);seg_set(5, 23);seg_set(6,22);seg_set(7, 14);}     
-  64   4            }
-  65   3          
-  66   3            if (temp == 6 ){page += 1;if(page == 100){page = 1;}}   
-  67   3            if (temp == 7 ){page -= 1;if(page == 0){page = 99;}}
-  68   3            if (temp == 5)
-  69   3            {
-  70   4              
-  71   4              switch(page)
-  72   4              {
-  73   5                case 1:{appled_main();}break; 
-  74   5                case 2:{appseg_main();}break;
-  75   5                case 3:{appkey_main();}break;
-  76   5              }       
-  77   4            }   
-  78   3          }
-  79   2      
-  80   2        }
-  81   1      }
+  68   4              default:{seg_set(2, 16);seg_set(3, 16);seg_set(4, 22);seg_set(5, 23);seg_set(6,22);seg_set(7, 14);}     
+  69   4            }
+  70   3          
+  71   3            if (temp == 6 ){page += 1;if(page == 100){page = 1;}}   
+  72   3            if (temp == 7 ){page -= 1;if(page == 0){page = 99;}}
+  73   3            if (temp == 5)
+  74   3            {
+  75   4              
+  76   4              switch(page)
+  77   4              {
+  78   5                case 1:{appled_main();}break; 
+  79   5                case 2:{appseg_main();}break;
+  80   5                case 3:{appkey_main();}break;
+  81   5              }       
+  82   4            }   
+  83   3          }
+  84   2      
+  85   2        }
+  86   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    612    ----
+   CODE SIZE        =    654    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

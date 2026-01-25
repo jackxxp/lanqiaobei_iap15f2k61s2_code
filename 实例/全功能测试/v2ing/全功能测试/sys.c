@@ -12,7 +12,10 @@ void sys_init()
 {
 	gpio_init();
 	
+	
 	decoder_init();
+	y5driver_init();
+	
 	led_init();
 	seg_init();
 	

@@ -22,7 +22,10 @@ void sys_timer_1ms() interrupt 3
 	{
 		key_run();
 	}
-	
+	if(sys_tick % 50  == 0)
+	{
+		y5driver_run();
+	}	
 	sys_tick++;
 	if(sys_tick >= 200){sys_tick = 0;}
 }
@@ -47,10 +50,12 @@ void main()
 	seg_set0();
 	seg_set_all(25,14,29,16,16,2+32,0,1);
 	sys_sleep_1s();seg_set0();led_set0();
+	relay_set(1);sys_sleep_100ms();	buzz_set(1);sys_sleep_100ms();buzz_set(0);sys_sleep_100ms();relay_set(0);
 	
 	while(1)
 	{	
 		uint8 temp;
+
 		while(1)
 		{
 			temp = key_get();

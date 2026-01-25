@@ -9,6 +9,7 @@
 #define uint16 unsigned int
 	
 #include "decoder.h"
+#include "y5driver.h"
 #include "led.h"
 #include "seg.h"
 #include "key.h"
