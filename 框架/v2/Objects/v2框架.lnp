@@ -1,0 +1,11 @@
+".\Objects\STARTUP.obj",
+".\Objects\main.obj",
+".\Objects\drv_led.obj",
+".\Objects\drv_seg.obj",
+".\Objects\drv_key.obj",
+".\Objects\drv_other.obj",
+".\Objects\sys_main.obj",
+".\Objects\sys_task.obj",
+".\Objects\app_main.obj" 
+TO ".\Objects\v2¿ò¼Ü" 
+PRINT(".\Listings\v2¿ò¼Ü.m51") RAMSIZE(256) 

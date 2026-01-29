@@ -1,0 +1,58 @@
+C51 COMPILER V9.60.7.0   DRV_OTHER                                                         01/29/2026 21:31:54 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE DRV_OTHER
+OBJECT MODULE PLACED IN .\Objects\drv_other.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE drv_other.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND
+                    - PRINT(.\Listings\drv_other.lst) TABS(2) OBJECT(.\Objects\drv_other.obj)
+
+line level    source
+
+   1          //drv_other.c
+   2          #include "drv_other.h"
+   3          
+   4          
+   5          uint8 y5driver_ram[2] = {0, 0};
+   6          
+   7          
+   8          
+   9          void relay_set(uint8 sw)
+  10          {
+  11   1          y5driver_ram[0] = (sw != 0) ? 1 : 0;
+  12   1      }
+  13          
+  14          void buzz_set(uint8 sw)
+  15          {
+  16   1          y5driver_ram[1] = (sw != 0) ? 1 : 0;
+  17   1      }
+  18          
+  19          void drv_other_run(void)
+  20          {
+  21   1          static uint8 y5driver_last = 0;
+  22   1          uint8 new_val = 0;
+  23   1      
+  24   1          if (y5driver_ram[0]) new_val |= (1 << 4);  // P0.4 = 继电器
+  25   1          if (y5driver_ram[1]) new_val |= (1 << 6);  // P0.6 = 蜂鸣器
+  26   1      
+  27   1          if (y5driver_last != new_val)
+  28   1          {
+  29   2              y5;
+  30   2              P0 = new_val;
+  31   2              y0;
+  32   2              y5driver_last = new_val;
+  33   2          }
+  34   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     64    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      3       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

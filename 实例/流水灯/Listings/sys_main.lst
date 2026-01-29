@@ -1,0 +1,99 @@
+C51 COMPILER V9.60.7.0   SYS_MAIN                                                          01/29/2026 21:47:20 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE SYS_MAIN
+OBJECT MODULE PLACED IN .\Objects\sys_main.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE sys_main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND 
+                    -PRINT(.\Listings\sys_main.lst) TABS(2) OBJECT(.\Objects\sys_main.obj)
+
+line level    source
+
+   1          //sys_main.c
+   2          #include "sys_main.h"
+   3          
+   4          //内部函数
+   5          
+   6          void gpio_init()//GPIO 模式设置
+   7          {
+   8   1        P0M0 = 0x00; 
+   9   1        P0M1 = 0x00;
+  10   1        P1M0 = 0x00;
+  11   1        P1M1 = 0x00;
+  12   1        P2M0 = 0x00;
+  13   1        P2M1 = 0x00;
+  14   1        P3M0 = 0x00;
+  15   1        P3M1 = 0x00;
+  16   1        P4M0 = 0x00;
+  17   1        P4M1 = 0x00;
+  18   1        P5M0 = 0x00;
+  19   1        P5M1 = 0x00;
+  20   1        P6M0 = 0x00;
+  21   1        P6M1 = 0x00;
+  22   1        P7M0 = 0x00;
+  23   1        P7M1 = 0x00;
+  24   1      }
+  25          
+  26          void timer1_init()//定时器1启动
+  27          {
+  28   1        AUXR &= 0xBF; // 定时器时钟12T模式
+  29   1        TMOD &= 0x0F; // 设置定时器模式
+  30   1        TL1 = 0x18;   // 设置定时初始值
+  31   1        TH1 = 0xFC;   // 设置定时初始值
+  32   1        TF1 = 0;      // 清除TF1标志
+  33   1        TR1 = 1;      // 定时器1开始计时
+  34   1        ET1 = 1;      // 使能定时器1中断
+  35   1        
+  36   1        EA = 1; //中断总开关
+  37   1      }
+  38          void driver_init()//设备初始化
+  39          {
+  40   1        sys_main_decoder_set(4);//LED灯
+  41   1        P0=0xff;
+  42   1        sys_main_decoder_set(0);
+  43   1      
+  44   1        sys_main_decoder_set(6); //数码管位选
+  45   1        P0 = 0x00;
+  46   1        sys_main_decoder_set(7);//数码管段选
+  47   1        P0 = 0xff;
+  48   1        sys_main_decoder_set(0);
+  49   1      
+  50   1        sys_main_decoder_set(5);//继电器与蜂鸣器
+  51   1        P0 = 0xaf;
+  52   1        sys_main_decoder_set(0);
+  53   1      }
+  54          
+C51 COMPILER V9.60.7.0   SYS_MAIN                                                          01/29/2026 21:47:20 PAGE 2   
+
+  55          
+  56          //外部调用函数
+  57          
+  58          void sys_main_mcu_init()//MCU初始化
+  59          {
+  60   1        gpio_init();//GPIO模式设置
+  61   1        sys_main_decoder_set(0);//译码器初始化
+  62   1        driver_init();//设备初始化
+  63   1        timer1_init();//定时器1启动
+  64   1        
+  65   1      
+  66   1      }
+  67          
+  68          void sys_main_decoder_set(uint8 pin)
+  69          {
+  70   1          P2 = (P2 & 0x1F) | ((pin << 5) & 0xE0);// 读取当前 P2 值，保留低5位（P2.0～P2.4），替�
+             -�高3位（P2.5～P2.7）
+  71   1      }
+  72          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    130    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

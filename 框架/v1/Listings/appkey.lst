@@ -1,0 +1,137 @@
+C51 COMPILER V9.60.7.0   APPKEY                                                            01/23/2026 22:03:15 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE APPKEY
+OBJECT MODULE PLACED IN .\Objects\appkey.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE appkey.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PR
+                    -INT(.\Listings\appkey.lst) TABS(2) OBJECT(.\Objects\appkey.obj)
+
+line level    source
+
+   1          #include "appkey.h"
+   2          
+   3          void appkey_main()
+   4          {
+   5   1        uint8 mode = 1;
+   6   1        uint8 key_temp;
+   7   1        
+   8   1        bit appkey_tick_0 = 1;
+   9   1        
+  10   1        seg_set0();led_set0();
+  11   1        while(1)
+  12   1        {
+  13   2          
+  14   2          key_temp = key_get();
+  15   2          if (key_temp == 6 ){mode += 1;if(mode == 10){mode = 1;}seg_set0();led_set0();}    
+  16   2          if (key_temp == 7 ){mode -= 1;if(mode == 0){mode = 9;}seg_set0();led_set0();}
+  17   2          if (key_temp == 4 ){seg_set0();led_set0();break;}   
+  18   2            
+  19   2          seg_set(0,mode+32);
+  20   2          
+  21   2          switch(mode)
+  22   2          {
+  23   3            case 1:
+  24   3            {
+  25   4      
+  26   4              if(get_1s_flag())
+  27   4              {
+  28   5                if(appkey_tick_0){seg_set(4,12);seg_set(5,0);seg_set(6,13);seg_set(7,14);appkey_tick_0 = 0;}
+  29   5                else{seg_set(4,26);seg_set(5,14);seg_set(6,5);seg_set(7,26);appkey_tick_0 = 1;}           
+  30   5              }
+  31   4                
+  32   4      
+  33   4      
+  34   4            } break;
+  35   3            default:{led_set0();seg_set(2, 22);seg_set(3, 0);seg_set(1, 16);seg_set(7, 16);seg_set(4,16);seg_set(5,
+             - 16);seg_set(6, 16);}     
+  36   3          }
+  37   2          if (key_temp == 5 ){appkey_key_code_test();}  
+  38   2        }
+  39   1      }
+  40          
+  41          void appkey_key_code_test()
+  42          {
+  43   1        seg_set0();led_set0();  
+  44   1        seg_set(0,21);seg_set(1,23);seg_set(2,23);seg_set(3,27);seg_set(4,24);seg_set(5,29);seg_set(6,14);seg_set
+             -(7,5);sys_sleep_1s();sys_sleep_1s();
+  45   1        seg_set(0,5);seg_set(1,4);seg_set(2,16);seg_set(3,16);seg_set(4,11);seg_set(5,10);seg_set(6,12);seg_set(7
+             -,20);sys_sleep_1s();sys_sleep_1s();
+  46   1        seg_set0();
+  47   1        seg_set(5,16);seg_set(6,0);seg_set(7,0);
+  48   1        while(1)
+  49   1        {
+  50   2          uint8 key_temp;
+  51   2          key_temp = key_get();
+C51 COMPILER V9.60.7.0   APPKEY                                                            01/23/2026 22:03:15 PAGE 2   
+
+  52   2          if(key_temp != 201)
+  53   2          {
+  54   3            switch(key_temp)
+  55   3            {
+  56   4              case 4:{seg_set(5,16);seg_set(6,0);seg_set(7,4);}break;
+  57   4              case 5:{seg_set(5,16);seg_set(6,0);seg_set(7,5);}break;
+  58   4              case 6:{seg_set(5,16);seg_set(6,0);seg_set(7,6);}break;
+  59   4              case 7:{seg_set(5,16);seg_set(6,0);seg_set(7,7);}break;
+  60   4              
+  61   4              case 8:{seg_set(5,16);seg_set(6,0);seg_set(7,8);}break;
+  62   4              case 9:{seg_set(5,16);seg_set(6,0);seg_set(7,9);}break;
+  63   4              case 10:{seg_set(5,16);seg_set(6,1);seg_set(7,0);}break;
+  64   4              case 11:{seg_set(5,16);seg_set(6,1);seg_set(7,1);}break;
+  65   4              
+  66   4              case 12:{seg_set(5,16);seg_set(6,1);seg_set(7,2);}break;
+  67   4              case 13:{seg_set(5,16);seg_set(6,1);seg_set(7,3);}break;
+  68   4              case 14:{seg_set(5,16);seg_set(6,1);seg_set(7,4);}break;
+  69   4              case 15:{seg_set(5,16);seg_set(6,1);seg_set(7,5);}break;
+  70   4              
+  71   4              case 16:{seg_set(5,16);seg_set(6,1);seg_set(7,6);}break;
+  72   4              case 17:{seg_set(5,16);seg_set(6,1);seg_set(7,7);}break;
+  73   4              case 18:{seg_set(5,16);seg_set(6,1);seg_set(7,8);}break;
+  74   4              case 19:{seg_set(5,16);seg_set(6,1);seg_set(7,9);}break;
+  75   4              
+  76   4              case 104:{seg_set(5,21);seg_set(6,0);seg_set(7,4);}break;
+  77   4              case 105:{seg_set(5,21);seg_set(6,0);seg_set(7,5);}break;
+  78   4              case 106:{seg_set(5,21);seg_set(6,0);seg_set(7,6);}break;
+  79   4              case 107:{seg_set(5,21);seg_set(6,0);seg_set(7,7);}break;
+  80   4              
+  81   4              case 108:{seg_set(5,21);seg_set(6,0);seg_set(7,8);}break;
+  82   4              case 109:{seg_set(5,21);seg_set(6,0);seg_set(7,9);}break;
+  83   4              case 110:{seg_set(5,21);seg_set(6,1);seg_set(7,0);}break;
+  84   4              case 111:{seg_set(5,21);seg_set(6,1);seg_set(7,1);}break;
+  85   4              
+  86   4              case 112:{seg_set(5,21);seg_set(6,1);seg_set(7,2);}break;
+  87   4              case 113:{seg_set(5,21);seg_set(6,1);seg_set(7,3);}break;
+  88   4              case 114:{seg_set(5,21);seg_set(6,1);seg_set(7,4);}break;
+  89   4              case 115:{seg_set(5,21);seg_set(6,1);seg_set(7,5);}break;
+  90   4              
+  91   4              case 116:{seg_set(5,21);seg_set(6,1);seg_set(7,6);}break;
+  92   4              case 117:{seg_set(5,21);seg_set(6,1);seg_set(7,7);}break;
+  93   4              case 118:{seg_set(5,21);seg_set(6,1);seg_set(7,8);}break;
+  94   4              case 119:{seg_set(5,21);seg_set(6,1);seg_set(7,9);}break;
+  95   4            
+  96   4            }
+  97   3          }
+  98   2          if(key_temp == 104)
+  99   2          {
+ 100   3            break;
+ 101   3          }
+ 102   2        
+ 103   2        
+ 104   2        }
+ 105   1        
+ 106   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    832    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+C51 COMPILER V9.60.7.0   APPKEY                                                            01/23/2026 22:03:15 PAGE 3   
+
+   DATA SIZE        =   ----       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
