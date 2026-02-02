@@ -1,0 +1,46 @@
+C51 COMPILER V9.60.7.0   APP_LED                                                           01/29/2026 21:47:20 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE APP_LED
+OBJECT MODULE PLACED IN .\Objects\app_led.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE app_led.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND P
+                    -RINT(.\Listings\app_led.lst) TABS(2) OBJECT(.\Objects\app_led.obj)
+
+line level    source
+
+   1          #include "app_led.h"
+   2          
+   3          void app_led_run() 
+   4          { 
+   5   1        static uint8 ledapp_tick = 0; 
+   6   1        if(ledapp_tick < 8) 
+   7   1        {
+   8   2          drv_seg_set(0,ledapp_tick/10); 
+   9   2          drv_seg_set(1,ledapp_tick%10); 
+  10   2          drv_led_set(ledapp_tick++,1); 
+  11   2        }
+  12   1        if(ledapp_tick >= 8) 
+  13   1        { 
+  14   2          drv_seg_set(0,ledapp_tick/10); 
+  15   2          drv_seg_set(1,ledapp_tick%10); 
+  16   2          drv_led_set(ledapp_tick++ -8,0); 
+  17   2        } 
+  18   1        if(ledapp_tick >= 16) 
+  19   1        {
+  20   2          ledapp_tick = 0;
+  21   2        } 
+  22   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     97    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

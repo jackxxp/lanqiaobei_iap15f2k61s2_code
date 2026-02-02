@@ -1,0 +1,171 @@
+C51 COMPILER V9.60.7.0   APP_TASK1                                                         01/30/2026 00:23:36 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE APP_TASK1
+OBJECT MODULE PLACED IN .\Objects\app_task1.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE app_task1.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND
+                    - PRINT(.\Listings\app_task1.lst) TABS(2) OBJECT(.\Objects\app_task1.obj)
+
+line level    source
+
+   1          #include "app_task1.h"
+   2          #include "drv_seg.h"
+   3          #include "drv_led.h"
+   4          
+   5          /* ====== 硬件定义 ====== */
+   6          sbit ULTRASONIC_TRIG = P1^0;   // Trig -> P1.0 (输出)
+   7          sbit ULTRASONIC_ECHO = P1^1;   // Echo -> P1.1 (输入，接 P1 口中断)
+   8          
+   9          /* ====== 测量数据（中断与主程序共享） ====== */
+  10          static volatile uint16 echo_start = 0;    // 上升沿时间戳
+  11          static volatile uint16 echo_end = 0;      // 下降沿时间戳  
+  12          static volatile uint8 echo_flag = 0;      // 0:未开始, 1:已上升, 2:已下降
+  13          
+  14          /* ====== P1 口中断服务程序（捕获 Echo 边沿） ====== */
+  15          void P1_port_isr(void) interrupt 19
+  16          {
+  17   1          // 检查是否是 P1.1 触发的中断
+  18   1          if(P1INTF & 0x02)
+*** ERROR C202 IN LINE 18 OF app_task1.c: 'P1INTF': undefined identifier
+  19   1          {
+  20   2              P1INTF &= ~0x02;  // 清中断标志
+*** ERROR C202 IN LINE 20 OF app_task1.c: 'P1INTF': undefined identifier
+  21   2              
+  22   2              if(echo_flag == 0 && ULTRASONIC_ECHO == 1)
+  23   2              {
+  24   3                  // 上升沿：记录开始时间
+  25   3                  echo_start = (T2H << 8) | T2L;
+  26   3                  echo_flag = 1;
+  27   3              }
+  28   2              else if(echo_flag == 1 && ULTRASONIC_ECHO == 0)
+  29   2              {
+  30   3                  // 下降沿：记录结束时间
+  31   3                  echo_end = (T2H << 8) | T2L;
+  32   3                  echo_flag = 2;  // 测量完成标记
+  33   3              }
+  34   2          }
+  35   1      }
+  36          
+  37          /* ====== 主任务函数（每 100ms 调用一次） ====== */
+  38          void app_task1_run()
+  39          {
+  40   1                    unsigned char i = 20; 
+  41   1          static uint8 run_step = 0;
+  42   1          static uint16 distance_mm = 0;
+  43   1          static uint8 timeout_cnt = 0;
+  44   1          uint16 pulse_width;
+  45   1          
+  46   1          switch(run_step)
+  47   1          {
+  48   2              case 0:  // 初始化
+  49   2              {
+  50   3                  // 1. 配置 Timer 2：12T 模式，1us 计数，自由运行
+  51   3                  AUXR &= ~0x04;      // T2x12=0 (12分频，12MHz->1us/tick)
+  52   3                  AUXR &= ~0x08;      // T2_C/T=0 (定时器模式，非计数器)
+C51 COMPILER V9.60.7.0   APP_TASK1                                                         01/30/2026 00:23:36 PAGE 2   
+
+  53   3                  AUXR |= 0x10;       // T2R=1 (启动定时器2)
+  54   3                  T2H = 0;            // 计数器清零
+  55   3                  T2L = 0;
+  56   3                  
+  57   3                  
+  58   3                  // P1 口中断配置：P1.1 双边沿触发
+  59   3                  P1IM0 |= 0x02;      // 中断模式控制
+*** ERROR C202 IN LINE 59 OF app_task1.c: 'P1IM0': undefined identifier
+  60   3                  P1IM1 |= 0x02;      // 11 = 双边沿触发 (上升沿+下降沿)
+*** ERROR C202 IN LINE 60 OF app_task1.c: 'P1IM1': undefined identifier
+  61   3                  P1INTE |= 0x02;     // 使能 P1.1 中断
+*** ERROR C202 IN LINE 61 OF app_task1.c: 'P1INTE': undefined identifier
+  62   3                  P1INTF &= ~0x02;    // 清标志
+*** ERROR C202 IN LINE 62 OF app_task1.c: 'P1INTF': undefined identifier
+  63   3                  
+  64   3                  EA = 1;             // 开总中断
+  65   3                  
+  66   3                  // 显示初始化
+  67   3                  drv_seg_set(0, 0);
+  68   3                  drv_seg_set(3, 0); drv_seg_set(4, 0);
+  69   3                  drv_seg_set(5, 0); drv_seg_set(6, 0);
+  70   3                  drv_seg_set(7, 0);
+  71   3                  
+  72   3                  run_step = 1;
+  73   3              }
+  74   2              break;
+  75   2              
+  76   2              case 1:  // 触发测距
+  77   2              {
+  78   3                  drv_seg_set(0, 1);
+  79   3                  
+  80   3                  // 重置测量标记
+  81   3                  echo_flag = 0;
+  82   3                  timeout_cnt = 0;
+  83   3                  
+  84   3                  // 发送 15us 高电平脉冲（保险值）
+  85   3                  ULTRASONIC_TRIG = 1;
+  86   3       // 约 15-20us @12MHz
+  87   3                  while(i--);
+  88   3                  ULTRASONIC_TRIG = 0;
+  89   3                  
+  90   3                  run_step = 2;
+  91   3              }
+  92   2              break;
+  93   2              
+  94   2              case 2:  // 等待测量结果
+  95   2              {
+  96   3                  drv_seg_set(0, 2);
+  97   3                  
+  98   3                  if(echo_flag == 2)
+  99   3                  {
+ 100   4                      // 测量完成，计算脉宽（处理 16 位溢出）
+ 101   4                      if(echo_end >= echo_start)
+ 102   4                          pulse_width = echo_end - echo_start;
+ 103   4                      else
+ 104   4                          pulse_width = (0xFFFF - echo_start) + echo_end + 1;
+ 105   4                      
+ 106   4                      // 计算距离：time(us) * 0.17 mm/us = time * 17 / 100
+ 107   4                      // 有效范围：150us(2.5cm) ~ 25000us(4.25m)
+ 108   4                      if(pulse_width > 150 && pulse_width < 25000)
+ 109   4                      {
+ 110   5                          distance_mm = (unsigned long)pulse_width * 17 / 100;
+C51 COMPILER V9.60.7.0   APP_TASK1                                                         01/30/2026 00:23:36 PAGE 3   
+
+ 111   5                          
+ 112   5                          // 显示距离（格式：XXXX mm）
+ 113   5                          drv_seg_set(3, distance_mm / 1000);
+ 114   5                          drv_seg_set(4, (distance_mm % 1000) / 100);
+ 115   5                          drv_seg_set(5, (distance_mm % 100) / 10);
+ 116   5                          drv_seg_set(6, distance_mm % 10);
+ 117   5                          drv_seg_set(7, 16);  // 熄灭最后一位
+ 118   5                      }
+ 119   4                      else
+ 120   4                      {
+ 121   5                          // 超量程显示 "----"
+ 122   5                          drv_seg_set(3, 17); drv_seg_set(4, 17);
+ 123   5                          drv_seg_set(5, 17); drv_seg_set(6, 17);
+ 124   5                      }
+ 125   4                      
+ 126   4                      run_step = 1;  // 完成后立即开始下一次测量
+ 127   4                  }
+ 128   3                  else
+ 129   3                  {
+ 130   4                      // 超时检查：100ms 周期 * 5 = 500ms 无响应
+ 131   4                      if(++timeout_cnt > 5)
+ 132   4                      {
+ 133   5                          // 超时显示 "Err"
+ 134   5                          drv_seg_set(3, 14);  // E
+ 135   5                          drv_seg_set(4, 17);  // -
+ 136   5                          drv_seg_set(5, 17);  // -
+ 137   5                          drv_seg_set(6, 13);  // r (如果有) 或 17
+ 138   5                          
+ 139   5                          run_step = 1;  // 强制重新开始
+ 140   5                      }
+ 141   4                  }
+ 142   3              }
+ 143   2              break;
+ 144   2              
+ 145   2              default:
+ 146   2                  run_step = 0;
+ 147   2                  break;
+ 148   2          }
+ 149   1      }
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  6 ERROR(S)

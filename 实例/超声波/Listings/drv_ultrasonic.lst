@@ -1,0 +1,173 @@
+C51 COMPILER V9.60.7.0   DRV_ULTRASONIC                                                    01/30/2026 00:06:21 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE DRV_ULTRASONIC
+OBJECT MODULE PLACED IN .\Objects\drv_ultrasonic.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE drv_ultrasonic.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTE
+                    -XTEND PRINT(.\Listings\drv_ultrasonic.lst) TABS(2) OBJECT(.\Objects\drv_ultrasonic.obj)
+
+line level    source
+
+   1          #include "drv_ultrasonic.h"
+   2          #include <intrins.h>
+   3          #include "drv_led.h"    // 确保能调用 drv_led_set
+   4          
+   5          /* ====== 调试计数器 ====== */
+   6          volatile uint16 pca_int_cnt = 0;  // 在头文件中用 extern 声明
+   7          
+   8          /* ====== 硬件定义 ====== */
+   9          sbit ULTRASONIC_TRIG = P1^0;   // Trig 输出
+  10          #define ULTRASONIC_ECHO   P11   // Echo -> PCA CCP0
+  11          
+  12          /* ====== 状态机 ====== */
+  13          typedef enum
+  14          {
+  15              US_IDLE = 0,
+  16              US_WAIT_RISE,
+  17              US_WAIT_FALL,
+  18              US_DONE
+  19          } ultrasonic_state_t;
+  20          
+  21          static volatile ultrasonic_state_t us_state = US_IDLE;
+  22          
+  23          /* ====== 捕获时间 ====== */
+  24          static volatile uint16 t_start = 0;
+  25          static volatile uint16 t_end   = 0;
+  26          
+  27          /* ====== 初始化 ====== */
+  28          void drv_ultrasonic_init(void)
+  29          {
+  30   1          /* Trig 输出 */
+  31   1          ULTRASONIC_TRIG = 0;
+  32   1      
+  33   1          /* PCA 时钟：Fosc/12 */
+  34   1          CMOD = 0x00;
+  35   1      
+  36   1          /* 清 PCA */
+  37   1          CL = 0;
+  38   1          CH = 0;
+  39   1      
+  40   1          /* CCP0：输入捕获，双边沿（CAPN + CAPP + ECCF）*/
+  41   1          CCAPM0 = 0x31;
+  42   1      
+  43   1          /* 清中断标志 */
+  44   1          CCF0 = 0;
+  45   1      
+  46   1          /* 启动 PCA */
+  47   1          CR = 1;
+  48   1      
+  49   1          /* 允许中断 */
+  50   1          EA = 1;
+  51   1      }
+  52          
+  53          /* ====== 重置状态机 ====== */
+  54          void drv_ultrasonic_reset(void)
+C51 COMPILER V9.60.7.0   DRV_ULTRASONIC                                                    01/30/2026 00:06:21 PAGE 2   
+
+  55          {
+  56   1          us_state = US_IDLE;
+  57   1          t_start = 0;
+  58   1          t_end = 0;
+  59   1          CCF0 = 0;
+  60   1          CL = 0;
+  61   1          CH = 0;
+  62   1      }  // ← 修正：补充了缺失的右大括号
+  63          
+  64          /* ====== 触发超声波 ====== */
+  65          void drv_ultrasonic_trigger(void)
+  66          {
+  67   1          unsigned char i;  // ← 修正：C51 变量必须在代码块开头定义
+  68   1          
+  69   1          drv_led_set(0, 1);  // 调试：进入函数
+  70   1          
+  71   1          // 如果不是 IDLE，强制重置而不是直接退出
+  72   1          if(us_state != US_IDLE) {
+  73   2              drv_led_set(1, 1);  // 调试：显示状态被重置过
+  74   2              drv_ultrasonic_reset();
+  75   2          }
+  76   1          
+  77   1          // 确保从低电平开始
+  78   1          ULTRASONIC_TRIG = 0;
+  79   1          
+  80   1          drv_led_set(2, 1);  // 调试：准备发 Trig
+  81   1          
+  82   1          // 发 20us 高电平（12MHz 12T 模式）
+  83   1          ULTRASONIC_TRIG = 1;
+  84   1          i = 60;
+  85   1          while(i--);
+  86   1          ULTRASONIC_TRIG = 0;
+  87   1          
+  88   1          drv_led_set(2, 0);  // 调试：Trig 发送完成
+  89   1          us_state = US_WAIT_RISE;
+  90   1      }
+  91          
+  92          /* ====== PCA 中断 ====== */
+  93          void pca_isr(void) interrupt 7
+  94          {
+  95   1          uint16 cap;  // ← 修正：C51 变量必须在代码块开头定义
+  96   1          
+  97   1          // 每次进中断计数（用于调试）
+  98   1          pca_int_cnt++;
+  99   1          if(pca_int_cnt > 9999) pca_int_cnt = 0;
+ 100   1          
+ 101   1          if (CCF0)
+ 102   1          {
+ 103   2              CCF0 = 0;
+ 104   2              cap = (CCAP0H << 8) | CCAP0L;
+ 105   2              
+ 106   2              if (us_state == US_WAIT_RISE)
+ 107   2              {
+ 108   3                  t_start = cap;
+ 109   3                  us_state = US_WAIT_FALL;
+ 110   3              }
+ 111   2              else if (us_state == US_WAIT_FALL)
+ 112   2              {
+ 113   3                  t_end = cap;
+ 114   3                  us_state = US_DONE;
+ 115   3              }
+ 116   2          }
+C51 COMPILER V9.60.7.0   DRV_ULTRASONIC                                                    01/30/2026 00:06:21 PAGE 3   
+
+ 117   1      }
+ 118          
+ 119          /* ====== 是否完成 ====== */
+ 120          bit drv_ultrasonic_is_done(void)
+ 121          {
+ 122   1          return (us_state == US_DONE);
+ 123   1      }
+ 124          
+ 125          /* ====== 获取时间（us） ====== */
+ 126          uint16 drv_ultrasonic_get_time_us(void)
+ 127          {
+ 128   1          uint16 dt;
+ 129   1      
+ 130   1          EA = 0;
+ 131   1          if (t_end >= t_start)
+ 132   1              dt = t_end - t_start;
+ 133   1          else
+ 134   1              dt = (0xFFFF - t_start) + t_end + 1;
+ 135   1          EA = 1;
+ 136   1      
+ 137   1          return dt;
+ 138   1      }
+ 139          
+ 140          /* ====== 距离（mm） ====== */
+ 141          uint16 drv_ultrasonic_get_distance_mm(void)
+ 142          {
+ 143   1          uint16 time_us = drv_ultrasonic_get_time_us();
+ 144   1          return (uint16)(((unsigned long)time_us * 170) / 1000);
+ 145   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    253    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      7    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
