@@ -1,0 +1,12 @@
+".\Objects\STARTUP.obj",
+".\Objects\main.obj",
+".\Objects\drv_led.obj",
+".\Objects\drv_seg.obj",
+".\Objects\drv_key.obj",
+".\Objects\drv_other.obj",
+".\Objects\sys_main.obj",
+".\Objects\sys_task.obj",
+".\Objects\app_main.obj",
+".\Objects\app_task_1.obj" 
+TO ".\Objects\按键键值显示" 
+PRINT(".\Listings\按键键值显示.m51") RAMSIZE(256) 

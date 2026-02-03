@@ -1,0 +1,41 @@
+C51 COMPILER V9.60.7.0   MAIN                                                              02/03/2026 16:07:36 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRIN
+                    -T(.\Listings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          //main.c
+   2          #include "main.h"
+   3          
+   4          void timer1_isr(void) interrupt 3
+   5          {
+   6   1        sys_task_isr();
+   7   1      }
+   8          
+   9          void main()
+  10          {
+  11   1          sys_main_mcu_init();//系统初始化
+  12   1          while (1)
+  13   1          {
+  14   2            sys_task_run();
+  15   2            app_main_run();
+  16   2          }
+  17   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     70    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

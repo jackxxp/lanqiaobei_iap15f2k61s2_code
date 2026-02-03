@@ -1,6 +1,4 @@
 #include "app_task1.h"
-#include "drv_seg.h"
-#include "drv_led.h"
 
 /* ====== 硬件定义 ====== */
 sbit ULTRASONIC_TRIG = P1^0;   // Trig -> P1.0 (输出)

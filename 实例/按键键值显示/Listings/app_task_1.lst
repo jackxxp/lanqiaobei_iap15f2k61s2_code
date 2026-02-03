@@ -1,0 +1,42 @@
+C51 COMPILER V9.60.7.0   APP_TASK_1                                                        02/03/2026 16:07:37 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE APP_TASK_1
+OBJECT MODULE PLACED IN .\Objects\app_task_1.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE app_task_1.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEN
+                    -D PRINT(.\Listings\app_task_1.lst) TABS(2) OBJECT(.\Objects\app_task_1.obj)
+
+line level    source
+
+   1          //app_task_1.c
+   2          #include "app_task_1.h"
+   3          
+   4          void app_task_1_run()
+   5          {
+   6   1        uint8 key_z;
+   7   1        key_z = drv_key_get();
+   8   1        if(key_z != 201)
+   9   1        {
+  10   2        drv_led_set(7,0); 
+  11   2        drv_seg_set(0,key_z/100);
+  12   2        drv_seg_set(1,key_z/10%10);
+  13   2        drv_seg_set(2,key_z%10);  
+  14   2        }else
+  15   1        {
+  16   2            drv_led_set(7,1); 
+  17   2        }
+  18   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     68    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

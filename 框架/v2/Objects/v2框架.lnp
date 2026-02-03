@@ -6,6 +6,7 @@
 ".\Objects\drv_other.obj",
 ".\Objects\sys_main.obj",
 ".\Objects\sys_task.obj",
-".\Objects\app_main.obj" 
+".\Objects\app_main.obj",
+".\Objects\app_task_1.obj" 
 TO ".\Objects\v2¿ò¼Ü" 
 PRINT(".\Listings\v2¿ò¼Ü.m51") RAMSIZE(256) 

@@ -1,0 +1,58 @@
+C51 COMPILER V9.60.7.0   APP_MAIN                                                          02/03/2026 16:07:37 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE APP_MAIN
+OBJECT MODULE PLACED IN .\Objects\app_main.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE app_main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND 
+                    -PRINT(.\Listings\app_main.lst) TABS(2) OBJECT(.\Objects\app_main.obj)
+
+line level    source
+
+   1          //app_main.c
+   2          #include "app_main.h"
+   3          
+   4          static uint16 last_10ms   = 0;
+   5          static uint16 last_100ms  = 0;
+   6          static uint16 last_1000ms = 0;
+   7          
+   8          
+   9          //任务
+  10          void app_task_1_10ms()
+  11          {
+  12   1         
+  13   1      }
+  14          
+  15          void app_task_2_100ms()
+  16          {
+  17   1         app_task_1_run();
+  18   1      }
+  19          
+  20          void app_task_3_1000ms()
+  21          {
+  22   1          
+  23   1      }
+  24          
+  25          
+  26          //调度器
+  27          void app_main_run()
+  28          {
+  29   1          uint16 now = sys_tick_ms;
+  30   1      
+  31   1          if ((uint16)(now - last_10ms) >= 10){last_10ms = now;app_task_1_10ms();}
+  32   1          if ((uint16)(now - last_100ms) >= 100){last_100ms = now;app_task_2_100ms();}
+  33   1          if ((uint16)(now - last_1000ms) >= 1000){last_1000ms = now;app_task_3_1000ms();}
+  34   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     99    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      6       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

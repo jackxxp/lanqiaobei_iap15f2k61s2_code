@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   SYS_TASK                                                          01/29/2026 21:31:55 PAGE 1   
+C51 COMPILER V9.60.7.0   SYS_TASK                                                          02/03/2026 16:04:14 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE SYS_TASK
@@ -8,68 +8,69 @@ COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE sys_task.c OPTI
 
 line level    source
 
-   1          #include "sys_task.h"
-   2          
-   3          /* ========================
-   4             全局 1ms tick
-   5             ======================== */
-   6          volatile uint16 sys_tick_ms = 0;
-   7          
-   8          /* 上次运行时间 */
-   9          static uint16 last_seg  = 0;
-  10          static uint16 last_led  = 0;
-  11          static uint16 last_key  = 0;
-  12          static uint16 last_misc = 0;
-  13          
-  14          /* ========================
-  15             1ms 中断调用
-  16             ======================== */
-  17          void sys_task_isr(void)
-  18          {
-  19   1          sys_tick_ms++;
-  20   1          if (sys_tick_ms >= 60000)
-  21   1          {
-  22   2              sys_tick_ms = 0;
-  23   2          }
-  24   1      }
-  25          
-  26          /* ========================
-  27             主循环调度器
-  28             ======================== */
-  29          void sys_task_run(void)
-  30          {
-  31   1          uint16 now = sys_tick_ms;
-  32   1      
-  33   1          /* 数码管：2ms */
-  34   1          if ((uint16)(now - last_seg) >= 2)
-  35   1          {
-  36   2              last_seg = now;
-  37   2              drv_seg_run();
-  38   2          }
-  39   1      
-  40   1          /* LED：5ms */
-  41   1          if ((uint16)(now - last_led) >= 5)
-  42   1          {
-  43   2              last_led = now;
-  44   2              drv_led_run();
-  45   2          }
-  46   1      
-  47   1          /* 按键：10ms */
-  48   1          if ((uint16)(now - last_key) >= 10)
-  49   1          {
-  50   2              last_key = now;
-  51   2              drv_key_run();
-  52   2          }
-  53   1      
-  54   1          /* 继电器 / 蜂鸣器：50ms */
-C51 COMPILER V9.60.7.0   SYS_TASK                                                          01/29/2026 21:31:55 PAGE 2   
+   1          //sys_task.c
+   2          #include "sys_task.h"
+   3          
+   4          /* ========================
+   5             全局 1ms tick
+   6             ======================== */
+   7          volatile uint16 sys_tick_ms = 0;
+   8          
+   9          /* 上次运行时间 */
+  10          static uint16 last_seg  = 0;
+  11          static uint16 last_led  = 0;
+  12          static uint16 last_key  = 0;
+  13          static uint16 last_misc = 0;
+  14          
+  15          /* ========================
+  16             1ms 中断调用
+  17             ======================== */
+  18          void sys_task_isr(void)
+  19          {
+  20   1          sys_tick_ms++;
+  21   1          if (sys_tick_ms >= 60000)
+  22   1          {
+  23   2              sys_tick_ms = 0;
+  24   2          }
+  25   1      }
+  26          
+  27          /* ========================
+  28             主循环调度器
+  29             ======================== */
+  30          void sys_task_run(void)
+  31          {
+  32   1          uint16 now = sys_tick_ms;
+  33   1      
+  34   1          /* 数码管：2ms */
+  35   1          if ((uint16)(now - last_seg) >= 2)
+  36   1          {
+  37   2              last_seg = now;
+  38   2              drv_seg_run();
+  39   2          }
+  40   1      
+  41   1          /* LED：5ms */
+  42   1          if ((uint16)(now - last_led) >= 5)
+  43   1          {
+  44   2              last_led = now;
+  45   2              drv_led_run();
+  46   2          }
+  47   1      
+  48   1          /* 按键：10ms */
+  49   1          if ((uint16)(now - last_key) >= 10)
+  50   1          {
+  51   2              last_key = now;
+  52   2              drv_key_run();
+  53   2          }
+  54   1      
+C51 COMPILER V9.60.7.0   SYS_TASK                                                          02/03/2026 16:04:14 PAGE 2   
 
-  55   1          if ((uint16)(now - last_misc) >= 50)
-  56   1          {
-  57   2              last_misc = now;
-  58   2              drv_other_run();
-  59   2          }
-  60   1      }
+  55   1          /* 继电器 / 蜂鸣器：50ms */
+  56   1          if ((uint16)(now - last_misc) >= 50)
+  57   1          {
+  58   2              last_misc = now;
+  59   2              drv_other_run();
+  60   2          }
+  61   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
