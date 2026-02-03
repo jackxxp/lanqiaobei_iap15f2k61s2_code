@@ -4,7 +4,7 @@
 
 #include "sys_main.h"
 
-extern volatile uint16 sys_tick_ms;
+extern volatile uint8 sys_tick_ms;
 
 
 void sys_task_isr();

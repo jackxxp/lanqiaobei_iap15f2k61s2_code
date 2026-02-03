@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   DRV_KEY                                                           02/03/2026 16:07:36 PAGE 1   
+C51 COMPILER V9.60.7.0   DRV_KEY                                                           02/03/2026 16:52:16 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE DRV_KEY
@@ -62,7 +62,7 @@ line level    source
   52   4                          case 0x7B: saved_key = 5; break;   //矩阵按键
   53   4                          case 0x7D: saved_key = 6; break;//矩阵按键
   54   4                          case 0x7E: saved_key = 7; break;//矩阵按键
-C51 COMPILER V9.60.7.0   DRV_KEY                                                           02/03/2026 16:07:36 PAGE 2   
+C51 COMPILER V9.60.7.0   DRV_KEY                                                           02/03/2026 16:52:16 PAGE 2   
 
   55   4      
   56   4                          case 0xB7: saved_key = 8; break;//矩阵按键
@@ -126,7 +126,7 @@ line level    source
  114   3                      key_step = 0;
  115   3                      key_temp = saved_key + 100; // 👈 正确：原始键值+100
  116   3                  }
-C51 COMPILER V9.60.7.0   DRV_KEY                                                           02/03/2026 16:07:36 PAGE 3   
+C51 COMPILER V9.60.7.0   DRV_KEY                                                           02/03/2026 16:52:16 PAGE 3   
 
  117   2                  break;
  118   2          }

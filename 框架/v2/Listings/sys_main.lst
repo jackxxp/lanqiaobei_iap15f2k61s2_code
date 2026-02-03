@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   SYS_MAIN                                                          02/03/2026 16:04:14 PAGE 1   
+C51 COMPILER V9.60.7.0   SYS_MAIN                                                          02/03/2026 16:52:08 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE SYS_MAIN
@@ -62,7 +62,7 @@ line level    source
   52   1        sys_main_decoder_set(0);
   53   1      }
   54          
-C51 COMPILER V9.60.7.0   SYS_MAIN                                                          02/03/2026 16:04:14 PAGE 2   
+C51 COMPILER V9.60.7.0   SYS_MAIN                                                          02/03/2026 16:52:08 PAGE 2   
 
   55          
   56          //外部调用函数

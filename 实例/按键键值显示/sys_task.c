@@ -4,7 +4,7 @@
 /* ========================
    全局 1ms tick
    ======================== */
-volatile uint16 sys_tick_ms = 0;
+volatile uint8 sys_tick_ms = 0;
 
 /* 上次运行时间 */
 static uint16 last_seg  = 0;
@@ -18,10 +18,10 @@ static uint16 last_misc = 0;
 void sys_task_isr(void)
 {
     sys_tick_ms++;
-    if (sys_tick_ms >= 60000)
-    {
-        sys_tick_ms = 0;
-    }
+//    if (sys_tick_ms >= 200)
+//    {
+//        sys_tick_ms = 0;
+//    }
 }
 
 /* ========================

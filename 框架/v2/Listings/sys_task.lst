@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   SYS_TASK                                                          02/03/2026 16:04:14 PAGE 1   
+C51 COMPILER V9.60.7.0   SYS_TASK                                                          02/03/2026 16:52:08 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE SYS_TASK
@@ -14,7 +14,7 @@ line level    source
    4          /* ========================
    5             全局 1ms tick
    6             ======================== */
-   7          volatile uint16 sys_tick_ms = 0;
+   7          volatile uint8 sys_tick_ms = 0;
    8          
    9          /* 上次运行时间 */
   10          static uint16 last_seg  = 0;
@@ -28,10 +28,10 @@ line level    source
   18          void sys_task_isr(void)
   19          {
   20   1          sys_tick_ms++;
-  21   1          if (sys_tick_ms >= 60000)
-  22   1          {
-  23   2              sys_tick_ms = 0;
-  24   2          }
+  21   1      //    if (sys_tick_ms >= 200)
+  22   1      //    {
+  23   1      //        sys_tick_ms = 0;
+  24   1      //    }
   25   1      }
   26          
   27          /* ========================
@@ -62,7 +62,7 @@ line level    source
   52   2              drv_key_run();
   53   2          }
   54   1      
-C51 COMPILER V9.60.7.0   SYS_TASK                                                          02/03/2026 16:04:14 PAGE 2   
+C51 COMPILER V9.60.7.0   SYS_TASK                                                          02/03/2026 16:52:08 PAGE 2   
 
   55   1          /* 继电器 / 蜂鸣器：50ms */
   56   1          if ((uint16)(now - last_misc) >= 50)
@@ -74,11 +74,11 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    156    ----
+   CODE SIZE        =    127    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =     10       2
+   DATA SIZE        =      9       2
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
