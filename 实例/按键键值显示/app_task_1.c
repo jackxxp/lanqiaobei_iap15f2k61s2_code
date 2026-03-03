@@ -11,8 +11,10 @@ void app_task_1_run()
 	drv_seg_set(0,key_z/100);
 	drv_seg_set(1,key_z/10%10);
 	drv_seg_set(2,key_z%10);	
+	buzz_set(1);
+
 	}else
 	{
-			drv_led_set(7,1);	
+			drv_led_set(7,1);		buzz_set(0);
 	}
 }

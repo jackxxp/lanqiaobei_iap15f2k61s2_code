@@ -1,0 +1,143 @@
+C51 COMPILER V9.60.7.0   APP_TASK_1                                                        03/03/2026 23:09:04 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE APP_TASK_1
+OBJECT MODULE PLACED IN .\Objects\app_task_1.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE app_task_1.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEN
+                    -D PRINT(.\Listings\app_task_1.lst) TABS(2) OBJECT(.\Objects\app_task_1.obj)
+
+line level    source
+
+   1          //app_task_1.c
+   2          #include "app_task_1.h"
+   3          
+   4          #include "drv_rtc.h"
+   5          
+   6          uint8 task1_tick = 0;
+   7          uint8 page = 0;
+   8          uint8 rtc_h = 23;
+   9          uint8 rtc_m = 59;
+  10          uint8 rtc_s = 58;
+  11          uint16 ds_t = 213;
+  12          uint16 set_t = 230;
+  13          bit set_mode = 0;
+  14          bit relay = 0;
+  15          
+  16          RTC_TimeType rtc_time;
+  17          
+  18          
+  19          void app_task_1_run()
+  20          {
+  21   1        static uint8 rtc_read_tick = 0;
+  22   1        
+  23   1        
+  24   1        if(task1_tick == 0)
+  25   1        {
+  26   2          RTC_Init();
+  27   2          rtc_time.year = 24;      // 2024年
+  28   2          rtc_time.month = 3;      // 3月
+  29   2          rtc_time.day = 15;       // 15日
+  30   2          rtc_time.week = 5;       // 星期五（1=星期一，7=星期日）
+  31   2          rtc_time.hour = 14;      // 14时
+  32   2          rtc_time.minute = 30;    // 30分
+  33   2          rtc_time.second = 0;     // 0秒
+  34   2          task1_tick = 1;
+  35   2        }
+  36   1        if(task1_tick == 1)
+  37   1        { 
+  38   2          uint8 key_p = drv_key_get();
+  39   2          if(key_p == 13){set_mode = ~ set_mode;key_p = 200;}
+  40   2          drv_led_set(1,~ set_mode);
+  41   2          
+  42   2          if(relay)
+  43   2          {
+  44   3            static bit l3 = 0;
+  45   3            relay_set(1);
+  46   3            drv_led_set(2,l3);l3 = ~ l3;
+  47   3          }else
+  48   2          {relay_set(0);drv_led_set(2,0);}
+  49   2          
+  50   2          if(rtc_m == 0 && rtc_s == 0){drv_led_set(0,1);}
+  51   2          else{if (rtc_s >= 5){drv_led_set(0,0);}}
+  52   2          
+  53   2          
+  54   2          if(rtc_read_tick++ == 4)
+C51 COMPILER V9.60.7.0   APP_TASK_1                                                        03/03/2026 23:09:04 PAGE 2   
+
+  55   2          {
+  56   3            RTC_GetTime(&rtc_time);
+  57   3            rtc_h = rtc_time.hour;
+  58   3            rtc_m = rtc_time.minute;
+  59   3            rtc_s = rtc_time.second;
+  60   3          }if(rtc_read_tick >= 5){rtc_read_tick = 0;}
+  61   2          
+  62   2          
+  63   2          if(set_mode == 0)
+  64   2          {
+  65   3            if(ds_t >set_t){relay = 1;}
+  66   3            else{relay = 0;}
+  67   3            if(set_mode == 1){relay = 0;}
+  68   3          }
+  69   2          if(set_mode == 1)
+  70   2          {
+  71   3            if(rtc_m == 0 && rtc_s == 0){relay = 1;}
+  72   3            else{if (rtc_s >= 5){relay = 0;}}
+  73   3            if(set_mode == 0){relay = 0;}
+  74   3          } 
+  75   2          
+  76   2          
+  77   2          if (page == 0)
+  78   2          {
+  79   3            drv_seg_set_all(25,1,16,16,16,16,16,16);
+  80   3            drv_seg_set(5,ds_t/100);drv_seg_set(6,(ds_t%100/10)+32);drv_seg_set(7,ds_t%100%10);
+  81   3            if(key_p == 12){page = 1;key_p=200;}
+  82   3            
+  83   3          
+  84   3          }
+  85   2          if (page == 1)
+  86   2          {
+  87   3            drv_seg_set_all(25,2,16,16,16,17,16,16);
+  88   3            drv_seg_set(3,rtc_h/10);drv_seg_set(4,rtc_h%10);drv_seg_set(6,rtc_m/10);drv_seg_set(7,rtc_m%10);
+  89   3      
+  90   3            if(drv_key_get_now() == 17){page = 11;}   
+  91   3            if(key_p == 12){page = 2;key_p=200;}
+  92   3      
+  93   3          }
+  94   2          if (page == 2)
+  95   2          {
+  96   3            drv_seg_set_all(25,3,16,16,16,16,16,16);
+  97   3            drv_seg_set(6,set_t/10/10);drv_seg_set(7,set_t/10%10);
+  98   3            
+  99   3            if(key_p == 12){page = 0;key_p=200;}
+ 100   3            if(key_p == 17){if(set_t > 100){set_t -= 10;key_p=200;}}
+ 101   3            if(key_p == 16){if(set_t < 990){set_t += 10;key_p=200;}}
+ 102   3      
+ 103   3      
+ 104   3          }
+ 105   2          if (page == 11)
+ 106   2          {
+ 107   3            drv_seg_set_all(25,2,16,16,16,17,16,16);
+ 108   3            drv_seg_set(3,rtc_m/10);drv_seg_set(4,rtc_m%10);drv_seg_set(6,rtc_s/10);drv_seg_set(7,rtc_s%10);
+ 109   3            
+ 110   3            if(drv_key_get_now() == 200){page = 1;}
+ 111   3          
+ 112   3          }
+ 113   2        
+ 114   2        }
+ 115   1      }
+
+C51 COMPILER V9.60.7.0   APP_TASK_1                                                        03/03/2026 23:09:04 PAGE 3   
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    727    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     17       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      3    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

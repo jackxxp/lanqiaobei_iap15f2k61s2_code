@@ -1,0 +1,266 @@
+C51 COMPILER V9.60.7.0   DRV_RTC                                                           03/03/2026 23:09:04 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE DRV_RTC
+OBJECT MODULE PLACED IN .\Objects\drv_rtc.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE drv_rtc.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND P
+                    -RINT(.\Listings\drv_rtc.lst) TABS(2) OBJECT(.\Objects\drv_rtc.obj)
+
+line level    source
+
+   1          #include "drv_rtc.h"
+   2          #include <intrins.h>
+   3          
+   4          // 写地址数组（秒、分、时、日、月、星期、年）
+   5          const unsigned char code write_address[7] = {0x80, 0x82, 0x84, 0x86, 0x88, 0x8A, 0x8C};
+   6          // 读地址数组（秒、分、时、日、月、星期、年）
+   7          const unsigned char code read_address[7] = {0x81, 0x83, 0x85, 0x87, 0x89, 0x8B, 0x8D};
+   8          
+   9          //==============================================================================
+  10          // 内部函数：向DS1302写入一个字节（底层时序）
+  11          // 注意：改名为 RTC_WriteByte_Internal 避免冲突
+  12          //==============================================================================
+  13          static void RTC_WriteByte_Internal(unsigned char dat)
+  14          {
+  15   1          unsigned char i;
+  16   1          for(i = 0; i < 8; i++)
+  17   1          {
+  18   2              RTC_SCLK = 0;
+  19   2              RTC_IO = dat & 0x01;
+  20   2              dat >>= 1;
+  21   2              RTC_SCLK = 1;
+  22   2          }
+  23   1      }
+  24          
+  25          //==============================================================================
+  26          // 内部函数：从DS1302读取一个字节（底层时序）
+  27          // 注意：改名为 RTC_ReadByte_Internal 避免冲突
+  28          //==============================================================================
+  29          static unsigned char RTC_ReadByte_Internal(void)
+  30          {
+  31   1          unsigned char i;
+  32   1          unsigned char dat = 0;
+  33   1          
+  34   1          for(i = 0; i < 8; i++)
+  35   1          {
+  36   2              RTC_SCLK = 0;
+  37   2              dat >>= 1;
+  38   2              if(RTC_IO)
+  39   2              {
+  40   3                  dat |= 0x80;
+  41   3              }
+  42   2              RTC_SCLK = 1;
+  43   2          }
+  44   1          return dat;
+  45   1      }
+  46          
+  47          //==============================================================================
+  48          // 内部函数：BCD码转十进制
+  49          //==============================================================================
+  50          static unsigned char BCD2Hex(unsigned char bcd)
+  51          {
+  52   1          return (bcd >> 4) * 10 + (bcd & 0x0F);
+  53   1      }
+  54          
+C51 COMPILER V9.60.7.0   DRV_RTC                                                           03/03/2026 23:09:04 PAGE 2   
+
+  55          //==============================================================================
+  56          // 内部函数：十进制转BCD码
+  57          //==============================================================================
+  58          static unsigned char Hex2BCD(unsigned char hex)
+  59          {
+  60   1          return ((hex / 10) << 4) | (hex % 10);
+  61   1      }
+  62          
+  63          //==============================================================================
+  64          // 函数名称：RTC_Init
+  65          // 功能描述：初始化RTC驱动
+  66          //==============================================================================
+  67          void RTC_Init(void)
+  68          {
+  69   1          RTC_RST = 0;
+  70   1          RTC_SCLK = 0;
+  71   1          RTC_IO = 0;
+  72   1      }
+  73          
+  74          //==============================================================================
+  75          // 函数名称：RTC_WriteByte
+  76          // 功能描述：向指定地址写入一个字节（外部调用接口）
+  77          //==============================================================================
+  78          void RTC_WriteByte(unsigned char addr, unsigned char dat)
+  79          {
+  80   1          RTC_RST = 0;
+  81   1          _nop_();
+  82   1          RTC_SCLK = 0;
+  83   1          _nop_();
+  84   1          RTC_RST = 1;
+  85   1          _nop_();
+  86   1          
+  87   1          RTC_WriteByte_Internal(addr);   // 写入地址
+  88   1          RTC_WriteByte_Internal(dat);     // 写入数据
+  89   1          
+  90   1          RTC_RST = 0;
+  91   1          _nop_();
+  92   1          RTC_SCLK = 0;
+  93   1          _nop_();
+  94   1          RTC_SCLK = 1;
+  95   1          _nop_();
+  96   1          RTC_IO = 0;
+  97   1          _nop_();
+  98   1          RTC_IO = 1;
+  99   1          _nop_();
+ 100   1      }
+ 101          
+ 102          //==============================================================================
+ 103          // 函数名称：RTC_ReadByte
+ 104          // 功能描述：从指定地址读取一个字节（外部调用接口）
+ 105          //==============================================================================
+ 106          unsigned char RTC_ReadByte(unsigned char addr)
+ 107          {
+ 108   1          unsigned char dat;
+ 109   1          
+ 110   1          RTC_RST = 0;
+ 111   1          _nop_();
+ 112   1          RTC_SCLK = 0;
+ 113   1          _nop_();
+ 114   1          RTC_RST = 1;
+ 115   1          _nop_();
+ 116   1          
+C51 COMPILER V9.60.7.0   DRV_RTC                                                           03/03/2026 23:09:04 PAGE 3   
+
+ 117   1          RTC_WriteByte_Internal(addr | 0x01);  // 写入读地址
+ 118   1          dat = RTC_ReadByte_Internal();         // 读取数据
+ 119   1          
+ 120   1          RTC_RST = 0;
+ 121   1          _nop_();
+ 122   1          RTC_SCLK = 0;
+ 123   1          _nop_();
+ 124   1          RTC_SCLK = 1;
+ 125   1          _nop_();
+ 126   1          RTC_IO = 0;
+ 127   1          _nop_();
+ 128   1          RTC_IO = 1;
+ 129   1          _nop_();
+ 130   1          
+ 131   1          return dat;
+ 132   1      }
+ 133          
+ 134          //==============================================================================
+ 135          // 函数名称：RTC_SetTime
+ 136          // 功能描述：设置RTC时间
+ 137          //==============================================================================
+ 138          void RTC_SetTime(RTC_TimeType *time)
+ 139          {
+ 140   1          unsigned char i;
+ 141   1          unsigned char time_bcd[7];
+ 142   1          
+ 143   1          // 将十进制时间转换为BCD码
+ 144   1          time_bcd[0] = Hex2BCD(time->second);  // 秒
+ 145   1          time_bcd[1] = Hex2BCD(time->minute);  // 分
+ 146   1          time_bcd[2] = Hex2BCD(time->hour);    // 时
+ 147   1          time_bcd[3] = Hex2BCD(time->day);     // 日
+ 148   1          time_bcd[4] = Hex2BCD(time->month);   // 月
+ 149   1          time_bcd[5] = Hex2BCD(time->week);    // 星期
+ 150   1          time_bcd[6] = Hex2BCD(time->year);    // 年
+ 151   1          
+ 152   1          // 关闭写保护
+ 153   1          RTC_WriteByte(RTC_WP, 0x00);
+ 154   1          
+ 155   1          // 写入所有时间数据
+ 156   1          for(i = 0; i < 7; i++)
+ 157   1          {
+ 158   2              RTC_WriteByte(write_address[i], time_bcd[i]);
+ 159   2          }
+ 160   1          
+ 161   1          // 开启写保护
+ 162   1          RTC_WriteByte(RTC_WP, 0x80);
+ 163   1      }
+ 164          
+ 165          //==============================================================================
+ 166          // 函数名称：RTC_GetTime
+ 167          // 功能描述：读取RTC时间
+ 168          //==============================================================================
+ 169          void RTC_GetTime(RTC_TimeType *time)
+ 170          {
+ 171   1          unsigned char i;
+ 172   1          unsigned char time_bcd[7];
+ 173   1          
+ 174   1          // 读取所有时间数据（BCD码格式）
+ 175   1          for(i = 0; i < 7; i++)
+ 176   1          {
+ 177   2              time_bcd[i] = RTC_ReadByte(read_address[i]);
+ 178   2          }
+C51 COMPILER V9.60.7.0   DRV_RTC                                                           03/03/2026 23:09:04 PAGE 4   
+
+ 179   1          
+ 180   1          // 将BCD码转换为十进制，并存入结构体
+ 181   1          time->second = BCD2Hex(time_bcd[0] & 0x7F);  // 屏蔽时钟暂停位
+ 182   1          time->minute = BCD2Hex(time_bcd[1] & 0x7F);
+ 183   1          time->hour = BCD2Hex(time_bcd[2] & 0x3F);    // 屏蔽12/24小时制标志位
+ 184   1          time->day = BCD2Hex(time_bcd[3] & 0x3F);
+ 185   1          time->month = BCD2Hex(time_bcd[4] & 0x1F);
+ 186   1          time->week = BCD2Hex(time_bcd[5] & 0x07);
+ 187   1          time->year = BCD2Hex(time_bcd[6]);
+ 188   1      }
+ 189          
+ 190          //==============================================================================
+ 191          // 函数名称：RTC_WriteProtect
+ 192          // 功能描述：设置写保护状态
+ 193          //==============================================================================
+ 194          void RTC_WriteProtect(unsigned char enable)
+ 195          {
+ 196   1          if(enable)
+ 197   1              RTC_WriteByte(RTC_WP, 0x80);  // 使能写保护
+ 198   1          else
+ 199   1              RTC_WriteByte(RTC_WP, 0x00);  // 禁止写保护
+ 200   1      }
+ 201          
+ 202          //==============================================================================
+ 203          // 函数名称：RTC_Pause
+ 204          // 功能描述：暂停/启动RTC时钟
+ 205          //==============================================================================
+ 206          void RTC_Pause(unsigned char pause)
+ 207          {
+ 208   1          unsigned char sec;
+ 209   1          
+ 210   1          sec = RTC_ReadByte(RTC_SEC);
+ 211   1          
+ 212   1          if(pause)
+ 213   1              RTC_WriteByte(RTC_SEC, sec | 0x80);   // 暂停（设置CH位）
+ 214   1          else
+ 215   1              RTC_WriteByte(RTC_SEC, sec & 0x7F);   // 启动（清除CH位）
+ 216   1      }
+ 217          
+ 218          //==============================================================================
+ 219          // 函数名称：RTC_SetHourMode
+ 220          // 功能描述：设置12/24小时制
+ 221          //==============================================================================
+ 222          void RTC_SetHourMode(unsigned char mode)
+ 223          {
+ 224   1          unsigned char hour;
+ 225   1          
+ 226   1          hour = RTC_ReadByte(RTC_HOUR);
+ 227   1          
+ 228   1          if(mode)
+ 229   1              hour |= 0x80;   // 12小时制
+ 230   1          else
+ 231   1              hour &= 0x3F;   // 24小时制
+ 232   1          
+ 233   1          RTC_WriteByte(RTC_HOUR, hour);
+ 234   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    431    ----
+   CONSTANT SIZE    =     14    ----
+   XDATA SIZE       =   ----    ----
+C51 COMPILER V9.60.7.0   DRV_RTC                                                           03/03/2026 23:09:04 PAGE 5   
+
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      14
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
