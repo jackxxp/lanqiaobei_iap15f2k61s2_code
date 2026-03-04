@@ -5,6 +5,7 @@
 ".\Objects\drv_key.obj",
 ".\Objects\drv_other.obj",
 ".\Objects\drv_rtc.obj",
+".\Objects\drv_temp.obj",
 ".\Objects\sys_main.obj",
 ".\Objects\sys_task.obj",
 ".\Objects\app_main.obj",

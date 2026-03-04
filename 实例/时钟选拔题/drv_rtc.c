@@ -1,63 +1,87 @@
+//drv_rtc.c
 #include "drv_rtc.h"
 #include <intrins.h>
 
+
+#define uint8_t unsigned char
+	
+// 定义全局数组（用于兼容你原来的函数）
+uint8_t time_now[3] = {0, 0, 0};
+const uint8_t time_init[7] = {0x50, 0x59, 0x23, 0x09, 0x04, 0x03, 0x25};
+
 // 写地址数组（秒、分、时、日、月、星期、年）
-const unsigned char code write_address[7] = {0x80, 0x82, 0x84, 0x86, 0x88, 0x8A, 0x8C};
+const uint8_t code write_address[7] = {0x80, 0x82, 0x84, 0x86, 0x88, 0x8A, 0x8C};
 // 读地址数组（秒、分、时、日、月、星期、年）
-const unsigned char code read_address[7] = {0x81, 0x83, 0x85, 0x87, 0x89, 0x8B, 0x8D};
+const uint8_t code read_address[7] = {0x81, 0x83, 0x85, 0x87, 0x89, 0x8B, 0x8D};
 
 //==============================================================================
 // 内部函数：向DS1302写入一个字节（底层时序）
-// 注意：改名为 RTC_WriteByte_Internal 避免冲突
 //==============================================================================
-static void RTC_WriteByte_Internal(unsigned char dat)
+static void Write_Ds1302(uint8_t temp) 
 {
-    unsigned char i;
-    for(i = 0; i < 8; i++)
-    {
-        RTC_SCLK = 0;
-        RTC_IO = dat & 0x01;
-        dat >>= 1;
-        RTC_SCLK = 1;
+    uint8_t i;
+    for (i = 0; i < 8; i++)     	
+    { 
+        SCK = 0;
+        SDA = temp & 0x01;
+        temp >>= 1; 
+        SCK = 1;
     }
 }
 
 //==============================================================================
-// 内部函数：从DS1302读取一个字节（底层时序）
-// 注意：改名为 RTC_ReadByte_Internal 避免冲突
+// 内部函数：向指定地址写入一个字节
 //==============================================================================
-static unsigned char RTC_ReadByte_Internal(void)
+static void Write_Ds1302_Byte(uint8_t address, uint8_t dat)     
 {
-    unsigned char i;
-    unsigned char dat = 0;
-    
-    for(i = 0; i < 8; i++)
-    {
-        RTC_SCLK = 0;
-        dat >>= 1;
-        if(RTC_IO)
-        {
-            dat |= 0x80;
-        }
-        RTC_SCLK = 1;
-    }
-    return dat;
+    RST = 0;	_nop_();
+    SCK = 0;	_nop_();
+    RST = 1; 	_nop_();  
+    Write_Ds1302(address);	
+    Write_Ds1302(dat);		
+    RST = 0; 
 }
 
 //==============================================================================
-// 内部函数：BCD码转十进制
+// 内部函数：从指定地址读取一个字节
 //==============================================================================
-static unsigned char BCD2Hex(unsigned char bcd)
+static uint8_t Read_Ds1302_Byte(uint8_t address)
 {
-    return (bcd >> 4) * 10 + (bcd & 0x0F);
+    uint8_t i, temp = 0x00;
+    RST = 0;	_nop_();
+    SCK = 0;	_nop_();
+    RST = 1;	_nop_();
+    Write_Ds1302(address);
+    for (i = 0; i < 8; i++) 	
+    {		
+        SCK = 0;
+        temp >>= 1;	
+        if(SDA)
+            temp |= 0x80;	
+        SCK = 1;
+    } 
+    RST = 0;	_nop_();
+    SCK = 0;	_nop_();
+    SCK = 1;	_nop_();
+    SDA = 0;	_nop_();
+    SDA = 1;	_nop_();
+    return (temp);			
 }
 
 //==============================================================================
-// 内部函数：十进制转BCD码
+// 内部函数：十六进制转BCD码
 //==============================================================================
-static unsigned char Hex2BCD(unsigned char hex)
+static uint8_t hex_to_bcd(uint8_t hex)
 {
-    return ((hex / 10) << 4) | (hex % 10);
+    return (hex / 10 * 16) + (hex % 10);
+}
+
+//==============================================================================
+// 内部函数：BCD码转十六进制
+//==============================================================================
+static uint8_t bcd_to_hex(uint8_t bcd)
+{
+    return (bcd / 16 * 10) + (bcd % 16);
 }
 
 //==============================================================================
@@ -66,69 +90,10 @@ static unsigned char Hex2BCD(unsigned char hex)
 //==============================================================================
 void RTC_Init(void)
 {
-    RTC_RST = 0;
-    RTC_SCLK = 0;
-    RTC_IO = 0;
-}
-
-//==============================================================================
-// 函数名称：RTC_WriteByte
-// 功能描述：向指定地址写入一个字节（外部调用接口）
-//==============================================================================
-void RTC_WriteByte(unsigned char addr, unsigned char dat)
-{
-    RTC_RST = 0;
-    _nop_();
-    RTC_SCLK = 0;
-    _nop_();
-    RTC_RST = 1;
-    _nop_();
-    
-    RTC_WriteByte_Internal(addr);   // 写入地址
-    RTC_WriteByte_Internal(dat);     // 写入数据
-    
-    RTC_RST = 0;
-    _nop_();
-    RTC_SCLK = 0;
-    _nop_();
-    RTC_SCLK = 1;
-    _nop_();
-    RTC_IO = 0;
-    _nop_();
-    RTC_IO = 1;
-    _nop_();
-}
-
-//==============================================================================
-// 函数名称：RTC_ReadByte
-// 功能描述：从指定地址读取一个字节（外部调用接口）
-//==============================================================================
-unsigned char RTC_ReadByte(unsigned char addr)
-{
-    unsigned char dat;
-    
-    RTC_RST = 0;
-    _nop_();
-    RTC_SCLK = 0;
-    _nop_();
-    RTC_RST = 1;
-    _nop_();
-    
-    RTC_WriteByte_Internal(addr | 0x01);  // 写入读地址
-    dat = RTC_ReadByte_Internal();         // 读取数据
-    
-    RTC_RST = 0;
-    _nop_();
-    RTC_SCLK = 0;
-    _nop_();
-    RTC_SCLK = 1;
-    _nop_();
-    RTC_IO = 0;
-    _nop_();
-    RTC_IO = 1;
-    _nop_();
-    
-    return dat;
+    // 初始化引脚状态
+    RST = 0;
+    SCK = 0;
+    SDA = 0;
 }
 
 //==============================================================================
@@ -137,29 +102,29 @@ unsigned char RTC_ReadByte(unsigned char addr)
 //==============================================================================
 void RTC_SetTime(RTC_TimeType *time)
 {
-    unsigned char i;
-    unsigned char time_bcd[7];
+    uint8_t i;
+    uint8_t time_bcd[7];
     
     // 将十进制时间转换为BCD码
-    time_bcd[0] = Hex2BCD(time->second);  // 秒
-    time_bcd[1] = Hex2BCD(time->minute);  // 分
-    time_bcd[2] = Hex2BCD(time->hour);    // 时
-    time_bcd[3] = Hex2BCD(time->day);     // 日
-    time_bcd[4] = Hex2BCD(time->month);   // 月
-    time_bcd[5] = Hex2BCD(time->week);    // 星期
-    time_bcd[6] = Hex2BCD(time->year);    // 年
+    time_bcd[0] = hex_to_bcd(time->second);  // 秒
+    time_bcd[1] = hex_to_bcd(time->minute);  // 分
+    time_bcd[2] = hex_to_bcd(time->hour);    // 时
+    time_bcd[3] = hex_to_bcd(time->day);     // 日
+    time_bcd[4] = hex_to_bcd(time->month);   // 月
+    time_bcd[5] = hex_to_bcd(time->week);    // 星期
+    time_bcd[6] = hex_to_bcd(time->year);    // 年
     
     // 关闭写保护
-    RTC_WriteByte(RTC_WP, 0x00);
+    Write_Ds1302_Byte(RTC_WP, 0x00);
     
     // 写入所有时间数据
     for(i = 0; i < 7; i++)
     {
-        RTC_WriteByte(write_address[i], time_bcd[i]);
+        Write_Ds1302_Byte(write_address[i], time_bcd[i]);
     }
     
     // 开启写保护
-    RTC_WriteByte(RTC_WP, 0x80);
+    Write_Ds1302_Byte(RTC_WP, 0x80);
 }
 
 //==============================================================================
@@ -168,23 +133,23 @@ void RTC_SetTime(RTC_TimeType *time)
 //==============================================================================
 void RTC_GetTime(RTC_TimeType *time)
 {
-    unsigned char i;
-    unsigned char time_bcd[7];
+    uint8_t i;
+    uint8_t time_bcd[7];
     
     // 读取所有时间数据（BCD码格式）
     for(i = 0; i < 7; i++)
     {
-        time_bcd[i] = RTC_ReadByte(read_address[i]);
+        time_bcd[i] = Read_Ds1302_Byte(read_address[i]);
     }
     
     // 将BCD码转换为十进制，并存入结构体
-    time->second = BCD2Hex(time_bcd[0] & 0x7F);  // 屏蔽时钟暂停位
-    time->minute = BCD2Hex(time_bcd[1] & 0x7F);
-    time->hour = BCD2Hex(time_bcd[2] & 0x3F);    // 屏蔽12/24小时制标志位
-    time->day = BCD2Hex(time_bcd[3] & 0x3F);
-    time->month = BCD2Hex(time_bcd[4] & 0x1F);
-    time->week = BCD2Hex(time_bcd[5] & 0x07);
-    time->year = BCD2Hex(time_bcd[6]);
+    time->second = bcd_to_hex(time_bcd[0] & 0x7F);  // 屏蔽时钟暂停位
+    time->minute = bcd_to_hex(time_bcd[1] & 0x7F);
+    time->hour = bcd_to_hex(time_bcd[2] & 0x3F);    // 屏蔽12/24小时制标志位
+    time->day = bcd_to_hex(time_bcd[3] & 0x3F);
+    time->month = bcd_to_hex(time_bcd[4] & 0x1F);
+    time->week = bcd_to_hex(time_bcd[5] & 0x07);
+    time->year = bcd_to_hex(time_bcd[6]);
 }
 
 //==============================================================================
@@ -194,9 +159,9 @@ void RTC_GetTime(RTC_TimeType *time)
 void RTC_WriteProtect(unsigned char enable)
 {
     if(enable)
-        RTC_WriteByte(RTC_WP, 0x80);  // 使能写保护
+        Write_Ds1302_Byte(RTC_WP, 0x80);  // 使能写保护
     else
-        RTC_WriteByte(RTC_WP, 0x00);  // 禁止写保护
+        Write_Ds1302_Byte(RTC_WP, 0x00);  // 禁止写保护
 }
 
 //==============================================================================
@@ -205,14 +170,14 @@ void RTC_WriteProtect(unsigned char enable)
 //==============================================================================
 void RTC_Pause(unsigned char pause)
 {
-    unsigned char sec;
+    uint8_t sec;
     
-    sec = RTC_ReadByte(RTC_SEC);
+    sec = Read_Ds1302_Byte(RTC_SEC);
     
     if(pause)
-        RTC_WriteByte(RTC_SEC, sec | 0x80);   // 暂停（设置CH位）
+        Write_Ds1302_Byte(RTC_SEC, sec | 0x80);   // 暂停（设置CH位）
     else
-        RTC_WriteByte(RTC_SEC, sec & 0x7F);   // 启动（清除CH位）
+        Write_Ds1302_Byte(RTC_SEC, sec & 0x7F);   // 启动（清除CH位）
 }
 
 //==============================================================================
@@ -221,14 +186,47 @@ void RTC_Pause(unsigned char pause)
 //==============================================================================
 void RTC_SetHourMode(unsigned char mode)
 {
-    unsigned char hour;
+    uint8_t hour;
     
-    hour = RTC_ReadByte(RTC_HOUR);
+    hour = Read_Ds1302_Byte(RTC_HOUR);
     
     if(mode)
         hour |= 0x80;   // 12小时制
     else
         hour &= 0x3F;   // 24小时制
     
-    RTC_WriteByte(RTC_HOUR, hour);
+    Write_Ds1302_Byte(RTC_HOUR, hour);
+}
+
+//==============================================================================
+// 以下函数保留你原有的功能，但为了完整性也提供
+//==============================================================================
+
+// 批量写入时间（使用预定义的time_init数组）
+void datetime_write()
+{
+    uint8_t i;
+    Write_Ds1302_Byte(0x8E, 0x00);
+    
+    for (i = 0; i < 7; i++)
+    {
+        Write_Ds1302_Byte(write_address[i], time_init[i]);
+    }
+    
+    Write_Ds1302_Byte(0x8E, 0x80);
+}
+
+// 批量读取时间（只读时分秒到time_now数组）
+void datetime_read()
+{
+    uint8_t i;
+    for (i = 0; i < 3; i++)
+    {
+        time_now[i] = Read_Ds1302_Byte(read_address[i]);
+    }
+    
+    for (i = 0; i < 3; i++)
+    {
+        time_now[i] = bcd_to_hex(time_now[i]);
+    }
 }

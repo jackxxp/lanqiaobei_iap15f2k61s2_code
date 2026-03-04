@@ -19,7 +19,7 @@ CPU DLL:         S8051.DLL V3.125.1.0
 Dialog DLL:      DP51.DLL V2.69.0.0 
 <h2>Project:</h2>
 C:\Users\Jackx\Desktop\lanqiaobei_iap15f2k61s2_code\实例\时钟选拔题\时钟选拔题.uvproj
-Project File Date:  03/03/2026
+Project File Date:  03/04/2026
 
 <h2>Output:</h2>
 Rebuild target 'Target 1'
@@ -30,6 +30,7 @@ compiling drv_seg.c...
 compiling drv_key.c...
 compiling drv_other.c...
 compiling drv_rtc.c...
+compiling drv_temp.c...
 compiling sys_main.c...
 compiling sys_task.c...
 compiling app_main.c...
@@ -42,17 +43,19 @@ linking...
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_BUZZ_SET?DRV_OTHER
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_RTC_SETTIME?DRV_RTC
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_RTC_WRITEPROTECT?DRV_RTC
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_RTC_PAUSE?DRV_RTC
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_RTC_SETHOURMODE?DRV_RTC
-Program Size: data=88.4 xdata=0 code=2758
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DATETIME_WRITE?DRV_RTC
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DATETIME_READ?DRV_RTC
+Program Size: data=90.4 xdata=0 code=3187
 creating hex file from ".\Objects\时钟选拔题"...
-".\Objects\时钟选拔题" - 0 Error(s), 7 Warning(s).
-Build Time Elapsed:  00:00:02
+".\Objects\时钟选拔题" - 0 Error(s), 8 Warning(s).
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

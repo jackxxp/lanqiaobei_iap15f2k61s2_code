@@ -2,6 +2,7 @@
 #include "app_task_1.h"
 
 #include "drv_rtc.h"
+#include "drv_temp.h"
 
 uint8 task1_tick = 0;
 uint8 page = 0;
@@ -13,24 +14,20 @@ uint16 set_t = 230;
 bit set_mode = 0;
 bit relay = 0;
 
-RTC_TimeType rtc_time;
 
+RTC_TimeType rtc_time;
 
 void app_task_1_run()
 {
 	static uint8 rtc_read_tick = 0;
+	static uint8 temp_timer = 0;
 	
 	
 	if(task1_tick == 0)
 	{
-		RTC_Init();
-    rtc_time.year = 24;      // 2024年
-    rtc_time.month = 3;      // 3月
-    rtc_time.day = 15;       // 15日
-    rtc_time.week = 5;       // 星期五（1=星期一，7=星期日）
-    rtc_time.hour = 14;      // 14时
-    rtc_time.minute = 30;    // 30分
-    rtc_time.second = 0;     // 0秒
+    RTC_Init();
+		Temp_Init();
+		
 		task1_tick = 1;
 	}
 	if(task1_tick == 1)
@@ -38,6 +35,31 @@ void app_task_1_run()
 		uint8 key_p = drv_key_get();
 		if(key_p == 13){set_mode = ~ set_mode;key_p = 200;}
 		drv_led_set(1,~ set_mode);
+		
+        // 每10次任务读一次温度（100ms * 5 = 0.5秒）
+        temp_timer++;
+        if(temp_timer >= 4)
+        {
+            temp_timer = 0;
+            ds_t = read_temp_int();  // 阻塞读取温度
+        }
+		
+		
+		if(key_p == 4)
+		{
+    rtc_time.year = 24;
+    rtc_time.month = 3;
+    rtc_time.day = 15;
+    rtc_time.week = 5;
+    rtc_time.hour = 14;
+    rtc_time.minute = 59;
+    rtc_time.second = 55;    
+    RTC_SetTime(&rtc_time);	
+		key_p = 200;
+		
+		}
+		
+		
 		
 		if(relay)
 		{

@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   APP_TASK_1                                                        03/03/2026 23:09:04 PAGE 1   
+C51 COMPILER V9.60.7.0   APP_TASK_1                                                        03/04/2026 15:32:46 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE APP_TASK_1
@@ -12,129 +12,151 @@ line level    source
    2          #include "app_task_1.h"
    3          
    4          #include "drv_rtc.h"
-   5          
-   6          uint8 task1_tick = 0;
-   7          uint8 page = 0;
-   8          uint8 rtc_h = 23;
-   9          uint8 rtc_m = 59;
-  10          uint8 rtc_s = 58;
-  11          uint16 ds_t = 213;
-  12          uint16 set_t = 230;
-  13          bit set_mode = 0;
-  14          bit relay = 0;
-  15          
-  16          RTC_TimeType rtc_time;
+   5          #include "drv_temp.h"
+   6          
+   7          uint8 task1_tick = 0;
+   8          uint8 page = 0;
+   9          uint8 rtc_h = 23;
+  10          uint8 rtc_m = 59;
+  11          uint8 rtc_s = 58;
+  12          uint16 ds_t = 213;
+  13          uint16 set_t = 230;
+  14          bit set_mode = 0;
+  15          bit relay = 0;
+  16          
   17          
-  18          
-  19          void app_task_1_run()
-  20          {
-  21   1        static uint8 rtc_read_tick = 0;
-  22   1        
-  23   1        
-  24   1        if(task1_tick == 0)
-  25   1        {
-  26   2          RTC_Init();
-  27   2          rtc_time.year = 24;      // 2024年
-  28   2          rtc_time.month = 3;      // 3月
-  29   2          rtc_time.day = 15;       // 15日
-  30   2          rtc_time.week = 5;       // 星期五（1=星期一，7=星期日）
-  31   2          rtc_time.hour = 14;      // 14时
-  32   2          rtc_time.minute = 30;    // 30分
-  33   2          rtc_time.second = 0;     // 0秒
-  34   2          task1_tick = 1;
-  35   2        }
-  36   1        if(task1_tick == 1)
-  37   1        { 
-  38   2          uint8 key_p = drv_key_get();
-  39   2          if(key_p == 13){set_mode = ~ set_mode;key_p = 200;}
-  40   2          drv_led_set(1,~ set_mode);
-  41   2          
-  42   2          if(relay)
-  43   2          {
-  44   3            static bit l3 = 0;
-  45   3            relay_set(1);
-  46   3            drv_led_set(2,l3);l3 = ~ l3;
-  47   3          }else
-  48   2          {relay_set(0);drv_led_set(2,0);}
-  49   2          
-  50   2          if(rtc_m == 0 && rtc_s == 0){drv_led_set(0,1);}
-  51   2          else{if (rtc_s >= 5){drv_led_set(0,0);}}
-  52   2          
-  53   2          
-  54   2          if(rtc_read_tick++ == 4)
-C51 COMPILER V9.60.7.0   APP_TASK_1                                                        03/03/2026 23:09:04 PAGE 2   
+  18          RTC_TimeType rtc_time;
+  19          
+  20          void app_task_1_run()
+  21          {
+  22   1        static uint8 rtc_read_tick = 0;
+  23   1        static uint8 temp_timer = 0;
+  24   1        
+  25   1        
+  26   1        if(task1_tick == 0)
+  27   1        {
+  28   2          RTC_Init();
+  29   2          Temp_Init();
+  30   2          
+  31   2          task1_tick = 1;
+  32   2        }
+  33   1        if(task1_tick == 1)
+  34   1        { 
+  35   2          uint8 key_p = drv_key_get();
+  36   2          if(key_p == 13){set_mode = ~ set_mode;key_p = 200;}
+  37   2          drv_led_set(1,~ set_mode);
+  38   2          
+  39   2              // 每10次任务读一次温度（100ms * 5 = 0.5秒）
+  40   2              temp_timer++;
+  41   2              if(temp_timer >= 4)
+  42   2              {
+  43   3                  temp_timer = 0;
+  44   3                  ds_t = read_temp_int();  // 阻塞读取温度
+  45   3              }
+  46   2          
+  47   2          
+  48   2          if(key_p == 4)
+  49   2          {
+  50   3          rtc_time.year = 24;
+  51   3          rtc_time.month = 3;
+  52   3          rtc_time.day = 15;
+  53   3          rtc_time.week = 5;
+  54   3          rtc_time.hour = 14;
+C51 COMPILER V9.60.7.0   APP_TASK_1                                                        03/04/2026 15:32:46 PAGE 2   
 
-  55   2          {
-  56   3            RTC_GetTime(&rtc_time);
-  57   3            rtc_h = rtc_time.hour;
-  58   3            rtc_m = rtc_time.minute;
-  59   3            rtc_s = rtc_time.second;
-  60   3          }if(rtc_read_tick >= 5){rtc_read_tick = 0;}
+  55   3          rtc_time.minute = 59;
+  56   3          rtc_time.second = 55;    
+  57   3          RTC_SetTime(&rtc_time); 
+  58   3          key_p = 200;
+  59   3          
+  60   3          }
   61   2          
   62   2          
-  63   2          if(set_mode == 0)
-  64   2          {
-  65   3            if(ds_t >set_t){relay = 1;}
-  66   3            else{relay = 0;}
-  67   3            if(set_mode == 1){relay = 0;}
-  68   3          }
-  69   2          if(set_mode == 1)
-  70   2          {
-  71   3            if(rtc_m == 0 && rtc_s == 0){relay = 1;}
-  72   3            else{if (rtc_s >= 5){relay = 0;}}
-  73   3            if(set_mode == 0){relay = 0;}
-  74   3          } 
+  63   2          
+  64   2          if(relay)
+  65   2          {
+  66   3            static bit l3 = 0;
+  67   3            relay_set(1);
+  68   3            drv_led_set(2,l3);l3 = ~ l3;
+  69   3          }else
+  70   2          {relay_set(0);drv_led_set(2,0);}
+  71   2          
+  72   2          if(rtc_m == 0 && rtc_s == 0){drv_led_set(0,1);}
+  73   2          else{if (rtc_s >= 5){drv_led_set(0,0);}}
+  74   2          
   75   2          
-  76   2          
-  77   2          if (page == 0)
-  78   2          {
-  79   3            drv_seg_set_all(25,1,16,16,16,16,16,16);
-  80   3            drv_seg_set(5,ds_t/100);drv_seg_set(6,(ds_t%100/10)+32);drv_seg_set(7,ds_t%100%10);
-  81   3            if(key_p == 12){page = 1;key_p=200;}
-  82   3            
-  83   3          
-  84   3          }
-  85   2          if (page == 1)
+  76   2          if(rtc_read_tick++ == 4)
+  77   2          {
+  78   3            RTC_GetTime(&rtc_time);
+  79   3            rtc_h = rtc_time.hour;
+  80   3            rtc_m = rtc_time.minute;
+  81   3            rtc_s = rtc_time.second;
+  82   3          }if(rtc_read_tick >= 5){rtc_read_tick = 0;}
+  83   2          
+  84   2          
+  85   2          if(set_mode == 0)
   86   2          {
-  87   3            drv_seg_set_all(25,2,16,16,16,17,16,16);
-  88   3            drv_seg_set(3,rtc_h/10);drv_seg_set(4,rtc_h%10);drv_seg_set(6,rtc_m/10);drv_seg_set(7,rtc_m%10);
-  89   3      
-  90   3            if(drv_key_get_now() == 17){page = 11;}   
-  91   3            if(key_p == 12){page = 2;key_p=200;}
-  92   3      
-  93   3          }
-  94   2          if (page == 2)
-  95   2          {
-  96   3            drv_seg_set_all(25,3,16,16,16,16,16,16);
-  97   3            drv_seg_set(6,set_t/10/10);drv_seg_set(7,set_t/10%10);
-  98   3            
-  99   3            if(key_p == 12){page = 0;key_p=200;}
- 100   3            if(key_p == 17){if(set_t > 100){set_t -= 10;key_p=200;}}
- 101   3            if(key_p == 16){if(set_t < 990){set_t += 10;key_p=200;}}
- 102   3      
- 103   3      
- 104   3          }
- 105   2          if (page == 11)
- 106   2          {
- 107   3            drv_seg_set_all(25,2,16,16,16,17,16,16);
- 108   3            drv_seg_set(3,rtc_m/10);drv_seg_set(4,rtc_m%10);drv_seg_set(6,rtc_s/10);drv_seg_set(7,rtc_s%10);
- 109   3            
- 110   3            if(drv_key_get_now() == 200){page = 1;}
- 111   3          
- 112   3          }
- 113   2        
- 114   2        }
- 115   1      }
+  87   3            if(ds_t >set_t){relay = 1;}
+  88   3            else{relay = 0;}
+  89   3            if(set_mode == 1){relay = 0;}
+  90   3          }
+  91   2          if(set_mode == 1)
+  92   2          {
+  93   3            if(rtc_m == 0 && rtc_s == 0){relay = 1;}
+  94   3            else{if (rtc_s >= 5){relay = 0;}}
+  95   3            if(set_mode == 0){relay = 0;}
+  96   3          } 
+  97   2          
+  98   2          
+  99   2          if (page == 0)
+ 100   2          {
+ 101   3            drv_seg_set_all(25,1,16,16,16,16,16,16);
+ 102   3            drv_seg_set(5,ds_t/100);drv_seg_set(6,(ds_t%100/10)+32);drv_seg_set(7,ds_t%100%10);
+ 103   3            if(key_p == 12){page = 1;key_p=200;}
+ 104   3            
+ 105   3          
+ 106   3          }
+ 107   2          if (page == 1)
+ 108   2          {
+ 109   3            drv_seg_set_all(25,2,16,16,16,17,16,16);
+ 110   3            drv_seg_set(3,rtc_h/10);drv_seg_set(4,rtc_h%10);drv_seg_set(6,rtc_m/10);drv_seg_set(7,rtc_m%10);
+ 111   3      
+ 112   3            if(drv_key_get_now() == 17){page = 11;}   
+ 113   3            if(key_p == 12){page = 2;key_p=200;}
+ 114   3      
+ 115   3          }
+ 116   2          if (page == 2)
+C51 COMPILER V9.60.7.0   APP_TASK_1                                                        03/04/2026 15:32:46 PAGE 3   
 
-C51 COMPILER V9.60.7.0   APP_TASK_1                                                        03/03/2026 23:09:04 PAGE 3   
+ 117   2          {
+ 118   3            drv_seg_set_all(25,3,16,16,16,16,16,16);
+ 119   3            drv_seg_set(6,set_t/10/10);drv_seg_set(7,set_t/10%10);
+ 120   3            
+ 121   3            if(key_p == 12){page = 0;key_p=200;}
+ 122   3            if(key_p == 17){if(set_t > 100){set_t -= 10;key_p=200;}}
+ 123   3            if(key_p == 16){if(set_t < 990){set_t += 10;key_p=200;}}
+ 124   3      
+ 125   3      
+ 126   3          }
+ 127   2          if (page == 11)
+ 128   2          {
+ 129   3            drv_seg_set_all(25,2,16,16,16,17,16,16);
+ 130   3            drv_seg_set(3,rtc_m/10);drv_seg_set(4,rtc_m%10);drv_seg_set(6,rtc_s/10);drv_seg_set(7,rtc_s%10);
+ 131   3            
+ 132   3            if(drv_key_get_now() == 200){page = 1;}
+ 133   3          
+ 134   3          }
+ 135   2        
+ 136   2        }
+ 137   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    727    ----
+   CODE SIZE        =    766    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =     17       1
+   DATA SIZE        =     18       1
    IDATA SIZE       =   ----    ----
    BIT SIZE         =      3    ----
 END OF MODULE INFORMATION.

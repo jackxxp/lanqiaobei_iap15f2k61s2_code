@@ -7,7 +7,7 @@
 volatile uint8 sys_tick_ms = 0;
 
 /* 上次运行时间 */
-static uint16 last_seg  = 0;
+//static uint16 last_seg  = 0;
 static uint16 last_led  = 0;
 static uint16 last_key  = 0;
 static uint16 last_misc = 0;
@@ -18,6 +18,7 @@ static uint16 last_misc = 0;
 void sys_task_isr(void)
 {
     sys_tick_ms++;
+		drv_seg_run();
 //    if (sys_tick_ms >= 200)
 //    {
 //        sys_tick_ms = 0;
@@ -32,11 +33,11 @@ void sys_task_run(void)
     uint16 now = sys_tick_ms;
 
     /* 数码管：2ms */
-    if ((uint16)(now - last_seg) >= 2)
-    {
-        last_seg = now;
-        drv_seg_run();
-    }
+//    if ((uint16)(now - last_seg) >= 2)
+//    {
+//        last_seg = now;
+//        drv_seg_run();
+//    }
 
     /* LED：5ms */
     if ((uint16)(now - last_led) >= 5)
