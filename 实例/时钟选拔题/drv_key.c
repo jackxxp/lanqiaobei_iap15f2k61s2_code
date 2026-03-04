@@ -137,3 +137,18 @@ uint8 drv_key_get_now()
 {
     return key_now_press;
 }
+
+bit drv_key_is(keyv)
+{
+	uint8 temp = key_ram;
+	bit is = 0;
+	
+	if(keyv == temp)
+	{
+		is = 1;
+		key_ram = 201;		
+	}
+	return is;
+}
+
+

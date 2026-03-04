@@ -32,8 +32,7 @@ void app_task_1_run()
 	}
 	if(task1_tick == 1)
 	{	
-		uint8 key_p = drv_key_get();
-		if(key_p == 13){set_mode = ~ set_mode;key_p = 200;}
+		if(drv_key_is(13)){set_mode = ~ set_mode;}
 		drv_led_set(1,~ set_mode);
 		
         // 每10次任务读一次温度（100ms * 5 = 0.5秒）
@@ -45,7 +44,7 @@ void app_task_1_run()
         }
 		
 		
-		if(key_p == 4)
+		if(drv_key_is(4))
 		{
     rtc_time.year = 24;
     rtc_time.month = 3;
@@ -55,7 +54,6 @@ void app_task_1_run()
     rtc_time.minute = 59;
     rtc_time.second = 55;    
     RTC_SetTime(&rtc_time);	
-		key_p = 200;
 		
 		}
 		
@@ -100,7 +98,7 @@ void app_task_1_run()
 		{
 			drv_seg_set_all(25,1,16,16,16,16,16,16);
 			drv_seg_set(5,ds_t/100);drv_seg_set(6,(ds_t%100/10)+32);drv_seg_set(7,ds_t%100%10);
-			if(key_p == 12){page = 1;key_p=200;}
+			if(drv_key_is(12)){page = 1;}
 			
 		
 		}
@@ -110,7 +108,7 @@ void app_task_1_run()
 			drv_seg_set(3,rtc_h/10);drv_seg_set(4,rtc_h%10);drv_seg_set(6,rtc_m/10);drv_seg_set(7,rtc_m%10);
 
 			if(drv_key_get_now() == 17){page = 11;}		
-			if(key_p == 12){page = 2;key_p=200;}
+			if(drv_key_is(12)){page = 2;}
 
 		}
 		if (page == 2)
@@ -118,9 +116,9 @@ void app_task_1_run()
 			drv_seg_set_all(25,3,16,16,16,16,16,16);
 			drv_seg_set(6,set_t/10/10);drv_seg_set(7,set_t/10%10);
 			
-			if(key_p == 12){page = 0;key_p=200;}
-			if(key_p == 17){if(set_t > 100){set_t -= 10;key_p=200;}}
-			if(key_p == 16){if(set_t < 990){set_t += 10;key_p=200;}}
+			if(drv_key_is(12)){page = 0;}
+			if(drv_key_is(17)){if(set_t > 100){set_t -= 10;}}
+			if(drv_key_is(16)){if(set_t < 990){set_t += 10;}}
 
 
 		}

@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   APP_TASK_1                                                        03/04/2026 15:32:46 PAGE 1   
+C51 COMPILER V9.60.7.0   APP_TASK_1                                                        03/04/2026 20:17:44 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE APP_TASK_1
@@ -42,113 +42,111 @@ line level    source
   32   2        }
   33   1        if(task1_tick == 1)
   34   1        { 
-  35   2          uint8 key_p = drv_key_get();
-  36   2          if(key_p == 13){set_mode = ~ set_mode;key_p = 200;}
-  37   2          drv_led_set(1,~ set_mode);
-  38   2          
-  39   2              // 每10次任务读一次温度（100ms * 5 = 0.5秒）
-  40   2              temp_timer++;
-  41   2              if(temp_timer >= 4)
-  42   2              {
-  43   3                  temp_timer = 0;
-  44   3                  ds_t = read_temp_int();  // 阻塞读取温度
-  45   3              }
+  35   2          if(drv_key_is(13)){set_mode = ~ set_mode;}
+  36   2          drv_led_set(1,~ set_mode);
+  37   2          
+  38   2              // 每10次任务读一次温度（100ms * 5 = 0.5秒）
+  39   2              temp_timer++;
+  40   2              if(temp_timer >= 4)
+  41   2              {
+  42   3                  temp_timer = 0;
+  43   3                  ds_t = read_temp_int();  // 阻塞读取温度
+  44   3              }
+  45   2          
   46   2          
-  47   2          
-  48   2          if(key_p == 4)
-  49   2          {
-  50   3          rtc_time.year = 24;
-  51   3          rtc_time.month = 3;
-  52   3          rtc_time.day = 15;
-  53   3          rtc_time.week = 5;
-  54   3          rtc_time.hour = 14;
-C51 COMPILER V9.60.7.0   APP_TASK_1                                                        03/04/2026 15:32:46 PAGE 2   
+  47   2          if(drv_key_is(4))
+  48   2          {
+  49   3          rtc_time.year = 24;
+  50   3          rtc_time.month = 3;
+  51   3          rtc_time.day = 15;
+  52   3          rtc_time.week = 5;
+  53   3          rtc_time.hour = 14;
+  54   3          rtc_time.minute = 59;
+C51 COMPILER V9.60.7.0   APP_TASK_1                                                        03/04/2026 20:17:44 PAGE 2   
 
-  55   3          rtc_time.minute = 59;
-  56   3          rtc_time.second = 55;    
-  57   3          RTC_SetTime(&rtc_time); 
-  58   3          key_p = 200;
-  59   3          
-  60   3          }
+  55   3          rtc_time.second = 55;    
+  56   3          RTC_SetTime(&rtc_time); 
+  57   3          
+  58   3          }
+  59   2          
+  60   2          
   61   2          
-  62   2          
-  63   2          
-  64   2          if(relay)
-  65   2          {
-  66   3            static bit l3 = 0;
-  67   3            relay_set(1);
-  68   3            drv_led_set(2,l3);l3 = ~ l3;
-  69   3          }else
-  70   2          {relay_set(0);drv_led_set(2,0);}
-  71   2          
-  72   2          if(rtc_m == 0 && rtc_s == 0){drv_led_set(0,1);}
-  73   2          else{if (rtc_s >= 5){drv_led_set(0,0);}}
-  74   2          
-  75   2          
-  76   2          if(rtc_read_tick++ == 4)
-  77   2          {
-  78   3            RTC_GetTime(&rtc_time);
-  79   3            rtc_h = rtc_time.hour;
-  80   3            rtc_m = rtc_time.minute;
-  81   3            rtc_s = rtc_time.second;
-  82   3          }if(rtc_read_tick >= 5){rtc_read_tick = 0;}
-  83   2          
-  84   2          
-  85   2          if(set_mode == 0)
-  86   2          {
-  87   3            if(ds_t >set_t){relay = 1;}
-  88   3            else{relay = 0;}
-  89   3            if(set_mode == 1){relay = 0;}
-  90   3          }
-  91   2          if(set_mode == 1)
-  92   2          {
-  93   3            if(rtc_m == 0 && rtc_s == 0){relay = 1;}
-  94   3            else{if (rtc_s >= 5){relay = 0;}}
-  95   3            if(set_mode == 0){relay = 0;}
-  96   3          } 
-  97   2          
-  98   2          
-  99   2          if (page == 0)
- 100   2          {
- 101   3            drv_seg_set_all(25,1,16,16,16,16,16,16);
- 102   3            drv_seg_set(5,ds_t/100);drv_seg_set(6,(ds_t%100/10)+32);drv_seg_set(7,ds_t%100%10);
- 103   3            if(key_p == 12){page = 1;key_p=200;}
- 104   3            
- 105   3          
- 106   3          }
- 107   2          if (page == 1)
- 108   2          {
- 109   3            drv_seg_set_all(25,2,16,16,16,17,16,16);
- 110   3            drv_seg_set(3,rtc_h/10);drv_seg_set(4,rtc_h%10);drv_seg_set(6,rtc_m/10);drv_seg_set(7,rtc_m%10);
- 111   3      
- 112   3            if(drv_key_get_now() == 17){page = 11;}   
- 113   3            if(key_p == 12){page = 2;key_p=200;}
- 114   3      
- 115   3          }
- 116   2          if (page == 2)
-C51 COMPILER V9.60.7.0   APP_TASK_1                                                        03/04/2026 15:32:46 PAGE 3   
+  62   2          if(relay)
+  63   2          {
+  64   3            static bit l3 = 0;
+  65   3            relay_set(1);
+  66   3            drv_led_set(2,l3);l3 = ~ l3;
+  67   3          }else
+  68   2          {relay_set(0);drv_led_set(2,0);}
+  69   2          
+  70   2          if(rtc_m == 0 && rtc_s == 0){drv_led_set(0,1);}
+  71   2          else{if (rtc_s >= 5){drv_led_set(0,0);}}
+  72   2          
+  73   2          
+  74   2          if(rtc_read_tick++ == 4)
+  75   2          {
+  76   3            RTC_GetTime(&rtc_time);
+  77   3            rtc_h = rtc_time.hour;
+  78   3            rtc_m = rtc_time.minute;
+  79   3            rtc_s = rtc_time.second;
+  80   3          }if(rtc_read_tick >= 5){rtc_read_tick = 0;}
+  81   2          
+  82   2          
+  83   2          if(set_mode == 0)
+  84   2          {
+  85   3            if(ds_t >set_t){relay = 1;}
+  86   3            else{relay = 0;}
+  87   3            if(set_mode == 1){relay = 0;}
+  88   3          }
+  89   2          if(set_mode == 1)
+  90   2          {
+  91   3            if(rtc_m == 0 && rtc_s == 0){relay = 1;}
+  92   3            else{if (rtc_s >= 5){relay = 0;}}
+  93   3            if(set_mode == 0){relay = 0;}
+  94   3          } 
+  95   2          
+  96   2          
+  97   2          if (page == 0)
+  98   2          {
+  99   3            drv_seg_set_all(25,1,16,16,16,16,16,16);
+ 100   3            drv_seg_set(5,ds_t/100);drv_seg_set(6,(ds_t%100/10)+32);drv_seg_set(7,ds_t%100%10);
+ 101   3            if(drv_key_is(12)){page = 1;}
+ 102   3            
+ 103   3          
+ 104   3          }
+ 105   2          if (page == 1)
+ 106   2          {
+ 107   3            drv_seg_set_all(25,2,16,16,16,17,16,16);
+ 108   3            drv_seg_set(3,rtc_h/10);drv_seg_set(4,rtc_h%10);drv_seg_set(6,rtc_m/10);drv_seg_set(7,rtc_m%10);
+ 109   3      
+ 110   3            if(drv_key_get_now() == 17){page = 11;}   
+ 111   3            if(drv_key_is(12)){page = 2;}
+ 112   3      
+ 113   3          }
+ 114   2          if (page == 2)
+ 115   2          {
+ 116   3            drv_seg_set_all(25,3,16,16,16,16,16,16);
+C51 COMPILER V9.60.7.0   APP_TASK_1                                                        03/04/2026 20:17:44 PAGE 3   
 
- 117   2          {
- 118   3            drv_seg_set_all(25,3,16,16,16,16,16,16);
- 119   3            drv_seg_set(6,set_t/10/10);drv_seg_set(7,set_t/10%10);
- 120   3            
- 121   3            if(key_p == 12){page = 0;key_p=200;}
- 122   3            if(key_p == 17){if(set_t > 100){set_t -= 10;key_p=200;}}
- 123   3            if(key_p == 16){if(set_t < 990){set_t += 10;key_p=200;}}
- 124   3      
- 125   3      
- 126   3          }
- 127   2          if (page == 11)
- 128   2          {
- 129   3            drv_seg_set_all(25,2,16,16,16,17,16,16);
- 130   3            drv_seg_set(3,rtc_m/10);drv_seg_set(4,rtc_m%10);drv_seg_set(6,rtc_s/10);drv_seg_set(7,rtc_s%10);
- 131   3            
- 132   3            if(drv_key_get_now() == 200){page = 1;}
- 133   3          
- 134   3          }
- 135   2        
- 136   2        }
- 137   1      }
+ 117   3            drv_seg_set(6,set_t/10/10);drv_seg_set(7,set_t/10%10);
+ 118   3            
+ 119   3            if(drv_key_is(12)){page = 0;}
+ 120   3            if(drv_key_is(17)){if(set_t > 100){set_t -= 10;}}
+ 121   3            if(drv_key_is(16)){if(set_t < 990){set_t += 10;}}
+ 122   3      
+ 123   3      
+ 124   3          }
+ 125   2          if (page == 11)
+ 126   2          {
+ 127   3            drv_seg_set_all(25,2,16,16,16,17,16,16);
+ 128   3            drv_seg_set(3,rtc_m/10);drv_seg_set(4,rtc_m%10);drv_seg_set(6,rtc_s/10);drv_seg_set(7,rtc_s%10);
+ 129   3            
+ 130   3            if(drv_key_get_now() == 200){page = 1;}
+ 131   3          
+ 132   3          }
+ 133   2        
+ 134   2        }
+ 135   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
@@ -156,7 +154,7 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =     18       1
+   DATA SIZE        =     18    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =      3    ----
 END OF MODULE INFORMATION.

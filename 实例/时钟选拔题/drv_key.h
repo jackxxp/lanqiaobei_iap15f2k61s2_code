@@ -7,5 +7,6 @@
 void drv_key_run();
 uint8 drv_key_get();
 uint8 drv_key_get_now();
+bit drv_key_is(keyv);
 
 #endif

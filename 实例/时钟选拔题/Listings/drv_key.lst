@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   DRV_KEY                                                           03/04/2026 15:32:45 PAGE 1   
+C51 COMPILER V9.60.7.0   DRV_KEY                                                           03/04/2026 20:17:43 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE DRV_KEY
@@ -62,7 +62,7 @@ line level    source
   52   4                        case 0xF7: saved_key = 4; break;   //独立按键   只用独立按键矩阵按键部分可不写
   53   4                        case 0xFB: saved_key = 5; break;   //独立按键     只用矩阵键盘独立键盘可不
   54   4                          case 0xFD: saved_key = 6; break;   //独立按键   如果都写则都可以使用
-C51 COMPILER V9.60.7.0   DRV_KEY                                                           03/04/2026 15:32:45 PAGE 2   
+C51 COMPILER V9.60.7.0   DRV_KEY                                                           03/04/2026 20:17:43 PAGE 2   
 
   55   4                          case 0xFE: saved_key = 7; break;   //独立按键
   56   4                        
@@ -126,7 +126,7 @@ line level    source
  114   2                  P44 = 0;
  115   2                  P36 = P42;
  116   2                  P37 = P44;
-C51 COMPILER V9.60.7.0   DRV_KEY                                                           03/04/2026 15:32:45 PAGE 3   
+C51 COMPILER V9.60.7.0   DRV_KEY                                                           03/04/2026 20:17:43 PAGE 3   
 
  117   2                  key_now = P3 & 0x0F;
  118   2      
@@ -151,16 +151,31 @@ line level    source
  137          {
  138   1          return key_now_press;
  139   1      }
+ 140          
+ 141          bit drv_key_is(keyv)
+ 142          {
+ 143   1        uint8 temp = key_ram;
+ 144   1        bit is = 0;
+ 145   1        
+ 146   1        if(keyv == temp)
+ 147   1        {
+ 148   2          is = 1;
+ 149   2          key_ram = 201;    
+ 150   2        }
+ 151   1        return is;
+ 152   1      }
+ 153          
+ 154          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    375    ----
+   CODE SIZE        =    394    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =      5       2
    IDATA SIZE       =   ----    ----
-   BIT SIZE         =   ----    ----
+   BIT SIZE         =   ----       1
 END OF MODULE INFORMATION.
 
 

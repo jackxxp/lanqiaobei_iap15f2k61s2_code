@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    03/04/2026  15:32:46  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    03/04/2026  20:17:44  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
@@ -49,17 +49,17 @@ LINK MAP OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
             BIT     0020H.0   0000H.3   UNIT         ?BI?APP_TASK_1
             BIT     0020H.3   0000H.1   UNIT         _BIT_GROUP_
                     0020H.4   0000H.4                *** GAP ***
-            DATA    0021H     0010H     UNIT         _DATA_GROUP_
-            DATA    0031H     000BH     UNIT         ?DT?DRV_LED
-            DATA    003CH     000AH     UNIT         ?DT?DRV_RTC
-            DATA    0046H     0009H     UNIT         ?DT?DRV_SEG
-            DATA    004FH     0007H     UNIT         ?DT?SYS_TASK
-            DATA    0056H     0003H     UNIT         ?DT?DRV_OTHER
-            DATA    0059H     0002H     UNIT         ?DT?APP_MAIN
-            IDATA   005BH     0001H     UNIT         ?STACK
+            DATA    0021H     000FH     UNIT         _DATA_GROUP_
+            DATA    0030H     000BH     UNIT         ?DT?DRV_LED
+            DATA    003BH     000AH     UNIT         ?DT?DRV_RTC
+            DATA    0045H     0009H     UNIT         ?DT?DRV_SEG
+            DATA    004EH     0007H     UNIT         ?DT?SYS_TASK
+            DATA    0055H     0003H     UNIT         ?DT?DRV_OTHER
+            DATA    0058H     0002H     UNIT         ?DT?APP_MAIN
+            IDATA   005AH     0001H     UNIT         ?STACK
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 2
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 2
 
 
             CODE    0000H     0003H     ABSOLUTE     
@@ -97,31 +97,32 @@ LINK MAP OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
             CODE    0B6CH     0016H     UNIT         ?PR?_DRV_SEG_SET_ALL?DRV_SEG
             CODE    0B82H     0015H     UNIT         ?PR?TIMER1_INIT?SYS_MAIN
             CODE    0B97H     0014H     UNIT         ?PR?_WRITE_DS1302_BYTE?DRV_RTC
-            CODE    0BABH     0013H     UNIT         ?PR?_WRITE_DS1302?DRV_RTC
-            CODE    0BBEH     0012H     UNIT         ?PR?DRV_LED_SET0?DRV_LED
-            CODE    0BD0H     000FH     UNIT         ?PR?_BCD_TO_HEX?DRV_RTC
-            CODE    0BDFH     000FH     UNIT         ?PR?_RTC_WRITEPROTECT?DRV_RTC
-            CODE    0BEEH     000EH     UNIT         ?CO?DRV_RTC
-            CODE    0BFCH     000EH     UNIT         ?PR?SYS_MAIN_MCU_INIT?SYS_MAIN
-            CODE    0C0AH     000EH     UNIT         ?PR?_SYS_MAIN_DECODER_SET?SYS_MAIN
-            CODE    0C18H     000DH     UNIT         ?PR?TEMP_INIT?DRV_TEMP
-            CODE    0C25H     000CH     UNIT         ?PR?_DRV_LED_SET?DRV_LED
-            CODE    0C31H     000CH     UNIT         ?PR?_RELAY_SET?DRV_OTHER
-            CODE    0C3DH     000CH     UNIT         ?PR?_BUZZ_SET?DRV_OTHER
-            CODE    0C49H     000BH     UNIT         ?PR?MAIN?MAIN
-            CODE    0C54H     0007H     UNIT         ?PR?_DRV_SEG_SET?DRV_SEG
-            CODE    0C5BH     0007H     UNIT         ?PR?RTC_INIT?DRV_RTC
-            CODE    0C62H     0006H     UNIT         ?PR?DRV_KEY_GET?DRV_KEY
-            CODE    0C68H     0005H     UNIT         ?PR?SYS_TASK_ISR?SYS_TASK
-            CODE    0C6DH     0003H     UNIT         ?PR?DRV_KEY_GET_NOW?DRV_KEY
-            CODE    0C70H     0003H     UNIT         ?PR?APP_TASK_2_100MS?APP_MAIN
+            CODE    0BABH     0013H     UNIT         ?PR?_DRV_KEY_IS?DRV_KEY
+            CODE    0BBEH     0013H     UNIT         ?PR?_WRITE_DS1302?DRV_RTC
+            CODE    0BD1H     0012H     UNIT         ?PR?DRV_LED_SET0?DRV_LED
+            CODE    0BE3H     000FH     UNIT         ?PR?_BCD_TO_HEX?DRV_RTC
+            CODE    0BF2H     000FH     UNIT         ?PR?_RTC_WRITEPROTECT?DRV_RTC
+            CODE    0C01H     000EH     UNIT         ?CO?DRV_RTC
+            CODE    0C0FH     000EH     UNIT         ?PR?SYS_MAIN_MCU_INIT?SYS_MAIN
+            CODE    0C1DH     000EH     UNIT         ?PR?_SYS_MAIN_DECODER_SET?SYS_MAIN
+            CODE    0C2BH     000DH     UNIT         ?PR?TEMP_INIT?DRV_TEMP
+            CODE    0C38H     000CH     UNIT         ?PR?_DRV_LED_SET?DRV_LED
+            CODE    0C44H     000CH     UNIT         ?PR?_RELAY_SET?DRV_OTHER
+            CODE    0C50H     000CH     UNIT         ?PR?_BUZZ_SET?DRV_OTHER
+            CODE    0C5CH     000BH     UNIT         ?PR?MAIN?MAIN
+            CODE    0C67H     0007H     UNIT         ?PR?_DRV_SEG_SET?DRV_SEG
+            CODE    0C6EH     0007H     UNIT         ?PR?RTC_INIT?DRV_RTC
+            CODE    0C75H     0006H     UNIT         ?PR?DRV_KEY_GET?DRV_KEY
+            CODE    0C7BH     0005H     UNIT         ?PR?SYS_TASK_ISR?SYS_TASK
+            CODE    0C80H     0003H     UNIT         ?PR?DRV_KEY_GET_NOW?DRV_KEY
+            CODE    0C83H     0003H     UNIT         ?PR?APP_TASK_2_100MS?APP_MAIN
 
+
+
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 3
 
 
 OVERLAY MAP OF MODULE:   .\Objects\时钟选拔题 (?C_STARTUP)
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 3
-
-
 
 
 SEGMENT                                       BIT_GROUP          DATA_GROUP 
@@ -165,10 +166,10 @@ SEGMENT                                       BIT_GROUP          DATA_GROUP
 ?PR?APP_TASK_2_100MS?APP_MAIN              -----    -----      -----    -----
   +--> ?PR?APP_TASK_1_RUN?APP_TASK_1
 
-?PR?APP_TASK_1_RUN?APP_TASK_1              -----    -----      0021H    0001H
+?PR?APP_TASK_1_RUN?APP_TASK_1              -----    -----      -----    -----
   +--> ?PR?RTC_INIT?DRV_RTC
   +--> ?PR?TEMP_INIT?DRV_TEMP
-  +--> ?PR?DRV_KEY_GET?DRV_KEY
+  +--> ?PR?_DRV_KEY_IS?DRV_KEY
   +--> ?PR?_DRV_LED_SET?DRV_LED
   +--> ?PR?READ_TEMP_INT?DRV_TEMP
   +--> ?PR?_RTC_SETTIME?DRV_RTC
@@ -178,10 +179,10 @@ SEGMENT                                       BIT_GROUP          DATA_GROUP
   +--> ?PR?_DRV_SEG_SET?DRV_SEG
   +--> ?PR?DRV_KEY_GET_NOW?DRV_KEY
 
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 4
+
+
 ?PR?TEMP_INIT?DRV_TEMP                     -----    -----      -----    -----
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 4
-
-
   +--> ?PR?INIT_DS18B20?DRV_TEMP
   +--> ?PR?_SET_RESOLUTION?DRV_TEMP
 
@@ -196,6 +197,8 @@ SEGMENT                                       BIT_GROUP          DATA_GROUP
 ?PR?_WRITE_DS18B20?DRV_TEMP                -----    -----      -----    -----
   +--> ?PR?_DELAY_ONEWIRE?DRV_TEMP
 
+?PR?_DRV_KEY_IS?DRV_KEY                    0020H.3  0000H.1    -----    -----
+
 ?PR?_DRV_LED_SET?DRV_LED                   0020H.3  0000H.1    -----    -----
 
 ?PR?READ_TEMP_INT?DRV_TEMP                 -----    -----      -----    -----
@@ -207,7 +210,7 @@ SEGMENT                                       BIT_GROUP          DATA_GROUP
 ?PR?READ_DS18B20?DRV_TEMP                  -----    -----      -----    -----
   +--> ?PR?_DELAY_ONEWIRE?DRV_TEMP
 
-?PR?_RTC_SETTIME?DRV_RTC                   -----    -----      0022H    0007H
+?PR?_RTC_SETTIME?DRV_RTC                   -----    -----      0021H    0007H
   +--> ?PR?_HEX_TO_BCD?DRV_RTC
   +--> ?PR?_WRITE_DS1302_BYTE?DRV_RTC
   +--> ?CO?DRV_RTC
@@ -215,7 +218,7 @@ SEGMENT                                       BIT_GROUP          DATA_GROUP
 ?PR?_WRITE_DS1302_BYTE?DRV_RTC             -----    -----      -----    -----
   +--> ?PR?_WRITE_DS1302?DRV_RTC
 
-?PR?_RTC_GETTIME?DRV_RTC                   -----    -----      0022H    0007H
+?PR?_RTC_GETTIME?DRV_RTC                   -----    -----      0021H    0007H
   +--> ?PR?_READ_DS1302_BYTE?DRV_RTC
   +--> ?PR?_BCD_TO_HEX?DRV_RTC
 
@@ -223,7 +226,7 @@ SEGMENT                                       BIT_GROUP          DATA_GROUP
   +--> ?CO?DRV_RTC
   +--> ?PR?_WRITE_DS1302?DRV_RTC
 
-?PR?_DRV_SEG_SET_ALL?DRV_SEG               -----    -----      0022H    000FH
+?PR?_DRV_SEG_SET_ALL?DRV_SEG               -----    -----      0021H    000FH
 
 *** NEW ROOT ***************************************************
 
@@ -236,10 +239,10 @@ SEGMENT                                       BIT_GROUP          DATA_GROUP
 ?PR?DRV_SEG_RUN?DRV_SEG                    -----    -----      -----    -----
   +--> ?PR?_SYS_MAIN_DECODER_SET?SYS_MAIN
   +--> ?CO?DRV_SEG
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 5
 
 
 
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 5
 
 
 SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
@@ -249,7 +252,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
 
   -------         MODULE        ?C_STARTUP
   C:05C7H         SEGMENT       ?C_C51STARTUP
-  I:005BH         SEGMENT       ?STACK
+  I:005AH         SEGMENT       ?STACK
   C:0000H         PUBLIC        ?C_STARTUP
   D:00E0H         SYMBOL        ACC
   D:00F0H         SYMBOL        B
@@ -295,27 +298,27 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   D:00A8H         PUBLIC        IE
   D:00B8H         PUBLIC        IP
   D:00D8H         PUBLIC        CCON
-  C:0C49H         PUBLIC        main
+  C:0C5CH         PUBLIC        main
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 6
+
+
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
   D:00D0H         PUBLIC        PSW
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 6
-
-
   -------         PROC          TIMER1_ISR
   C:0902H         LINE#         4
   C:091FH         LINE#         6
   C:0922H         LINE#         7
   -------         ENDPROC       TIMER1_ISR
   -------         PROC          MAIN
-  C:0C49H         LINE#         9
-  C:0C49H         LINE#         10
-  C:0C49H         LINE#         11
-  C:0C4CH         LINE#         12
-  C:0C4CH         LINE#         13
-  C:0C4CH         LINE#         14
-  C:0C4FH         LINE#         15
-  C:0C52H         LINE#         16
+  C:0C5CH         LINE#         9
+  C:0C5CH         LINE#         10
+  C:0C5CH         LINE#         11
+  C:0C5FH         LINE#         12
+  C:0C5FH         LINE#         13
+  C:0C5FH         LINE#         14
+  C:0C62H         LINE#         15
+  C:0C65H         LINE#         16
   -------         ENDPROC       MAIN
   -------         ENDMOD        MAIN
 
@@ -330,20 +333,20 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   D:00E8H         PUBLIC        P6
   D:00F8H         PUBLIC        P7
   D:00A8H         PUBLIC        IE
-  C:0C25H         PUBLIC        _drv_led_set
+  C:0C38H         PUBLIC        _drv_led_set
   D:00B8H         PUBLIC        IP
   C:0867H         PUBLIC        drv_led_run
   D:00D8H         PUBLIC        CCON
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
-  C:0BBEH         PUBLIC        drv_led_set0
-  D:0034H         PUBLIC        led_ram
+  C:0BD1H         PUBLIC        drv_led_set0
+  D:0033H         PUBLIC        led_ram
   D:00D0H         PUBLIC        PSW
   -------         PROC          DRV_LED_RUN
   -------         DO            
-  D:0031H         SYMBOL        led_tick
-  D:0032H         SYMBOL        led_last
-  D:0033H         SYMBOL        led_temp
+  D:0030H         SYMBOL        led_tick
+  D:0031H         SYMBOL        led_last
+  D:0032H         SYMBOL        led_temp
   -------         ENDDO         
   C:0867H         LINE#         8
   C:0867H         LINE#         9
@@ -356,12 +359,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   C:0894H         LINE#         20
   C:0894H         LINE#         22
   C:089EH         LINE#         24
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 7
+
+
   C:08A4H         LINE#         25
   C:08A4H         LINE#         26
   C:08A9H         LINE#         27
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 7
-
-
   C:08AEH         LINE#         28
   C:08B3H         LINE#         29
   C:08B6H         LINE#         30
@@ -370,13 +373,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   -------         PROC          _DRV_LED_SET
   D:0007H         SYMBOL        position
   B:0020H.3       SYMBOL        value
-  C:0C25H         LINE#         34
+  C:0C38H         LINE#         34
   -------         ENDPROC       _DRV_LED_SET
   -------         PROC          DRV_LED_SET0
-  C:0BBEH         LINE#         36
-  C:0BBEH         LINE#         37
-  C:0BBEH         LINE#         38
-  C:0BCFH         LINE#         39
+  C:0BD1H         LINE#         36
+  C:0BD1H         LINE#         37
+  C:0BD1H         LINE#         38
+  C:0BE2H         LINE#         39
   -------         ENDPROC       DRV_LED_SET0
   -------         ENDMOD        DRV_LED
 
@@ -392,7 +395,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   D:00F8H         PUBLIC        P7
   D:00A8H         PUBLIC        IE
   D:00B8H         PUBLIC        IP
-  C:0C54H         PUBLIC        _drv_seg_set
+  C:0C67H         PUBLIC        _drv_seg_set
   D:00D8H         PUBLIC        CCON
   C:08B7H         PUBLIC        drv_seg_run
   D:0098H         PUBLIC        SCON
@@ -400,28 +403,28 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   C:0B6CH         PUBLIC        _drv_seg_set_all
   C:09A6H         PUBLIC        seg_code
   C:0B21H         PUBLIC        drv_seg_set0
-  D:0047H         PUBLIC        seg_ram
+  D:0046H         PUBLIC        seg_ram
   D:00D0H         PUBLIC        PSW
   -------         PROC          _DRV_SEG_SET
   D:0007H         SYMBOL        position
   D:0005H         SYMBOL        number
-  C:0C54H         LINE#         15
+  C:0C67H         LINE#         15
   -------         ENDPROC       _DRV_SEG_SET
   -------         PROC          DRV_SEG_RUN
   -------         DO            
-  D:0046H         SYMBOL        seg_tick
+  D:0045H         SYMBOL        seg_tick
   -------         ENDDO         
   C:08B7H         LINE#         17
   C:08B7H         LINE#         18
   C:08B7H         LINE#         21
   C:08BAH         LINE#         22
   C:08BFH         LINE#         23
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 8
+
+
   C:08C4H         LINE#         25
   C:08D3H         LINE#         26
   C:08D8H         LINE#         27
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 8
-
-
   C:08DDH         LINE#         29
   C:08EDH         LINE#         30
   C:08F2H         LINE#         31
@@ -438,11 +441,11 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   D:0007H         SYMBOL        s0
   D:0004H         SYMBOL        s1
   D:0002H         SYMBOL        s2
-  D:0027H         SYMBOL        s3
-  D:0029H         SYMBOL        s4
-  D:002BH         SYMBOL        s5
-  D:002DH         SYMBOL        s6
-  D:002FH         SYMBOL        s7
+  D:0026H         SYMBOL        s3
+  D:0028H         SYMBOL        s4
+  D:002AH         SYMBOL        s5
+  D:002CH         SYMBOL        s6
+  D:002EH         SYMBOL        s7
   C:0B6CH         LINE#         42
   C:0B6CH         LINE#         43
   C:0B6CH         LINE#         44
@@ -463,25 +466,26 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   D:00A8H         PUBLIC        IE
   D:001DH         SYMBOL        key_now_press
   D:00B8H         PUBLIC        IP
-  C:0C62H         PUBLIC        drv_key_get
+  C:0C75H         PUBLIC        drv_key_get
   D:00D8H         PUBLIC        CCON
   C:031CH         PUBLIC        drv_key_run
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
+  C:0BABH         PUBLIC        _drv_key_is
   B:00C0H.2       PUBLIC        P42
   B:00C0H.4       PUBLIC        P44
   B:00B0H.6       PUBLIC        P36
   B:00B0H.7       PUBLIC        P37
-  C:0C6DH         PUBLIC        drv_key_get_now
+  C:0C80H         PUBLIC        drv_key_get_now
   D:001EH         SYMBOL        key_ram
   D:00D0H         PUBLIC        PSW
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 9
+
+
   -------         PROC          DRV_KEY_RUN
   -------         DO            
   D:001AH         SYMBOL        key_step
   D:001BH         SYMBOL        key_ptime
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 9
-
-
   D:001CH         SYMBOL        saved_key
   D:0023H         SYMBOL        key_now
   D:0024H         SYMBOL        key_temp
@@ -535,13 +539,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   C:03FEH         LINE#         69
   C:0403H         LINE#         70
   C:0408H         LINE#         72
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 10
+
+
   C:040DH         LINE#         73
   C:0412H         LINE#         74
   C:0417H         LINE#         75
   C:041CH         LINE#         76
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 10
-
-
   C:041CH         LINE#         77
   C:041FH         LINE#         78
   C:0423H         LINE#         80
@@ -589,22 +593,40 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   -------         DO            
   D:0007H         SYMBOL        temp
   -------         ENDDO         
-  C:0C62H         LINE#         130
-  C:0C62H         LINE#         131
-  C:0C62H         LINE#         132
-  C:0C64H         LINE#         133
-  C:0C67H         LINE#         134
-  C:0C67H         LINE#         135
+  C:0C75H         LINE#         130
+  C:0C75H         LINE#         131
+  C:0C75H         LINE#         132
+  C:0C77H         LINE#         133
+  C:0C7AH         LINE#         134
+  C:0C7AH         LINE#         135
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 11
+
+
   -------         ENDPROC       DRV_KEY_GET
   -------         PROC          DRV_KEY_GET_NOW
-  C:0C6DH         LINE#         136
-  C:0C6DH         LINE#         137
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 11
-
-
-  C:0C6DH         LINE#         138
-  C:0C6FH         LINE#         139
+  C:0C80H         LINE#         136
+  C:0C80H         LINE#         137
+  C:0C80H         LINE#         138
+  C:0C82H         LINE#         139
   -------         ENDPROC       DRV_KEY_GET_NOW
+  -------         PROC          _DRV_KEY_IS
+  D:0006H         SYMBOL        keyv
+  -------         DO            
+  D:0005H         SYMBOL        temp
+  B:0020H.3       SYMBOL        is
+  -------         ENDDO         
+  C:0BABH         LINE#         141
+  C:0BABH         LINE#         142
+  C:0BABH         LINE#         143
+  C:0BABH         LINE#         144
+  C:0BADH         LINE#         146
+  C:0BB6H         LINE#         147
+  C:0BB6H         LINE#         148
+  C:0BB8H         LINE#         149
+  C:0BBBH         LINE#         150
+  C:0BBBH         LINE#         151
+  C:0BBDH         LINE#         152
+  -------         ENDPROC       _DRV_KEY_IS
   -------         ENDMOD        DRV_KEY
 
   -------         MODULE        DRV_OTHER
@@ -623,27 +645,30 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   D:00D8H         PUBLIC        CCON
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
-  C:0C31H         PUBLIC        _relay_set
-  D:0057H         PUBLIC        y5driver_ram
+  C:0C44H         PUBLIC        _relay_set
+  D:0056H         PUBLIC        y5driver_ram
   D:00D0H         PUBLIC        PSW
-  C:0C3DH         PUBLIC        _buzz_set
+  C:0C50H         PUBLIC        _buzz_set
   -------         PROC          _RELAY_SET
   D:0007H         SYMBOL        sw
-  C:0C31H         LINE#         9
-  C:0C31H         LINE#         10
-  C:0C31H         LINE#         11
-  C:0C3CH         LINE#         12
+  C:0C44H         LINE#         9
+  C:0C44H         LINE#         10
+  C:0C44H         LINE#         11
+  C:0C4FH         LINE#         12
   -------         ENDPROC       _RELAY_SET
   -------         PROC          _BUZZ_SET
   D:0007H         SYMBOL        sw
-  C:0C3DH         LINE#         14
-  C:0C3DH         LINE#         15
-  C:0C3DH         LINE#         16
-  C:0C48H         LINE#         17
+  C:0C50H         LINE#         14
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 12
+
+
+  C:0C50H         LINE#         15
+  C:0C50H         LINE#         16
+  C:0C5BH         LINE#         17
   -------         ENDPROC       _BUZZ_SET
   -------         PROC          DRV_OTHER_RUN
   -------         DO            
-  D:0056H         SYMBOL        y5driver_last
+  D:0055H         SYMBOL        y5driver_last
   D:0023H         SYMBOL        new_val
   -------         ENDDO         
   C:09D1H         LINE#         19
@@ -659,9 +684,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   C:09F5H         LINE#         32
   C:09F8H         LINE#         33
   C:09F8H         LINE#         34
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 12
-
-
   -------         ENDPROC       DRV_OTHER_RUN
   -------         ENDMOD        DRV_OTHER
 
@@ -677,27 +699,30 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   D:00F8H         PUBLIC        P7
   C:080BH         PUBLIC        _RTC_SetTime
   D:00A8H         PUBLIC        IE
-  C:0BD0H         SYMBOL        _bcd_to_hex
+  C:0BE3H         SYMBOL        _bcd_to_hex
   C:0007H         SYMBOL        _hex_to_bcd
   D:00B8H         PUBLIC        IP
   C:0B53H         PUBLIC        _RTC_SetHourMode
   D:00D8H         PUBLIC        CCON
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
-  C:0BDFH         PUBLIC        _RTC_WriteProtect
-  D:003CH         PUBLIC        time_init
+  C:0BF2H         PUBLIC        _RTC_WriteProtect
+  D:003BH         PUBLIC        time_init
   C:0B3AH         PUBLIC        _RTC_Pause
   C:0A20H         PUBLIC        datetime_read
   C:0943H         SYMBOL        _Read_Ds1302_Byte
   B:00A0H.3       PUBLIC        SDA
-  C:0C5BH         PUBLIC        RTC_Init
+  C:0C6EH         PUBLIC        RTC_Init
   C:0A6AH         PUBLIC        datetime_write
   B:0090H.7       PUBLIC        SCK
   C:0B97H         SYMBOL        _Write_Ds1302_Byte
-  D:0043H         PUBLIC        time_now
-  C:0BF5H         PUBLIC        read_address
-  C:0BABH         SYMBOL        _Write_Ds1302
-  C:0BEEH         PUBLIC        write_address
+  D:0042H         PUBLIC        time_now
+  C:0C08H         PUBLIC        read_address
+  C:0BBEH         SYMBOL        _Write_Ds1302
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 13
+
+
+  C:0C01H         PUBLIC        write_address
   B:0090H.3       PUBLIC        RST
   D:00D0H         PUBLIC        PSW
   C:06D0H         PUBLIC        _RTC_GetTime
@@ -706,22 +731,19 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   -------         DO            
   D:0006H         SYMBOL        i
   -------         ENDDO         
-  C:0BABH         LINE#         20
-  C:0BABH         LINE#         21
-  C:0BABH         LINE#         23
-  C:0BADH         LINE#         24
-  C:0BADH         LINE#         25
-  C:0BAFH         LINE#         26
-  C:0BB3H         LINE#         27
-  C:0BB7H         LINE#         28
-  C:0BB9H         LINE#         29
-  C:0BBDH         LINE#         30
+  C:0BBEH         LINE#         20
+  C:0BBEH         LINE#         21
+  C:0BBEH         LINE#         23
+  C:0BC0H         LINE#         24
+  C:0BC0H         LINE#         25
+  C:0BC2H         LINE#         26
+  C:0BC6H         LINE#         27
+  C:0BCAH         LINE#         28
+  C:0BCCH         LINE#         29
+  C:0BD0H         LINE#         30
   -------         ENDPROC       _WRITE_DS1302
   -------         PROC          _WRITE_DS1302_BYTE
   D:0007H         SYMBOL        address
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 13
-
-
   D:0005H         SYMBOL        dat
   C:0B97H         LINE#         35
   C:0B97H         LINE#         36
@@ -757,6 +779,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   C:095FH         LINE#         61
   C:0961H         LINE#         62
   C:0965H         LINE#         63
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 14
+
+
   C:0968H         LINE#         64
   C:096BH         LINE#         65
   C:096EH         LINE#         66
@@ -777,27 +802,24 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   -------         ENDPROC       _HEX_TO_BCD
   -------         PROC          _BCD_TO_HEX
   D:0007H         SYMBOL        bcd
-  C:0BD0H         LINE#         82
-  C:0BD0H         LINE#         83
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 14
-
-
-  C:0BD0H         LINE#         84
-  C:0BDEH         LINE#         85
+  C:0BE3H         LINE#         82
+  C:0BE3H         LINE#         83
+  C:0BE3H         LINE#         84
+  C:0BF1H         LINE#         85
   -------         ENDPROC       _BCD_TO_HEX
   -------         PROC          RTC_INIT
-  C:0C5BH         LINE#         91
-  C:0C5BH         LINE#         92
-  C:0C5BH         LINE#         94
-  C:0C5DH         LINE#         95
-  C:0C5FH         LINE#         96
-  C:0C61H         LINE#         97
+  C:0C6EH         LINE#         91
+  C:0C6EH         LINE#         92
+  C:0C6EH         LINE#         94
+  C:0C70H         LINE#         95
+  C:0C72H         LINE#         96
+  C:0C74H         LINE#         97
   -------         ENDPROC       RTC_INIT
   -------         PROC          _RTC_SETTIME
   D:0001H         SYMBOL        time
   -------         DO            
   D:0004H         SYMBOL        i
-  D:0022H         SYMBOL        time_bcd
+  D:0021H         SYMBOL        time_bcd
   -------         ENDDO         
   C:080BH         LINE#         103
   C:080BH         LINE#         104
@@ -817,9 +839,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   -------         ENDPROC       _RTC_SETTIME
   -------         PROC          _RTC_GETTIME
   D:0001H         SYMBOL        time
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 15
+
+
   -------         DO            
   D:0004H         SYMBOL        i
-  D:0022H         SYMBOL        time_bcd
+  D:0021H         SYMBOL        time_bcd
   -------         ENDDO         
   C:06D0H         LINE#         134
   C:06D0H         LINE#         135
@@ -837,15 +862,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   -------         ENDPROC       _RTC_GETTIME
   -------         PROC          _RTC_WRITEPROTECT
   D:0007H         SYMBOL        enable
-  C:0BDFH         LINE#         159
-  C:0BDFH         LINE#         160
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 15
-
-
-  C:0BDFH         LINE#         161
-  C:0BE2H         LINE#         162
-  C:0BE6H         LINE#         164
-  C:0BEDH         LINE#         165
+  C:0BF2H         LINE#         159
+  C:0BF2H         LINE#         160
+  C:0BF2H         LINE#         161
+  C:0BF5H         LINE#         162
+  C:0BF9H         LINE#         164
+  C:0C00H         LINE#         165
   -------         ENDPROC       _RTC_WRITEPROTECT
   -------         PROC          _RTC_PAUSE
   D:0004H         SYMBOL        pause
@@ -877,6 +899,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   -------         DO            
   D:0004H         SYMBOL        i
   -------         ENDDO         
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 16
+
+
   C:0A6AH         LINE#         206
   C:0A6AH         LINE#         207
   C:0A6AH         LINE#         209
@@ -899,9 +924,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   C:0A2FH         LINE#         228
   C:0A31H         LINE#         229
   C:0A31H         LINE#         230
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 16
-
-
   C:0A40H         LINE#         231
   C:0A44H         LINE#         232
   -------         ENDPROC       DATETIME_READ
@@ -920,7 +942,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   D:00F8H         PUBLIC        P7
   C:0A45H         PUBLIC        _set_resolution
   D:00A8H         PUBLIC        IE
-  C:0C18H         PUBLIC        Temp_Init
+  C:0C2BH         PUBLIC        Temp_Init
   C:0B0BH         PUBLIC        _Delay_OneWire
   C:0ACEH         PUBLIC        _Write_DS18B20
   B:0090H.4       PUBLIC        DQ
@@ -937,6 +959,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   C:0B07H         SYMBOL        L?0025
   -------         PROC          _DELAY_ONEWIRE
   D:0006H         SYMBOL        t
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 17
+
+
   -------         DO            
   D:0005H         SYMBOL        i
   -------         ENDDO         
@@ -959,9 +984,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   C:0AD2H         LINE#         19
   C:0AD4H         LINE#         20
   C:0AD8H         LINE#         21
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 17
-
-
   C:0ADBH         LINE#         22
   C:0ADDH         LINE#         23
   C:0AE1H         LINE#         24
@@ -997,6 +1019,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   C:09F9H         LINE#         48
   C:09F9H         LINE#         49
   C:09FBH         LINE#         51
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 18
+
+
   C:09FDH         LINE#         52
   C:0A04H         LINE#         53
   C:0A06H         LINE#         54
@@ -1019,19 +1044,16 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   C:0A5EH         LINE#         73
   C:0A63H         LINE#         74
   -------         ENDPROC       _SET_RESOLUTION
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 18
-
-
   -------         PROC          TEMP_INIT
-  C:0C18H         LINE#         80
-  C:0C18H         LINE#         81
-  C:0C18H         LINE#         83
-  C:0C1DH         LINE#         84
-  C:0C1DH         LINE#         85
-  C:0C1EH         LINE#         86
-  C:0C1EH         LINE#         93
-  C:0C23H         LINE#         95
-  C:0C24H         LINE#         96
+  C:0C2BH         LINE#         80
+  C:0C2BH         LINE#         81
+  C:0C2BH         LINE#         83
+  C:0C30H         LINE#         84
+  C:0C30H         LINE#         85
+  C:0C31H         LINE#         86
+  C:0C31H         LINE#         93
+  C:0C36H         LINE#         95
+  C:0C37H         LINE#         96
   -------         ENDPROC       TEMP_INIT
   -------         PROC          READ_TEMP_INT
   -------         DO            
@@ -1057,6 +1079,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   C:0773H         LINE#         130
   C:0780H         LINE#         131
   C:0795H         LINE#         132
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 19
+
+
   C:0797H         LINE#         134
   C:0797H         LINE#         135
   C:07A7H         LINE#         136
@@ -1079,9 +1104,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   D:00B1H         PUBLIC        P3M1
   D:00A0H         PUBLIC        P2
   D:00CAH         PUBLIC        P5M0
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 19
-
-
   D:00B3H         PUBLIC        P4M1
   D:00B0H         PUBLIC        P3
   D:00CCH         PUBLIC        P6M0
@@ -1098,7 +1120,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   D:00B8H         PUBLIC        IP
   D:00D8H         PUBLIC        CCON
   C:0977H         PUBLIC        driver_init
-  C:0BFCH         PUBLIC        sys_main_mcu_init
+  C:0C0FH         PUBLIC        sys_main_mcu_init
   D:0098H         PUBLIC        SCON
   D:0089H         PUBLIC        TMOD
   D:0088H         PUBLIC        TCON
@@ -1108,7 +1130,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   B:0088H.7       PUBLIC        TF1
   D:008DH         PUBLIC        TH1
   D:008BH         PUBLIC        TL1
-  C:0C0AH         PUBLIC        _sys_main_decoder_set
+  C:0C1DH         PUBLIC        _sys_main_decoder_set
   B:0088H.6       PUBLIC        TR1
   C:0B82H         PUBLIC        timer1_init
   D:00D0H         PUBLIC        PSW
@@ -1117,6 +1139,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   C:0A8DH         LINE#         6
   C:0A8DH         LINE#         7
   C:0A8DH         LINE#         8
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 20
+
+
   C:0A90H         LINE#         9
   C:0A92H         LINE#         10
   C:0A94H         LINE#         11
@@ -1139,9 +1164,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   C:0B82H         LINE#         27
   C:0B82H         LINE#         28
   C:0B85H         LINE#         29
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 20
-
-
   C:0B88H         LINE#         30
   C:0B8BH         LINE#         31
   C:0B8EH         LINE#         32
@@ -1166,19 +1188,22 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   C:09A1H         LINE#         52
   -------         ENDPROC       DRIVER_INIT
   -------         PROC          SYS_MAIN_MCU_INIT
-  C:0BFCH         LINE#         58
-  C:0BFCH         LINE#         59
-  C:0BFCH         LINE#         60
-  C:0BFFH         LINE#         61
-  C:0C04H         LINE#         62
-  C:0C07H         LINE#         63
+  C:0C0FH         LINE#         58
+  C:0C0FH         LINE#         59
+  C:0C0FH         LINE#         60
+  C:0C12H         LINE#         61
+  C:0C17H         LINE#         62
+  C:0C1AH         LINE#         63
   -------         ENDPROC       SYS_MAIN_MCU_INIT
   -------         PROC          _SYS_MAIN_DECODER_SET
   D:0007H         SYMBOL        pin
-  C:0C0AH         LINE#         68
-  C:0C0AH         LINE#         69
-  C:0C0AH         LINE#         70
-  C:0C17H         LINE#         71
+  C:0C1DH         LINE#         68
+  C:0C1DH         LINE#         69
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 21
+
+
+  C:0C1DH         LINE#         70
+  C:0C2AH         LINE#         71
   -------         ENDPROC       _SYS_MAIN_DECODER_SET
   -------         ENDMOD        SYS_MAIN
 
@@ -1195,23 +1220,20 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   D:00A8H         PUBLIC        IE
   D:00B8H         PUBLIC        IP
   D:00D8H         PUBLIC        CCON
-  C:0C68H         PUBLIC        sys_task_isr
+  C:0C7BH         PUBLIC        sys_task_isr
   C:07ACH         PUBLIC        sys_task_run
-  D:004FH         PUBLIC        sys_tick_ms
+  D:004EH         PUBLIC        sys_tick_ms
   D:0098H         PUBLIC        SCON
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 21
-
-
   D:0088H         PUBLIC        TCON
-  D:0050H         SYMBOL        last_misc
-  D:0052H         SYMBOL        last_led
-  D:0054H         SYMBOL        last_key
+  D:004FH         SYMBOL        last_misc
+  D:0051H         SYMBOL        last_led
+  D:0053H         SYMBOL        last_key
   D:00D0H         PUBLIC        PSW
   -------         PROC          SYS_TASK_ISR
-  C:0C68H         LINE#         18
-  C:0C68H         LINE#         19
-  C:0C68H         LINE#         20
-  C:0C6AH         LINE#         21
+  C:0C7BH         LINE#         18
+  C:0C7BH         LINE#         19
+  C:0C7BH         LINE#         20
+  C:0C7DH         LINE#         21
   -------         ENDPROC       SYS_TASK_ISR
   -------         PROC          SYS_TASK_RUN
   -------         DO            
@@ -1237,6 +1259,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   C:080AH         LINE#         61
   C:080AH         LINE#         62
   -------         ENDPROC       SYS_TASK_RUN
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 22
+
+
   -------         ENDMOD        SYS_TASK
 
   -------         MODULE        APP_MAIN
@@ -1250,18 +1275,15 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   D:00C8H         PUBLIC        P5
   D:00E8H         PUBLIC        P6
   D:00F8H         PUBLIC        P7
-  D:0059H         SYMBOL        last_100ms
+  D:0058H         SYMBOL        last_100ms
   C:001AH         PUBLIC        app_task_1_10ms
   D:00A8H         PUBLIC        IE
   D:00B8H         PUBLIC        IP
   D:00D8H         PUBLIC        CCON
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
-  C:0C70H         PUBLIC        app_task_2_100ms
-  D:005AH         SYMBOL        last_10ms
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 22
-
-
+  C:0C83H         PUBLIC        app_task_2_100ms
+  D:0059H         SYMBOL        last_10ms
   D:00D0H         PUBLIC        PSW
   -------         PROC          APP_TASK_1_10MS
   C:001AH         LINE#         8
@@ -1269,9 +1291,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   C:001AH         LINE#         11
   -------         ENDPROC       APP_TASK_1_10MS
   -------         PROC          APP_TASK_2_100MS
-  C:0C70H         LINE#         13
-  C:0C70H         LINE#         14
-  C:0C70H         LINE#         15
+  C:0C83H         LINE#         13
+  C:0C83H         LINE#         14
+  C:0C83H         LINE#         15
   -------         ENDPROC       APP_TASK_2_100MS
   -------         PROC          APP_MAIN_RUN
   -------         DO            
@@ -1297,6 +1319,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   D:00E8H         PUBLIC        P6
   D:00F8H         PUBLIC        P7
   D:00A8H         PUBLIC        IE
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 23
+
+
   D:000AH         PUBLIC        rtc_h
   D:000BH         PUBLIC        rtc_m
   D:00B8H         PUBLIC        IP
@@ -1318,13 +1343,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   D:0008H         SYMBOL        rtc_read_tick
   D:0009H         SYMBOL        temp_timer
   -------         DO            
-  D:0021H         SYMBOL        key_p
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 23
-
-
-  -------         DO            
   B:0020H.0       SYMBOL        l3
-  -------         ENDDO         
   -------         ENDDO         
   -------         ENDDO         
   C:001EH         LINE#         20
@@ -1338,90 +1357,91 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   C:002BH         LINE#         33
   C:0034H         LINE#         34
   C:0034H         LINE#         35
-  C:0039H         LINE#         36
-  C:0043H         LINE#         37
-  C:004DH         LINE#         40
-  C:004FH         LINE#         41
-  C:0056H         LINE#         42
-  C:0056H         LINE#         43
-  C:0059H         LINE#         44
-  C:0060H         LINE#         45
-  C:0060H         LINE#         48
-  C:0065H         LINE#         49
-  C:0065H         LINE#         50
-  C:0068H         LINE#         51
-  C:006BH         LINE#         52
-  C:006EH         LINE#         53
-  C:0071H         LINE#         54
-  C:0074H         LINE#         55
-  C:0077H         LINE#         56
-  C:007AH         LINE#         57
-  C:0083H         LINE#         58
-  C:0086H         LINE#         60
-  C:0086H         LINE#         64
-  C:0089H         LINE#         65
-  C:0089H         LINE#         67
-  C:008EH         LINE#         68
-  C:0099H         LINE#         69
-  C:009BH         LINE#         70
-  C:00A7H         LINE#         72
-  C:00B3H         LINE#         73
-  C:00C1H         LINE#         76
-  C:00C9H         LINE#         77
-  C:00C9H         LINE#         78
-  C:00D2H         LINE#         79
-  C:00D5H         LINE#         80
-  C:00D8H         LINE#         81
-  C:00DBH         LINE#         82
-  C:00E5H         LINE#         85
-  C:00E8H         LINE#         86
-  C:00E8H         LINE#         87
-  C:00F7H         LINE#         88
-  C:00F9H         LINE#         89
-  C:00FEH         LINE#         90
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 24
+  C:003EH         LINE#         36
+  C:0048H         LINE#         39
+  C:004AH         LINE#         40
+  C:0051H         LINE#         41
+  C:0051H         LINE#         42
+  C:0054H         LINE#         43
+  C:005BH         LINE#         44
+  C:005BH         LINE#         47
+  C:0064H         LINE#         48
+  C:0064H         LINE#         49
+  C:0067H         LINE#         50
+  C:006AH         LINE#         51
+  C:006DH         LINE#         52
+  C:0070H         LINE#         53
+  C:0073H         LINE#         54
+  C:0076H         LINE#         55
+  C:0079H         LINE#         56
+  C:0082H         LINE#         58
+  C:0082H         LINE#         62
+  C:0085H         LINE#         63
+  C:0085H         LINE#         65
+  C:008AH         LINE#         66
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 24
 
 
-  C:00FEH         LINE#         91
-  C:0101H         LINE#         92
-  C:0101H         LINE#         93
-  C:010DH         LINE#         94
-  C:0116H         LINE#         95
-  C:011BH         LINE#         96
-  C:011BH         LINE#         99
-  C:0122H         LINE#         100
-  C:0122H         LINE#         101
-  C:0146H         LINE#         102
-  C:0196H         LINE#         103
-  C:01A1H         LINE#         106
-  C:01A1H         LINE#         107
-  C:01A7H         LINE#         108
-  C:01A7H         LINE#         109
-  C:01CBH         LINE#         110
-  C:01FDH         LINE#         112
-  C:0206H         LINE#         113
-  C:0211H         LINE#         115
-  C:0211H         LINE#         116
-  C:021AH         LINE#         117
-  C:021AH         LINE#         118
-  C:023EH         LINE#         119
-  C:026EH         LINE#         121
-  C:0279H         LINE#         122
-  C:0298H         LINE#         123
-  C:02B6H         LINE#         126
-  C:02B6H         LINE#         127
-  C:02BCH         LINE#         128
-  C:02BCH         LINE#         129
-  C:02E0H         LINE#         130
-  C:0312H         LINE#         132
+  C:0095H         LINE#         67
+  C:0097H         LINE#         68
+  C:00A3H         LINE#         70
+  C:00AFH         LINE#         71
+  C:00BDH         LINE#         74
+  C:00C5H         LINE#         75
+  C:00C5H         LINE#         76
+  C:00CEH         LINE#         77
+  C:00D1H         LINE#         78
+  C:00D4H         LINE#         79
+  C:00D7H         LINE#         80
+  C:00E1H         LINE#         83
+  C:00E4H         LINE#         84
+  C:00E4H         LINE#         85
+  C:00F3H         LINE#         86
+  C:00F5H         LINE#         87
+  C:00FAH         LINE#         88
+  C:00FAH         LINE#         89
+  C:00FDH         LINE#         90
+  C:00FDH         LINE#         91
+  C:0109H         LINE#         92
+  C:0112H         LINE#         93
+  C:0117H         LINE#         94
+  C:0117H         LINE#         97
+  C:011EH         LINE#         98
+  C:011EH         LINE#         99
+  C:0142H         LINE#         100
+  C:0192H         LINE#         101
+  C:019EH         LINE#         104
+  C:019EH         LINE#         105
+  C:01A4H         LINE#         106
+  C:01A4H         LINE#         107
+  C:01C8H         LINE#         108
+  C:01FAH         LINE#         110
+  C:0203H         LINE#         111
+  C:020FH         LINE#         113
+  C:020FH         LINE#         114
+  C:0218H         LINE#         115
+  C:0218H         LINE#         116
+  C:023CH         LINE#         117
+  C:026CH         LINE#         119
+  C:0278H         LINE#         120
+  C:0297H         LINE#         121
+  C:02B6H         LINE#         124
+  C:02B6H         LINE#         125
+  C:02BCH         LINE#         126
+  C:02BCH         LINE#         127
+  C:02E0H         LINE#         128
+  C:0312H         LINE#         130
+  C:031BH         LINE#         132
   C:031BH         LINE#         134
-  C:031BH         LINE#         136
-  C:031BH         LINE#         137
+  C:031BH         LINE#         135
   -------         ENDPROC       APP_TASK_1_RUN
   -------         ENDMOD        APP_TASK_1
 
   -------         MODULE        ?C?CLDPTR
   C:048AH         PUBLIC        ?C?CLDPTR
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 25
+
+
   -------         ENDMOD        ?C?CLDPTR
 
   -------         MODULE        ?C?CLDOPTR
@@ -1439,9 +1459,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
   -------         MODULE        ?C?IMUL
   C:0504H         PUBLIC        ?C?IMUL
   -------         ENDMOD        ?C?IMUL
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  15:32:46  PAGE 25
-
-
 
   -------         MODULE        ?C?UIDIV
   C:0516H         PUBLIC        ?C?UIDIV
@@ -1462,6 +1479,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
     SEGMENT: ?PR?DRV_SEG_SET0?DRV_SEG
 
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DRV_KEY_GET?DRV_KEY
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_BUZZ_SET?DRV_OTHER
 
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
@@ -1479,5 +1499,8 @@ SYMBOL TABLE OF MODULE:  .\Objects\时钟选拔题 (?C_STARTUP)
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?DATETIME_READ?DRV_RTC
 
-Program Size: data=90.4 xdata=0 code=3187
-LINK/LOCATE RUN COMPLETE.  8 WARNING(S),  0 ERROR(S)
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/04/2026  20:17:44  PAGE 26
+
+
+Program Size: data=89.4 xdata=0 code=3206
+LINK/LOCATE RUN COMPLETE.  9 WARNING(S),  0 ERROR(S)
