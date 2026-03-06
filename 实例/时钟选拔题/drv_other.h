@@ -6,7 +6,6 @@
 
 void drv_other_run();
 void relay_set(uint8 sw);
-void buzz_set(uint8 sw);
 
 
 

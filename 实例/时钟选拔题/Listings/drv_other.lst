@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   DRV_OTHER                                                         03/04/2026 20:17:43 PAGE 1   
+C51 COMPILER V9.60.7.0   DRV_OTHER                                                         03/05/2026 01:44:59 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE DRV_OTHER
@@ -21,31 +21,27 @@ line level    source
   11   1          y5driver_ram[0] = (sw != 0) ? 1 : 0;
   12   1      }
   13          
-  14          void buzz_set(uint8 sw)
-  15          {
-  16   1          y5driver_ram[1] = (sw != 0) ? 1 : 0;
-  17   1      }
-  18          
-  19          void drv_other_run(void)
-  20          {
-  21   1          static uint8 y5driver_last = 0;
-  22   1          uint8 new_val = 0;
-  23   1      
-  24   1          if (y5driver_ram[0]) new_val |= (1 << 4);  // P0.4 = 继电器
-  25   1          if (y5driver_ram[1]) new_val |= (1 << 6);  // P0.6 = 蜂鸣器
-  26   1      
-  27   1          if (y5driver_last != new_val)
-  28   1          {
-  29   2              y5;
-  30   2              P0 = new_val;
-  31   2              y0;
-  32   2              y5driver_last = new_val;
-  33   2          }
-  34   1      }
+  14          
+  15          void drv_other_run(void)
+  16          {
+  17   1          static uint8 y5driver_last = 0;
+  18   1          uint8 new_val = 0;
+  19   1      
+  20   1          if (y5driver_ram[0]) new_val |= (1 << 4);  // P0.4 = 继电器
+  21   1          if (y5driver_ram[1]) new_val |= (1 << 6);  // P0.6 = 蜂鸣器
+  22   1      
+  23   1          if (y5driver_last != new_val)
+  24   1          {
+  25   2              y5;
+  26   2              P0 = new_val;
+  27   2              y0;
+  28   2              y5driver_last = new_val;
+  29   2          }
+  30   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     64    ----
+   CODE SIZE        =     52    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

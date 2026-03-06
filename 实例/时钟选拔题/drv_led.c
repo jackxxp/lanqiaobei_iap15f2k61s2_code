@@ -32,8 +32,3 @@ void drv_led_run()
 
 //led控制函数
 void drv_led_set(uint8 position, bit value){led_ram[position] = value;}
-
-void drv_led_set0()
-{
-	led_ram[0]=0;led_ram[1]=0;led_ram[2]=0;led_ram[3]=0;led_ram[4]=0;led_ram[5]=0;led_ram[6]=0;led_ram[7]=0;
-}

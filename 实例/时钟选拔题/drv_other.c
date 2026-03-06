@@ -11,10 +11,6 @@ void relay_set(uint8 sw)
     y5driver_ram[0] = (sw != 0) ? 1 : 0;
 }
 
-void buzz_set(uint8 sw)
-{
-    y5driver_ram[1] = (sw != 0) ? 1 : 0;
-}
 
 void drv_other_run(void)
 {

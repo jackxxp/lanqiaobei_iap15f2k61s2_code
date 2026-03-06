@@ -1,0 +1,182 @@
+C51 COMPILER V9.60.7.0   DRV_KEY                                                           03/05/2026 00:11:17 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE DRV_KEY
+OBJECT MODULE PLACED IN .\Objects\drv_key.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE drv_key.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND P
+                    -RINT(.\Listings\drv_key.lst) TABS(2) OBJECT(.\Objects\drv_key.obj)
+
+line level    source
+
+   1          //drv_key.c
+   2          #include "drv_key.h"
+   3          
+   4          static uint8 key_ram = 200;
+   5          
+   6          static uint8 key_now_press = 200;
+   7          
+   8          void drv_key_run()
+   9          {
+  10   1          static uint8 key_step = 0;
+  11   1          static uint8 key_ptime = 0;
+  12   1          static uint8 saved_key = 0; // 👈 新增：保存原始键值（4～19）
+  13   1      
+  14   1          uint8 key_now = 0xFF;
+  15   1          uint8 key_temp = 201; // 默认无效
+  16   1      
+  17   1          // 行扫描：拉低所有行
+  18   1          P3 = 0x0F;
+  19   1          P42 = 0;
+  20   1          P44 = 0;
+  21   1          P36 = P42;
+  22   1          P37 = P44;
+  23   1          key_now = P3 & 0x0F;
+  24   1      
+  25   1          switch(key_step)
+  26   1          {
+  27   2              case 0: // 空闲态
+  28   2                  if (key_now != 0x0F) {
+  29   3                      key_step = 1;
+  30   3                      
+  31   3                  }else
+  32   2                  {
+  33   3                    key_now_press = 200;
+  34   3                  }
+  35   2                  break;
+  36   2      
+  37   2              case 1: // 检测到有键按下，开始列扫描
+  38   2                  if (key_now == 0x0F) {
+  39   3                      key_step = 0; // 抖动，回到空闲
+  40   3                  } else {
+  41   3                      // 切换到列输出模式
+  42   3                      P3 = key_now | 0xF0;
+  43   3                      P42 = 1;
+  44   3                      P44 = 1;
+  45   3                      P36 = P42;
+  46   3                      P37 = P44;
+  47   3                      key_now = P3; // 读取完整键值
+  48   3      
+  49   3                      // 识别键值
+  50   3                      switch (key_now) 
+  51   3                      {
+  52   4                        case 0xF7: saved_key = 4; break;   //独立按键   只用独立按键矩阵按键部分可不写
+  53   4                        case 0xFB: saved_key = 5; break;   //独立按键     只用矩阵键盘独立键盘可不
+  54   4                          case 0xFD: saved_key = 6; break;   //独立按键   如果都写则都可以使用
+C51 COMPILER V9.60.7.0   DRV_KEY                                                           03/05/2026 00:11:17 PAGE 2   
+
+  55   4                          case 0xFE: saved_key = 7; break;   //独立按键
+  56   4                        
+  57   4                          case 0x77: saved_key = 4; break;   //矩阵按键
+  58   4                          case 0x7B: saved_key = 5; break;   //矩阵按键
+  59   4                          case 0x7D: saved_key = 6; break;//矩阵按键
+  60   4                          case 0x7E: saved_key = 7; break;//矩阵按键
+  61   4      
+  62   4                          case 0xB7: saved_key = 8; break;//矩阵按键
+  63   4                          case 0xBB: saved_key = 9; break;//矩阵按键
+  64   4                          case 0xBD: saved_key = 10; break;//矩阵按键
+  65   4                          case 0xBE: saved_key = 11; break;//矩阵按键
+  66   4      
+  67   4                          case 0xD7: saved_key = 12; break;//矩阵按键
+  68   4                          case 0xDB: saved_key = 13; break;//矩阵按键
+  69   4                          case 0xDD: saved_key = 14; break;//矩阵按键
+  70   4                          case 0xDE: saved_key = 15; break;//矩阵按键
+  71   4      
+  72   4                          case 0xE7: saved_key = 16; break;//矩阵按键
+  73   4                          case 0xEB: saved_key = 17; break;//矩阵按键
+  74   4                          case 0xED: saved_key = 18; break;//矩阵按键
+  75   4                          case 0xEE: saved_key = 19; break;//矩阵按键
+  76   4                          default:
+  77   4                              key_step = 0;
+  78   4                              saved_key = 201;
+  79   4                              return; // 退出，不更新 key_ram
+  80   4                      }
+  81   3                      key_now_press = saved_key;
+  82   3                      key_step = 2;
+  83   3                  }
+  84   2                  break;
+  85   2      
+  86   2              case 2: // 等待释放（短按）或进入长按
+  87   2                  // 重新读取行状态
+  88   2                  P3 = 0x0F;
+  89   2                  P42 = 0;
+  90   2                  P44 = 0;
+  91   2                  P36 = P42;
+  92   2                  P37 = P44;
+  93   2                  key_now = P3 & 0x0F;
+  94   2      
+  95   2                  if (key_now != 0x0F) {
+  96   3                      // 按键仍按下，计时
+  97   3                      key_ptime++;
+  98   3                      if (key_ptime > 70) { // 长按阈值
+  99   4                          key_ptime = 0;
+ 100   4                          key_step = 3;
+ 101   4                          // 注意：长按结果在松手时才上报
+ 102   4                      }
+ 103   3                  } else {
+ 104   3                      // 短按：松手了
+ 105   3                      key_ptime = 0;
+ 106   3                      key_step = 0;
+ 107   3                      key_temp = saved_key; // 👈 使用保存的键值
+ 108   3                  }
+ 109   2                  break;
+ 110   2      
+ 111   2              case 3: // 长按等待松手
+ 112   2                  P3 = 0x0F;
+ 113   2                  P42 = 0;
+ 114   2                  P44 = 0;
+ 115   2                  P36 = P42;
+ 116   2                  P37 = P44;
+C51 COMPILER V9.60.7.0   DRV_KEY                                                           03/05/2026 00:11:17 PAGE 3   
+
+ 117   2                  key_now = P3 & 0x0F;
+ 118   2      
+ 119   2                  if (key_now == 0x0F) {
+ 120   3                      // 松手，上报长按
+ 121   3                      key_step = 0;
+ 122   3                      key_temp = saved_key + 100; // 👈 正确：原始键值+100
+ 123   3                  }
+ 124   2                  break;
+ 125   2          }
+ 126   1          if (key_temp != 201)
+ 127   1          {key_ram = key_temp;}
+ 128   1      }
+ 129          
+ 130          uint8 drv_key_get()
+ 131          {
+ 132   1          uint8 temp = key_ram;
+ 133   1          key_ram = 201; // 清除，避免重复上报
+ 134   1          return temp;
+ 135   1      }
+ 136          uint8 drv_key_get_now()
+ 137          {
+ 138   1          return key_now_press;
+ 139   1      }
+ 140          
+ 141          bit drv_key_is(keyv)
+ 142          {
+ 143   1        uint8 temp = key_ram;
+ 144   1        bit is = 0;
+ 145   1        
+ 146   1        if(keyv == temp)
+ 147   1        {
+ 148   2          is = 1;
+ 149   2          key_ram = 201;    
+ 150   2        }
+ 151   1        return is;
+ 152   1      }
+ 153          
+ 154          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    394    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      5       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

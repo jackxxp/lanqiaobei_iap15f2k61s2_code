@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   SYS_TASK                                                          03/04/2026 20:17:44 PAGE 1   
+C51 COMPILER V9.60.7.0   SYS_TASK                                                          03/05/2026 01:45:00 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE SYS_TASK
@@ -62,7 +62,7 @@ line level    source
   52   2              last_key = now;
   53   2              drv_key_run();
   54   2          }
-C51 COMPILER V9.60.7.0   SYS_TASK                                                          03/04/2026 20:17:44 PAGE 2   
+C51 COMPILER V9.60.7.0   SYS_TASK                                                          03/05/2026 01:45:00 PAGE 2   
 
   55   1      
   56   1          /* 继电器 / 蜂鸣器：50ms */

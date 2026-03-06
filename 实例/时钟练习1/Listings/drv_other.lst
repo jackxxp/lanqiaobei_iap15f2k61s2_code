@@ -1,0 +1,54 @@
+C51 COMPILER V9.60.7.0   DRV_OTHER                                                         03/05/2026 23:42:03 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE DRV_OTHER
+OBJECT MODULE PLACED IN .\Objects\drv_other.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE drv_other.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND
+                    - PRINT(.\Listings\drv_other.lst) TABS(2) OBJECT(.\Objects\drv_other.obj)
+
+line level    source
+
+   1          #include "drv_other.h"
+   2          
+   3          uint8 other_ram[2] = {0,0};
+   4          
+   5          
+   6          void drv_other_run()
+   7          {
+   8   1        static uint8 other_last = 0xaf; 
+   9   1        uint8 other_temp = 0x00;
+  10   1        
+  11   1        if(other_ram[0])
+  12   1        {
+  13   2          other_temp = 0xbf;
+  14   2        }else
+  15   1        {
+  16   2          other_temp = 0xaf;
+  17   2        }
+  18   1        
+  19   1        if(other_last != other_temp)
+  20   1        {
+  21   2          y5;P0 = other_temp;y0;
+  22   2          other_last = other_temp;
+  23   2        }
+  24   1      
+  25   1      
+  26   1      }
+  27          void drv_relay_set(bit sw)
+  28          {
+  29   1        other_ram[0] = sw;
+  30   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     45    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      3       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

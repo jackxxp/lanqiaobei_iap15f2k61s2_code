@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   APP_TASK_1                                                        03/04/2026 20:17:44 PAGE 1   
+C51 COMPILER V9.60.7.0   APP_TASK_1                                                        03/05/2026 01:45:00 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE APP_TASK_1
@@ -62,7 +62,7 @@ line level    source
   52   3          rtc_time.week = 5;
   53   3          rtc_time.hour = 14;
   54   3          rtc_time.minute = 59;
-C51 COMPILER V9.60.7.0   APP_TASK_1                                                        03/04/2026 20:17:44 PAGE 2   
+C51 COMPILER V9.60.7.0   APP_TASK_1                                                        03/05/2026 01:45:00 PAGE 2   
 
   55   3          rtc_time.second = 55;    
   56   3          RTC_SetTime(&rtc_time); 
@@ -126,7 +126,7 @@ line level    source
  114   2          if (page == 2)
  115   2          {
  116   3            drv_seg_set_all(25,3,16,16,16,16,16,16);
-C51 COMPILER V9.60.7.0   APP_TASK_1                                                        03/04/2026 20:17:44 PAGE 3   
+C51 COMPILER V9.60.7.0   APP_TASK_1                                                        03/05/2026 01:45:00 PAGE 3   
 
  117   3            drv_seg_set(6,set_t/10/10);drv_seg_set(7,set_t/10%10);
  118   3            

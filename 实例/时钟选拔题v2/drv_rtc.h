@@ -1,0 +1,58 @@
+//drv_rtc.h
+#ifndef __DRV_RTC_H__
+#define __DRV_RTC_H__
+
+#include "sys_main.h"
+
+// 引脚定义 - 根据你提供的代码
+sbit SDA = P2^3;    // 数据线
+sbit SCK = P1^7;    // 时钟线
+sbit RST = P1^3;    // 复位线
+
+// DS1302命令字定义
+#define RTC_SEC     0x80  // 秒寄存器
+#define RTC_MIN     0x82  // 分寄存器
+#define RTC_HOUR    0x84  // 时寄存器
+#define RTC_DATE    0x86  // 日寄存器
+#define RTC_MONTH   0x88  // 月寄存器
+#define RTC_DAY     0x8A  // 星期寄存器
+#define RTC_YEAR    0x8C  // 年寄存器
+#define RTC_WP      0x8E  // 写保护寄存器
+
+// 时间结构体
+typedef struct {
+    unsigned char year;     // 年 (00-99) - 例如24表示2024年
+    unsigned char month;    // 月 (1-12)
+    unsigned char day;      // 日 (1-31)
+    unsigned char week;     // 星期 (1-7) - 1表示星期一
+    unsigned char hour;     // 时 (0-23) - 24小时制
+    unsigned char minute;   // 分 (0-59)
+    unsigned char second;   // 秒 (0-59)
+} RTC_TimeType;
+
+//==============================================================================
+// 函数说明：RTC驱动初始化
+// 输入参数：无
+// 输出参数：无
+// 返回值：无
+//==============================================================================
+void RTC_Init(void);
+
+//==============================================================================
+// 函数说明：设置RTC时间
+// 输入参数：time - 指向时间结构体的指针
+// 输出参数：无
+// 返回值：无
+//==============================================================================
+void RTC_SetTime(RTC_TimeType *time);
+
+//==============================================================================
+// 函数说明：读取RTC时间
+// 输入参数：time - 指向时间结构体的指针
+// 输出参数：time - 填充读取的时间数据
+// 返回值：无
+//==============================================================================
+void RTC_GetTime(RTC_TimeType *time);
+
+
+#endif
