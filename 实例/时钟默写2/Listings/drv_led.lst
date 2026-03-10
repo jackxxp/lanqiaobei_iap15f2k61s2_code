@@ -1,0 +1,52 @@
+C51 COMPILER V9.60.7.0   DRV_LED                                                           03/06/2026 22:37:52 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE DRV_LED
+OBJECT MODULE PLACED IN .\Objects\drv_led.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE drv_led.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND P
+                    -RINT(.\Listings\drv_led.lst) TABS(2) OBJECT(.\Objects\drv_led.obj)
+
+line level    source
+
+   1          #include "drv_led.h"
+   2          
+   3          u8 led_ram[8] = {0,0,0,0,0,0,0,0};
+   4          
+   5          void drv_led_run()
+   6          {
+   7   1        static led_tick = 0;
+   8   1        static led_temp = 0x00;
+   9   1        static led_last = 0x00;
+  10   1        
+  11   1        if(led_ram[led_tick])
+  12   1        {
+  13   2          led_temp |= (0x01 << led_tick);
+  14   2        }else
+  15   1        {
+  16   2          led_temp &= ~(0x01 << led_tick);
+  17   2        }
+  18   1        if(led_last != led_temp)
+  19   1        {
+  20   2          P0 = ~ led_temp;y4;y0;
+  21   2          led_last = led_temp;
+  22   2        }
+  23   1        led_tick++;led_tick %= 8;
+  24   1      }
+  25          void drv_led_set(u8 p,bit sw)
+  26          {
+  27   1        led_ram[p] = sw;
+  28   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    127    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     14    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

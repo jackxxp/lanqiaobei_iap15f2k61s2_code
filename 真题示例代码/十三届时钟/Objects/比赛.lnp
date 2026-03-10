@@ -1,0 +1,13 @@
+".\Objects\STARTUP.obj",
+".\Objects\sys_main.obj",
+".\Objects\main.obj",
+".\Objects\sys_task.obj",
+".\Objects\app_main.obj",
+".\Objects\drv_led.obj",
+".\Objects\drv_seg.obj",
+".\Objects\drv_other.obj",
+".\Objects\drv_key.obj",
+".\Objects\drv_rtc.obj",
+".\Objects\drv_temp.obj" 
+TO ".\Objects\比赛" 
+PRINT(".\Listings\比赛.m51") RAMSIZE(256) 

@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    03/05/2026  00:11:18  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    03/10/2026  18:07:31  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
@@ -59,7 +59,7 @@ LINK MAP OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
             CODE    03F1H     002BH     UNIT         ?CO?DRV_SEG
             CODE    041CH     0028H     UNIT         ?PR?DRV_OTHER_RUN?DRV_OTHER
             CODE    0444H     0026H     UNIT         ?C?LIB_CODE
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/05/2026  00:11:18  PAGE 2
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/10/2026  18:07:31  PAGE 2
 
 
             CODE    046AH     0021H     UNIT         ?PR?DRV_INIT?SYS_MAIN
@@ -119,7 +119,7 @@ SEGMENT                                  BIT_GROUP          DATA_GROUP
 
 ?PR?DRV_OTHER_RUN?DRV_OTHER           -----    -----      0050H    0001H
   +--> ?PR?_SYS_DECODER?SYS_MAIN
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/05/2026  00:11:18  PAGE 3
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/10/2026  18:07:31  PAGE 3
 
 
 
@@ -179,7 +179,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   N:0000H         SYMBOL        PDATALEN
   N:0000H         SYMBOL        PDATASTART
   N:0000H         SYMBOL        PPAGE
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/05/2026  00:11:18  PAGE 4
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/10/2026  18:07:31  PAGE 4
 
 
   N:0000H         SYMBOL        PPAGEENABLE
@@ -215,6 +215,8 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   C:0554H         PUBLIC        main
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
+  D:00F0H         PUBLIC        B
+  D:00E0H         PUBLIC        ACC
   C:03B6H         PUBLIC        timer_0_isr
   D:00D0H         PUBLIC        PSW
   -------         PROC          TIMER_0_ISR
@@ -237,11 +239,11 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   -------         MODULE        SYS_MAIN
   C:0000H         SYMBOL        _ICE_DUMMY_
   D:0093H         PUBLIC        P0M1
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/10/2026  18:07:31  PAGE 5
+
+
   D:0092H         PUBLIC        P1M0
   D:0096H         PUBLIC        P2M0
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/05/2026  00:11:18  PAGE 5
-
-
   D:0091H         PUBLIC        P1M1
   D:0080H         PUBLIC        P0
   D:00B2H         PUBLIC        P3M0
@@ -262,7 +264,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   D:0098H         PUBLIC        SCON
   D:0089H         PUBLIC        TMOD
   D:0088H         PUBLIC        TCON
+  D:00F0H         PUBLIC        B
   D:008EH         PUBLIC        AUXR
+  D:00E0H         PUBLIC        ACC
   C:0516H         PUBLIC        gpio_init
   C:04EEH         PUBLIC        tick_timer_init
   B:00A8H.1       PUBLIC        ET0
@@ -295,13 +299,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   -------         PROC          TICK_TIMER_INIT
   C:04EEH         LINE#         21
   C:04EEH         LINE#         22
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/10/2026  18:07:31  PAGE 6
+
+
   C:04EEH         LINE#         23
   C:04F1H         LINE#         24
   C:04F4H         LINE#         25
   C:04F7H         LINE#         26
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/05/2026  00:11:18  PAGE 6
-
-
   C:04FAH         LINE#         27
   C:04FCH         LINE#         28
   C:04FEH         LINE#         29
@@ -345,6 +349,8 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   D:0034H         SYMBOL        last_app_task_2_run
   D:0036H         SYMBOL        last_app_task_3_run
   D:0038H         SYMBOL        last_other
+  D:00F0H         PUBLIC        B
+  D:00E0H         PUBLIC        ACC
   D:003AH         SYMBOL        last_led
   C:048BH         PUBLIC        sys_task_app_run
   C:026AH         PUBLIC        sys_task_drv_run
@@ -353,15 +359,15 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   -------         PROC          SYS_TASK_ISR
   C:055FH         LINE#         15
   C:055FH         LINE#         16
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/10/2026  18:07:31  PAGE 7
+
+
   C:055FH         LINE#         17
   C:0567H         LINE#         19
   -------         ENDPROC       SYS_TASK_ISR
   -------         PROC          SYS_TASK_DRV_RUN
   -------         DO            
   D:004EH         SYMBOL        now
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/05/2026  00:11:18  PAGE 7
-
-
   -------         ENDDO         
   C:026AH         LINE#         22
   C:026AH         LINE#         23
@@ -413,15 +419,17 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   D:00D8H         PUBLIC        CCON
   C:04C2H         PUBLIC        _drv_led_set_all
   D:0098H         PUBLIC        SCON
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/10/2026  18:07:31  PAGE 8
+
+
   D:0088H         PUBLIC        TCON
+  D:00F0H         PUBLIC        B
   C:0528H         PUBLIC        drv_led_set0
+  D:00E0H         PUBLIC        ACC
   D:0041H         PUBLIC        led_ram
   D:00D0H         PUBLIC        PSW
   -------         PROC          DRV_LED_RUN
   -------         DO            
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/05/2026  00:11:18  PAGE 8
-
-
   D:003EH         SYMBOL        led_tick
   D:003FH         SYMBOL        led_last
   D:0040H         SYMBOL        led_temp
@@ -471,6 +479,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   C:04C2H         LINE#         42
   C:04C2H         LINE#         43
   C:04C2H         LINE#         44
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/10/2026  18:07:31  PAGE 9
+
+
   C:04D7H         LINE#         45
   -------         ENDPROC       _DRV_LED_SET_ALL
   -------         PROC          _DRV_LED_GET
@@ -479,9 +490,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   C:0003H         LINE#         47
   C:0003H         LINE#         48
   C:000AH         LINE#         49
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/05/2026  00:11:18  PAGE 9
-
-
   -------         ENDPROC       _DRV_LED_GET
   -------         ENDMOD        DRV_LED
 
@@ -504,34 +512,42 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   D:0088H         PUBLIC        TCON
   C:04D8H         PUBLIC        _drv_seg_set_all
   C:03F1H         PUBLIC        seg_code
+  D:00F0H         PUBLIC        B
+  D:00E0H         PUBLIC        ACC
   C:04A9H         PUBLIC        drv_seg_set0
   D:0018H         PUBLIC        seg_ram
   D:00D0H         PUBLIC        PSW
+  -------         PROC          _DRV_SEG_SET
+  D:0007H         SYMBOL        position
+  D:0005H         SYMBOL        number
+  C:0573H         LINE#         15
+  -------         ENDPROC       _DRV_SEG_SET
   -------         PROC          DRV_SEG_RUN
   -------         DO            
   D:0017H         SYMBOL        seg_tick
   -------         ENDDO         
-  C:036BH         LINE#         16
   C:036BH         LINE#         17
-  C:036BH         LINE#         19
-  C:0378H         LINE#         20
-  C:0391H         LINE#         21
-  C:03ABH         LINE#         22
-  C:03B5H         LINE#         23
+  C:036BH         LINE#         18
+  C:036BH         LINE#         21
+  C:036EH         LINE#         22
+  C:0373H         LINE#         23
+  C:0378H         LINE#         25
+  C:0387H         LINE#         26
+  C:038CH         LINE#         27
+  C:0391H         LINE#         29
+  C:03A1H         LINE#         30
+  C:03A6H         LINE#         31
+  C:03ABH         LINE#         33
+  C:03B5H         LINE#         35
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/10/2026  18:07:31  PAGE 10
+
+
   -------         ENDPROC       DRV_SEG_RUN
-  -------         PROC          _DRV_SEG_SET
-  D:0007H         SYMBOL        position
-  D:0005H         SYMBOL        number
-  C:0573H         LINE#         25
-  C:0573H         LINE#         26
-  C:0573H         LINE#         27
-  C:0579H         LINE#         28
-  -------         ENDPROC       _DRV_SEG_SET
   -------         PROC          DRV_SEG_SET0
-  C:04A9H         LINE#         29
-  C:04A9H         LINE#         30
-  C:04A9H         LINE#         31
-  C:04C1H         LINE#         32
+  C:04A9H         LINE#         37
+  C:04A9H         LINE#         38
+  C:04A9H         LINE#         39
+  C:04C1H         LINE#         40
   -------         ENDPROC       DRV_SEG_SET0
   -------         PROC          _DRV_SEG_SET_ALL
   D:0007H         SYMBOL        s0
@@ -539,16 +555,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   D:0002H         SYMBOL        s2
   D:0026H         SYMBOL        s3
   D:0028H         SYMBOL        s4
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/05/2026  00:11:18  PAGE 10
-
-
   D:002AH         SYMBOL        s5
   D:002CH         SYMBOL        s6
   D:002EH         SYMBOL        s7
-  C:04D8H         LINE#         33
-  C:04D8H         LINE#         34
-  C:04D8H         LINE#         35
-  C:04EDH         LINE#         36
+  C:04D8H         LINE#         42
+  C:04D8H         LINE#         43
+  C:04D8H         LINE#         44
+  C:04EDH         LINE#         45
   -------         ENDPROC       _DRV_SEG_SET_ALL
   -------         ENDMOD        DRV_SEG
 
@@ -575,6 +588,8 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   B:00C0H.4       PUBLIC        P44
   B:00B0H.6       PUBLIC        P36
   B:00B0H.7       PUBLIC        P37
+  D:00F0H         PUBLIC        B
+  D:00E0H         PUBLIC        ACC
   C:058EH         PUBLIC        drv_key_get_now
   D:004DH         SYMBOL        key_ram
   D:00D0H         PUBLIC        PSW
@@ -584,6 +599,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   D:004AH         SYMBOL        key_ptime
   D:004BH         SYMBOL        saved_key
   D:0050H         SYMBOL        key_now
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/10/2026  18:07:31  PAGE 11
+
+
   D:0051H         SYMBOL        key_temp
   -------         ENDDO         
   C:000EH         LINE#         8
@@ -599,9 +617,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   C:0029H         LINE#         25
   C:0041H         LINE#         26
   C:0041H         LINE#         27
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/05/2026  00:11:18  PAGE 11
-
-
   C:0041H         LINE#         28
   C:0047H         LINE#         29
   C:004AH         LINE#         31
@@ -644,6 +659,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   C:010EH         LINE#         76
   C:010EH         LINE#         77
   C:0111H         LINE#         78
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/10/2026  18:07:31  PAGE 12
+
+
   C:0115H         LINE#         80
   C:0115H         LINE#         81
   C:0118H         LINE#         82
@@ -659,9 +677,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   C:0132H         LINE#         95
   C:0136H         LINE#         97
   C:0138H         LINE#         98
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/05/2026  00:11:18  PAGE 12
-
-
   C:013FH         LINE#         99
   C:0142H         LINE#         100
   C:0145H         LINE#         102
@@ -704,6 +719,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   C:058EH         LINE#         137
   C:058EH         LINE#         138
   C:0590H         LINE#         139
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/10/2026  18:07:31  PAGE 13
+
+
   -------         ENDPROC       DRV_KEY_GET_NOW
   -------         PROC          _DRV_KEY_IS
   D:0006H         SYMBOL        keyv
@@ -719,9 +737,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   C:050EH         LINE#         147
   C:050EH         LINE#         148
   C:0510H         LINE#         149
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/05/2026  00:11:18  PAGE 13
-
-
   C:0513H         LINE#         150
   C:0513H         LINE#         151
   C:0515H         LINE#         152
@@ -745,6 +760,8 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   C:0581H         PUBLIC        drv_buzz_set
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
+  D:00F0H         PUBLIC        B
+  D:00E0H         PUBLIC        ACC
   D:0053H         PUBLIC        y5driver_ram
   D:00D0H         PUBLIC        PSW
   C:057AH         PUBLIC        drv_relay_set
@@ -762,6 +779,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   C:0433H         LINE#         15
   C:0433H         LINE#         16
   C:0438H         LINE#         17
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/10/2026  18:07:31  PAGE 14
+
+
   C:043BH         LINE#         18
   C:0440H         LINE#         19
   C:0443H         LINE#         20
@@ -779,9 +799,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   C:0581H         LINE#         26
   C:0581H         LINE#         27
   C:0581H         LINE#         28
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/05/2026  00:11:18  PAGE 14
-
-
   C:0587H         LINE#         29
   -------         ENDPROC       DRV_BUZZ_SET
   -------         ENDMOD        DRV_OTHER
@@ -802,6 +819,8 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   C:0208H         PUBLIC        app_task_100ms
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
+  D:00F0H         PUBLIC        B
+  D:00E0H         PUBLIC        ACC
   D:00D0H         PUBLIC        PSW
   -------         PROC          APP_TASK_100MS
   C:0208H         LINE#         5
@@ -820,6 +839,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\¿ò¼Üv3 (?C_STARTUP)
   -------         ENDMOD        ?C?CCASE
 
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  03/10/2026  18:07:31  PAGE 15
+
+
     SEGMENT: ?PR?DRV_LED_SET0?DRV_LED
 
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS

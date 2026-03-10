@@ -1,0 +1,54 @@
+C51 COMPILER V9.60.7.0   SYS_TASK                                                          03/06/2026 22:37:52 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE SYS_TASK
+OBJECT MODULE PLACED IN .\Objects\sys_task.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE sys_task.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND 
+                    -PRINT(.\Listings\sys_task.lst) TABS(2) OBJECT(.\Objects\sys_task.obj)
+
+line level    source
+
+   1          #include "sys_task.h"
+   2          
+   3          unsigned int sys_tick_ms = 0;
+   4          
+   5          unsigned int last_led =0;
+   6          unsigned int last_key =0;
+   7          unsigned int last_other =0;
+   8          
+   9          unsigned int last_app_task_1 =0;
+  10          unsigned int last_app_task_2 =0;
+  11          
+  12          void sys_task_isr()
+  13          {
+  14   1        sys_tick_ms++;
+  15   1        drv_seg_run();
+  16   1      }
+  17          
+  18          void sys_task_drv_run()
+  19          {
+  20   1        unsigned int now = sys_tick_ms;
+  21   1        if(now - last_led >= 5){last_led = now;drv_led_run();}
+  22   1        if(now - last_key >= 10){last_key = now;drv_key_run();}
+  23   1        if(now - last_other >= 20){last_other = now;drv_other_run();}
+  24   1      }
+  25          void sys_task_app_run()
+  26          {
+  27   1        unsigned int now = sys_tick_ms;
+  28   1        if(now - last_app_task_1 >= 100){last_app_task_1 = now;app_task_100ms();}
+  29   1        if(now - last_app_task_2 >= 500){last_app_task_2 = now;app_task_500ms();}
+  30   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    170    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     12       4
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
