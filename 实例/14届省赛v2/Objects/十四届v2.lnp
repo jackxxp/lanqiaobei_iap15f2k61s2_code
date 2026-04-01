@@ -1,0 +1,13 @@
+".\Objects\STARTUP.obj",
+".\Objects\main.obj",
+".\Objects\sys.obj",
+".\Objects\app.obj",
+".\Objects\led.obj",
+".\Objects\seg.obj",
+".\Objects\key.obj",
+".\Objects\rtc.obj",
+".\Objects\ne555.obj",
+".\Objects\i2c.obj",
+".\Objects\temp.obj" 
+TO ".\Objects\十四届v2" 
+PRINT(".\Listings\十四届v2.m51") RAMSIZE(256) 

@@ -1,0 +1,28 @@
+C51 COMPILER V9.60.7.0   SYS_DECODER                                                       01/29/2026 17:17:40 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE SYS_DECODER
+OBJECT MODULE PLACED IN .\Objects\sys_decoder.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE sys_decoder.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTE
+                    -ND PRINT(.\Listings\sys_decoder.lst) TABS(2) OBJECT(.\Objects\sys_decoder.obj)
+
+line level    source
+
+   1          #include "sys_decoder.h"
+   2          
+   3          void sys_decoder_init()
+   4          {
+   5   1        P2 = P2 & 0x1F;
+*** ERROR C202 IN LINE 5 OF sys_decoder.c: 'P2': undefined identifier
+   6   1      }
+   7          
+   8          void sys_decoder_set(uint8 pin)
+*** ERROR C141 IN LINE 8 OF sys_decoder.c: syntax error near 'pin', expected ')'
+   9          {
+  10   1        //pin &= 0x07;// 限制 pin 范围 0～7     
+  11   1        P2 = (P2 & 0x1F) | ((pin << 5) & 0xE0);// 读取当前 P2 值，保留低5位（P2.0～P2.4），替换�
+             -�3位（P2.5～P2.7）
+*** ERROR C202 IN LINE 11 OF sys_decoder.c: 'P2': undefined identifier
+  12   1      }
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  3 ERROR(S)
