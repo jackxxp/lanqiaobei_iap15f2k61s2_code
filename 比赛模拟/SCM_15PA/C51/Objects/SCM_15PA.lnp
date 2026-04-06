@@ -1,0 +1,11 @@
+".\Objects\dac.obj",
+".\Objects\ds1302.obj",
+".\Objects\iic.obj",
+".\Objects\kb.obj",
+".\Objects\main.obj",
+".\Objects\rtc.obj",
+".\Objects\seg.obj",
+".\Objects\sys.obj",
+".\Objects\ui.obj" 
+TO ".\Objects\SCM_15PA" 
+PRINT(".\Listings\SCM_15PA.m51") RAMSIZE(256) 

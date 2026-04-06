@@ -1,0 +1,1 @@
+"..\Code\ui.c" OPTIMIZE (8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\ui.lst) OBJECT(.\Objects\ui.obj)

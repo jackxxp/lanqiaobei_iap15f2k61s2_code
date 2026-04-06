@@ -1,10 +1,10 @@
-C51 COMPILER V9.60.7.0   SEG                                                               03/26/2026 18:30:38 PAGE 1   
+C51 COMPILER V9.60.7.0   SEG                                                               04/01/2026 20:02:31 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE SEG
 OBJECT MODULE PLACED IN .\Objects\seg.obj
-COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE seg.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT
-                    -(.\Listings\seg.lst) TABS(2) OBJECT(.\Objects\seg.obj)
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE seg.c COMPACT OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTE
+                    -ND PRINT(.\Listings\seg.lst) TABS(2) OBJECT(.\Objects\seg.obj)
 
 line level    source
 
@@ -49,11 +49,11 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     97    ----
+   CODE SIZE        =    124    ----
    CONSTANT SIZE    =     43    ----
    XDATA SIZE       =   ----    ----
-   PDATA SIZE       =   ----    ----
-   DATA SIZE        =      9      15
+   PDATA SIZE       =      9      15
+   DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

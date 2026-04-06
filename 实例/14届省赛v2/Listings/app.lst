@@ -1,10 +1,10 @@
-C51 COMPILER V9.60.7.0   APP                                                               03/26/2026 18:30:38 PAGE 1   
+C51 COMPILER V9.60.7.0   APP                                                               04/01/2026 20:02:31 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE APP
 OBJECT MODULE PLACED IN .\Objects\app.obj
-COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE app.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT
-                    -(.\Listings\app.lst) TABS(2) OBJECT(.\Objects\app.obj)
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE app.c COMPACT OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTE
+                    -ND PRINT(.\Listings\app.lst) TABS(2) OBJECT(.\Objects\app.obj)
 
 line level    source
 
@@ -45,331 +45,333 @@ line level    source
   35          u8 f_h = 12;
   36          u8 f_m = 48;
   37          
-  38          u16 fr = 0;
-  39          u16 fr_out = 0;
-  40          
-  41          u8 adc = 0;
-  42          
-  43          rtc_type rtc;
+  38          u16 fr_out = 0;
+  39          
+  40          u8 adc = 0;
+  41          
+  42          rtc_type rtc;
+  43          
   44          
-  45          
-  46          Timer0_Isr(void) interrupt 1
-  47          {
-  48   1        fr++;
-  49   1      
-  50   1      }
+  45          //Timer0_Isr(void) interrupt 1
+  46          //{
+  47          //  fr++;
+  48          
+  49          //}
+  50          
   51          
-  52          
-  53          void init()
-  54          {
-C51 COMPILER V9.60.7.0   APP                                                               03/26/2026 18:30:38 PAGE 2   
+  52          void init()
+  53          {
+  54   1          static bit initok = 0;
+C51 COMPILER V9.60.7.0   APP                                                               04/01/2026 20:02:31 PAGE 2   
 
-  55   1          static bit initok = 0;
-  56   1          if(initok == 0)
-  57   1          {
-  58   2              initok = 1;
-  59   2              rtc_init();
-  60   2          ne555_init();
-  61   2      
-  62   2          temp_init();
-  63   2            temp_now = temp_get();
-  64   2      
-  65   2          }
-  66   1      }
-  67          
-  68          void seg_display()
-  69          {
-  70   1        switch(page)
-  71   1        {
-  72   2          case 0:
-  73   2          {
-  74   3            seg_set(time_h/10,time_h%10,17,time_m/10,time_m%10,17,time_s/10,time_s%10);
-  75   3          }break;
-  76   2          case 10:
-  77   2          {
-  78   3            if(f_times!= 0)
-  79   3            {seg_set(12,16,temp_max/100,temp_max%100/10,17,temp_avg/100,(temp_avg%100/10)+32,temp_avg%10);}
-  80   3            else{seg_set(12,16,16,16,16,16,16,16);}
-  81   3          }break;
-  82   2          case 11:
-  83   2            {
-  84   3              if(f_times!= 0)
-  85   3              {seg_set(18,16,hum_max/100,hum_max%100/10,17,hum_avg/100,(hum_avg%100/10)+32,hum_avg%10);}
-  86   3              else{seg_set(18,16,16,16,16,16,16,16);}
-  87   3          }break;
-  88   2          case 12:
-  89   2          {
-  90   3            if(f_times!= 0)
-  91   3            {seg_set(15,f_times/10,f_times%10,f_h/10,f_h%10,17,f_m/10,f_m%10);}
-  92   3            else{seg_set(15,f_times/10,f_times%10,16,16,16,16,16);}
-  93   3          }break;
-  94   2          case 2:
-  95   2          {
-  96   3            seg_set(24,16,16,16,16,16,temp_set/100,temp_set%100/10);
-  97   3          }break;
-  98   2          case 9:
-  99   2          {
- 100   3            if(hum_now != 60000)
- 101   3            {
- 102   4              seg_set(14,16,16,temp_now/100,temp_now%100/10,17,hum_now/100,hum_now%100/10);
- 103   4              led_set(4,0);
- 104   4            }else
- 105   3            {
- 106   4              //seg_set(14,16,16,temp_now/100,temp_now%100/10,17,10,10);
- 107   4              seg_set(14,16,16,fr_out/10000,fr_out%10000/1000,fr_out%1000/100,fr_out%100/10,fr_out%10);
- 108   4              led_set(4,1);
- 109   4            }
- 110   3            }break;
- 111   2        }
- 112   1      
- 113   1      }
+  55   1          if(initok == 0)
+  56   1          {
+  57   2              initok = 1;
+  58   2              rtc_init();
+  59   2          ne555_init();
+  60   2      
+  61   2          temp_init();
+  62   2            temp_now = temp_get();
+  63   2      
+  64   2          }
+  65   1      }
+  66          
+  67          void seg_display()
+  68          {
+  69   1        switch(page)
+  70   1        {
+  71   2          case 0:
+  72   2          {
+  73   3            seg_set(time_h/10,time_h%10,17,time_m/10,time_m%10,17,time_s/10,time_s%10);
+  74   3          }break;
+  75   2          case 10:
+  76   2          {
+  77   3            if(f_times!= 0)
+  78   3            {seg_set(12,16,temp_max/100,temp_max%100/10,17,temp_avg/100,(temp_avg%100/10)+32,temp_avg%10);}
+  79   3            else{seg_set(12,16,16,16,16,16,16,16);}
+  80   3          }break;
+  81   2          case 11:
+  82   2            {
+  83   3              if(f_times!= 0)
+  84   3              {seg_set(18,16,hum_max/100,hum_max%100/10,17,hum_avg/100,(hum_avg%100/10)+32,hum_avg%10);}
+  85   3              else{seg_set(18,16,16,16,16,16,16,16);}
+  86   3          }break;
+  87   2          case 12:
+  88   2          {
+  89   3            if(f_times!= 0)
+  90   3            {seg_set(15,f_times/10,f_times%10,f_h/10,f_h%10,17,f_m/10,f_m%10);}
+  91   3            else{seg_set(15,f_times/10,f_times%10,16,16,16,16,16);}
+  92   3          }break;
+  93   2          case 2:
+  94   2          {
+  95   3            seg_set(24,16,16,16,16,16,temp_set/100,temp_set%100/10);
+  96   3          }break;
+  97   2          case 9:
+  98   2          {
+  99   3            if(hum_now != 60000)
+ 100   3            {
+ 101   4              seg_set(14,16,16,temp_now/100,temp_now%100/10,17,hum_now/100,hum_now%100/10);
+ 102   4              led_set(4,0);
+ 103   4            }else
+ 104   3            {
+ 105   4              seg_set(14,16,16,temp_now/100,temp_now%100/10,17,10,10);
+ 106   4              //seg_set(14,16,16,fr_out/10000,fr_out%10000/1000,fr_out%1000/100,fr_out%100/10,fr_out%10);
+ 107   4              led_set(4,1);
+ 108   4            }
+ 109   3            }break;
+ 110   2        }
+ 111   1      
+ 112   1      }
+ 113          
  114          
  115          
- 116          
-C51 COMPILER V9.60.7.0   APP                                                               03/26/2026 18:30:38 PAGE 3   
+ 116          void led_ctrl()
+C51 COMPILER V9.60.7.0   APP                                                               04/01/2026 20:02:31 PAGE 3   
 
- 117          void led_ctrl()
- 118          {
- 119   1        if(page == 0)
- 120   1        {
- 121   2          led_set(0,1);
- 122   2        }else
- 123   1        {
- 124   2          led_set(0,0);
- 125   2        }
- 126   1        if(page == 10 || page == 11 ||page == 12)
- 127   1        {
- 128   2          led_set(1,1);
- 129   2        }else
- 130   1        {
- 131   2          led_set(1,0);
- 132   2        }
- 133   1        if(page == 9)
- 134   1        {
- 135   2          led_set(2,1);
- 136   2        }else
- 137   1        {
- 138   2          led_set(2,0);
- 139   2        }
- 140   1        if(f_times >=2 && temp_now > temp_last && hum_now > hum_last)
- 141   1        {
- 142   2          led_set(5,1);
- 143   2        }else
- 144   1        {
- 145   2          led_set(5,0);
- 146   2        }
- 147   1      
- 148   1      }
- 149          
- 150          void key_ctrl()
- 151          {
- 152   1        if(page != 9)
- 153   1        {
- 154   2          u8 key_v = key_scan();
- 155   2          if(key_v != 99)
- 156   2          { 
- 157   3            switch(page)
- 158   3            {
- 159   4              case 0:
- 160   4              {
- 161   5                if(key_v == 4){page = 10;}
- 162   5              }break;
- 163   4              case 10:
- 164   4              {
- 165   5                if(key_v == 4){page = 2;}
- 166   5                if(key_v == 5){page = 11;}
- 167   5              }break;
- 168   4              case 11:
- 169   4              {
- 170   5                if(key_v == 4){page = 2;}
- 171   5                if(key_v == 5){page = 12;}
- 172   5              }break;
- 173   4              case 12:
- 174   4              {
- 175   5                if(key_v == 4){page = 2;}
- 176   5                if(key_v == 5){page = 10;}
- 177   5                if(key_v == 29){f_times = 0;f_h = 0;f_m = 0;hum_avg = 0;hum_max = 0;temp_avg= 0;temp_max = 0;}
- 178   5              }break;
-C51 COMPILER V9.60.7.0   APP                                                               03/26/2026 18:30:38 PAGE 4   
+ 117          {
+ 118   1        if(page == 0)
+ 119   1        {
+ 120   2          led_set(0,1);
+ 121   2        }else
+ 122   1        {
+ 123   2          led_set(0,0);
+ 124   2        }
+ 125   1        if(page == 10 || page == 11 ||page == 12)
+ 126   1        {
+ 127   2          led_set(1,1);
+ 128   2        }else
+ 129   1        {
+ 130   2          led_set(1,0);
+ 131   2        }
+ 132   1        if(page == 9)
+ 133   1        {
+ 134   2          led_set(2,1);
+ 135   2        }else
+ 136   1        {
+ 137   2          led_set(2,0);
+ 138   2        }
+ 139   1        if(f_times >=2 && temp_now > temp_last && hum_now > hum_last)
+ 140   1        {
+ 141   2          led_set(5,1);
+ 142   2        }else
+ 143   1        {
+ 144   2          led_set(5,0);
+ 145   2        }
+ 146   1      
+ 147   1      }
+ 148          
+ 149          void key_ctrl()
+ 150          {
+ 151   1        if(page != 9)
+ 152   1        {
+ 153   2          u8 key_v = key_scan();
+ 154   2          if(key_v != 99)
+ 155   2          { 
+ 156   3            switch(page)
+ 157   3            {
+ 158   4              case 0:
+ 159   4              {
+ 160   5                if(key_v == 4){page = 10;}
+ 161   5              }break;
+ 162   4              case 10:
+ 163   4              {
+ 164   5                if(key_v == 4){page = 2;}
+ 165   5                if(key_v == 5){page = 11;}
+ 166   5              }break;
+ 167   4              case 11:
+ 168   4              {
+ 169   5                if(key_v == 4){page = 2;}
+ 170   5                if(key_v == 5){page = 12;}
+ 171   5              }break;
+ 172   4              case 12:
+ 173   4              {
+ 174   5                if(key_v == 4){page = 2;}
+ 175   5                if(key_v == 5){page = 10;}
+ 176   5                if(key_v == 29){f_times = 0;f_h = 0;f_m = 0;hum_avg = 0;hum_max = 0;temp_avg= 0;temp_max = 0;}
+ 177   5              }break;
+ 178   4              case 2:
+C51 COMPILER V9.60.7.0   APP                                                               04/01/2026 20:02:31 PAGE 4   
 
- 179   4              case 2:
- 180   4              {
- 181   5                if(key_v == 4){page = 0;}
- 182   5                if(key_v == 8 && temp_set<990){temp_set += 10;}
- 183   5                if(key_v == 9 && temp_set>0){temp_set -= 10;}
- 184   5              }break;
- 185   4            }
- 186   3          }
- 187   2        }
- 188   1      }
- 189          
- 190          void hum_get()
- 191          {
- 192   1        if(fr_out >=200 && fr_out<= 2000)
- 193   1        {
- 194   2          //hum_now = fr_out*44/100+100;
- 195   2          hum_now = 100 + (fr_out - 200) * 20 / 45;
- 196   2        }else
- 197   1        {
- 198   2          hum_now = 60000;
- 199   2        }
- 200   1      }
+ 179   4              {
+ 180   5                if(key_v == 4){page = 0;}
+ 181   5                if(key_v == 8 && temp_set<990){temp_set += 10;}
+ 182   5                if(key_v == 9 && temp_set>0){temp_set -= 10;}
+ 183   5              }break;
+ 184   4            }
+ 185   3          }
+ 186   2        }
+ 187   1      }
+ 188          
+ 189          void hum_get()
+ 190          {
+ 191   1        if(fr_out >=200 && fr_out<= 2000)
+ 192   1        {
+ 193   2          //hum_now = fr_out*44/100+100;
+ 194   2          hum_now = 100 + (fr_out - 200) * 20 / 45;
+ 195   2        }else
+ 196   1        {
+ 197   2          hum_now = 60000;
+ 198   2        }
+ 199   1      }
+ 200          
  201          
- 202          
- 203          void l4_run()
- 204          {
- 205   1        static bit l4sw = 0;
- 206   1        if(temp_now >temp_set)
- 207   1        {
- 208   2          led_set(3,l4sw);
- 209   2          l4sw ^= 1;
- 210   2        }else
- 211   1        {
- 212   2          led_set(3,0);
- 213   2        }
- 214   1      }
- 215          void rtc_run()
- 216          {
- 217   1        rtc_get(&rtc);
- 218   1          time_s = rtc.s;
- 219   1          time_m = rtc.m;
- 220   1          time_h = rtc.h; 
- 221   1      }
- 222          
- 223          void adc_run()
- 224          {
- 225   1        adc = adc_get();
- 226   1      }
- 227          
- 228          void avg_jishuan()
- 229          {
- 230   1        static u8 avg_tick = 0;
- 231   1        static u8 avg_ticktotle = 1;
- 232   1      
- 233   1        temp_his[avg_tick] = temp_now;
- 234   1        hum_his[avg_tick] = hum_now;
- 235   1      
- 236   1        avg_tick++;if(avg_tick == 10){avg_tick = 0;}
+ 202          void l4_run()
+ 203          {
+ 204   1        static bit l4sw = 0;
+ 205   1        if(temp_now >temp_set)
+ 206   1        {
+ 207   2          led_set(3,l4sw);
+ 208   2          l4sw ^= 1;
+ 209   2        }else
+ 210   1        {
+ 211   2          led_set(3,0);
+ 212   2        }
+ 213   1      }
+ 214          void rtc_run()
+ 215          {
+ 216   1        rtc_get(&rtc);
+ 217   1          time_s = rtc.s;
+ 218   1          time_m = rtc.m;
+ 219   1          time_h = rtc.h; 
+ 220   1      }
+ 221          
+ 222          void adc_run()
+ 223          {
+ 224   1        adc = adc_get();
+ 225   1      }
+ 226          
+ 227          void avg_jishuan()
+ 228          {
+ 229   1        static u8 avg_tick = 0;
+ 230   1        static u8 avg_ticktotle = 1;
+ 231   1      
+ 232   1        temp_his[avg_tick] = temp_now;
+ 233   1        hum_his[avg_tick] = hum_now;
+ 234   1      
+ 235   1        avg_tick++;if(avg_tick == 10){avg_tick = 0;}
+ 236   1      
  237   1      
- 238   1      
- 239   1        temp_avg = (temp_his[0]+temp_his[1]+temp_his[2]+temp_his[3]+temp_his[4]+temp_his[5]+temp_his[6]+temp_his[
+ 238   1        temp_avg = (temp_his[0]+temp_his[1]+temp_his[2]+temp_his[3]+temp_his[4]+temp_his[5]+temp_his[6]+temp_his[
              -7]+temp_his[8]+temp_his[9])/avg_ticktotle;
-C51 COMPILER V9.60.7.0   APP                                                               03/26/2026 18:30:38 PAGE 5   
+ 239   1        hum_avg = (hum_his[0]+hum_his[1]+hum_his[2]+hum_his[3]+hum_his[4]+hum_his[5]+hum_his[6]+hum_his[7]+hum_hi
+C51 COMPILER V9.60.7.0   APP                                                               04/01/2026 20:02:31 PAGE 5   
 
- 240   1        hum_avg = (hum_his[0]+hum_his[1]+hum_his[2]+hum_his[3]+hum_his[4]+hum_his[5]+hum_his[6]+hum_his[7]+hum_hi
              -s[8]+hum_his[9])/avg_ticktotle;
- 241   1        if(avg_ticktotle !=10){avg_ticktotle++;}
- 242   1      
- 243   1      }
- 244          
- 245          void ffff()
- 246          {
- 247   1        static u8 fff_step = 0;
- 248   1        static u8 fff_time = 0;
- 249   1      
- 250   1        switch(fff_step)
- 251   1        {
- 252   2        case 0:
- 253   2        {
- 254   3          if(fsw == 1)
- 255   3          {
- 256   4            temp_now = temp_get();
- 257   4            hum_get();
- 258   4            page_last = page;
- 259   4            page = 9;
- 260   4            fff_step =1;
- 261   4            if(hum_now != 60000)
- 262   4            {
- 263   5              f_h = time_h;
- 264   5              f_m = time_m;
- 265   5              f_times++;
- 266   5              if(temp_now>temp_max)
- 267   5              {
- 268   6                temp_max = temp_now;
- 269   6              }
- 270   5              if(hum_now>hum_max)
- 271   5              {
- 272   6                hum_max = hum_now;
- 273   6              }
- 274   5              avg_jishuan();
- 275   5            }     
- 276   4          }
- 277   3        }break;
- 278   2        case 1:
- 279   2        {
- 280   3          fff_time++;
- 281   3          if(fff_time >=29)
- 282   3          {
- 283   4            fff_step =2;
- 284   4          }
- 285   3        }break;
- 286   2        case 2:
- 287   2        {
- 288   3          fff_step = 0;
- 289   3          fff_time = 0;
- 290   3          page = page_last;
- 291   3          fsw = 0;
- 292   3        }break;
- 293   2        }
- 294   1      }
- 295          
- 296          void adc_f_run()
- 297          {
- 298   1        static bit liang = 0;
- 299   1        if(fsw != 1)
- 300   1        {
-C51 COMPILER V9.60.7.0   APP                                                               03/26/2026 18:30:38 PAGE 6   
+ 240   1        if(avg_ticktotle !=10){avg_ticktotle++;}
+ 241   1      
+ 242   1      }
+ 243          
+ 244          void ffff()
+ 245          {
+ 246   1        static u8 fff_step = 0;
+ 247   1        static u8 fff_time = 0;
+ 248   1      
+ 249   1        switch(fff_step)
+ 250   1        {
+ 251   2        case 0:
+ 252   2        {
+ 253   3          if(fsw == 1)
+ 254   3          {
+ 255   4            temp_now = temp_get();
+ 256   4            hum_get();
+ 257   4            page_last = page;
+ 258   4            page = 9;
+ 259   4            fff_step =1;
+ 260   4            if(hum_now != 60000)
+ 261   4            {
+ 262   5              f_h = time_h;
+ 263   5              f_m = time_m;
+ 264   5              f_times++;
+ 265   5              if(temp_now>temp_max)
+ 266   5              {
+ 267   6                temp_max = temp_now;
+ 268   6              }
+ 269   5              if(hum_now>hum_max)
+ 270   5              {
+ 271   6                hum_max = hum_now;
+ 272   6              }
+ 273   5              avg_jishuan();
+ 274   5            }     
+ 275   4          }
+ 276   3        }break;
+ 277   2        case 1:
+ 278   2        {
+ 279   3          fff_time++;
+ 280   3          if(fff_time >=29)
+ 281   3          {
+ 282   4            fff_step =2;
+ 283   4          }
+ 284   3        }break;
+ 285   2        case 2:
+ 286   2        {
+ 287   3          fff_step = 0;
+ 288   3          fff_time = 0;
+ 289   3          page = page_last;
+ 290   3          fsw = 0;
+ 291   3        }break;
+ 292   2        }
+ 293   1      }
+ 294          
+ 295          void adc_f_run()
+ 296          {
+ 297   1        static bit liang = 0;
+ 298   1        if(fsw != 1)
+ 299   1        {
+ 300   2          if(adc >= 50){liang = 1;}
+C51 COMPILER V9.60.7.0   APP                                                               04/01/2026 20:02:31 PAGE 6   
 
- 301   2          if(adc >= 50){liang = 1;}
- 302   2          if(liang ==1 && adc <20)
- 303   2          {
- 304   3            liang = 0;
- 305   3            fsw = 1;
- 306   3          }
- 307   2        }
- 308   1      }
- 309          
- 310          void app_task_1000ms()
- 311          {
- 312   1        fr_out= fr;
- 313   1        fr = 0;
- 314   1      }
- 315          
- 316          void app_task_100ms()
- 317          {
- 318   1        init();
- 319   1          seg_display();
- 320   1        adc_run();
- 321   1        
- 322   1        led_ctrl();
- 323   1        l4_run();
- 324   1        adc_f_run();
- 325   1        ffff();
- 326   1        
- 327   1      }
- 328          void app_task_500ms()
- 329          {
- 330   1        rtc_run();
- 331   1        
- 332   1        
+ 301   2          if(liang ==1 && adc <20)
+ 302   2          {
+ 303   3            liang = 0;
+ 304   3            fsw = 1;
+ 305   3          }
+ 306   2        }
+ 307   1      }
+ 308          
+ 309          void app_task_1000ms()
+ 310          {
+ 311   1        TR0 = 0;
+ 312   1        fr_out= ((TH0<<8)|TL0);
+ 313   1        TH0 = 0;
+ 314   1        TL0 = 0;
+ 315   1        TR0 = 1;
+ 316   1      }
+ 317          
+ 318          void app_task_100ms()
+ 319          {
+ 320   1        init();
+ 321   1          seg_display();
+ 322   1        adc_run();
+ 323   1        
+ 324   1        led_ctrl();
+ 325   1        l4_run();
+ 326   1        adc_f_run();
+ 327   1        ffff();
+ 328   1        
+ 329   1      }
+ 330          void app_task_500ms()
+ 331          {
+ 332   1        rtc_run();
  333   1        
- 334   1      }
- 335          
- 336          void app_task_10ms()
- 337          {
- 338   1          key_ctrl();
- 339   1      
- 340   1      }
- 341          
- 342            
+ 334   1        
+ 335   1        
+ 336   1      }
+ 337          
+ 338          void app_task_10ms()
+ 339          {
+ 340   1          key_ctrl();
+ 341   1      
+ 342   1      }
+ 343          
+ 344            
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   1940    ----
+   CODE SIZE        =   2188    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =     40    ----
-   PDATA SIZE       =   ----    ----
-   DATA SIZE        =     38       1
+   PDATA SIZE       =     36       1
+   DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =      4    ----
 END OF MODULE INFORMATION.

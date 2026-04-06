@@ -1,0 +1,317 @@
+C51 COMPILER V9.60.7.0   UI                                                                04/01/2024 20:53:22 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE UI
+OBJECT MODULE PLACED IN .\Objects\ui.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\Code\ui.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listing
+                    -s\ui.lst) OBJECT(.\Objects\ui.obj)
+
+line level    source
+
+   1          #include "ui.h"
+   2          
+   3          
+   4          extern bdata unsigned char flag;
+   5          
+   6          static unsigned char uiIndex = 0;
+   7          static unsigned char uiParaIndex = 1;
+   8          static unsigned char uiRecdIndex = 1;
+   9          static unsigned int  paraMax = 2000;
+  10          static int paraOffset = 0;
+  11          static unsigned int frqMax = 0;
+  12          static unsigned char rtcTime[6];
+  13          static unsigned char frqMaxTime[6];
+  14          static unsigned char led = 0xFF;
+  15          extern unsigned int frq;
+  16          static unsigned int frq_adjust = 0;
+  17          unsigned char frq_error_flag = 0;
+  18          
+  19          //
+  20          void getFrq(void) 
+  21          {
+  22   1          unsigned char dac_val = 0;
+  23   1      
+  24   1          if((flag & 0x20) == 0)
+  25   1              return;
+  26   1          flag &= ~0x20;
+  27   1      
+  28   1          rtcGet(rtcTime);
+  29   1      
+  30   1          frq_adjust = frq + paraOffset;
+  31   1          frq_error_flag = 0;
+  32   1      
+  33   1              if(paraOffset < 0){
+  34   2                      if (frq < -paraOffset){
+  35   3                      frq_error_flag = 1;
+  36   3                      }
+  37   2              }
+  38   1      
+  39   1          //频率错误判断
+  40   1          if(frq_error_flag == 0){
+  41   2      
+  42   2              //频率最大值处理
+  43   2              if(frqMax <= frq_adjust){
+  44   3                  frqMax = frq_adjust;
+  45   3                  frqMaxTime[0] = rtcTime[0];
+  46   3                  frqMaxTime[1] = rtcTime[1];
+  47   3                  frqMaxTime[2] = rtcTime[2];
+  48   3                  frqMaxTime[3] = rtcTime[3];
+  49   3                  frqMaxTime[4] = rtcTime[4];
+  50   3                  frqMaxTime[5] = rtcTime[5];
+  51   3              }
+  52   2      
+  53   2              //DAC输出处理
+  54   2              if(frq_adjust <= 500){
+C51 COMPILER V9.60.7.0   UI                                                                04/01/2024 20:53:22 PAGE 2   
+
+  55   3                  setDAC(255 * 0.2);    
+  56   3              }else if((500 < frq_adjust) && (frq_adjust < paraMax)){
+  57   3                  //保留小数点--- 
+  58   3                  //dac_val = 51.0*(4.0*((frq_adjust - 500.0)/(paraMax - 500.0) + 1.0));
+  59   3                  dac_val = 255.0*(4.0*(float)(frq_adjust - 500)/(paraMax - 500) + 1)/5.0;
+  60   3                  setDAC(dac_val);        //ADJUST
+  61   3      
+  62   3              }else{
+  63   3                  setDAC(255); 
+  64   3              }
+  65   2          }else{
+  66   2                      setDAC(0);
+  67   2              }
+  68   1      }
+  69          
+  70          //
+  71          void uiRecd(unsigned char recd_num)
+  72          {
+  73   1          setSegData(0, 17);      //H
+  74   1      
+  75   1          if(recd_num == 0x1){
+  76   2              //F:频率回显
+  77   2              setSegData(1, 16);
+  78   2              setSegData(2, 10);
+  79   2              setSegData(3, frqMax > 10000   ? frqMax/10000      :   10);
+  80   2              setSegData(4, frqMax > 1000    ? frqMax%10000/1000 :   10);
+  81   2              setSegData(5, frqMax > 100     ? frqMax%1000/100   :   10);
+  82   2              setSegData(6, frqMax > 10      ? frqMax%100/10     :   10);   
+  83   2              setSegData(7, frqMax % 10);            
+  84   2          }else if(recd_num == 0x2){
+  85   2              //A:时间回显
+  86   2              setSegData(1, 15);  
+  87   2              setSegData(2, frqMaxTime[0]);
+  88   2              setSegData(3, frqMaxTime[1]);
+  89   2              setSegData(4, frqMaxTime[2]);
+  90   2              setSegData(5, frqMaxTime[3]);
+  91   2              setSegData(6, frqMaxTime[4]);
+  92   2              setSegData(7, frqMaxTime[5]);
+  93   2          }
+  94   1      }
+  95          
+  96          //
+  97          void uiFrq(void)
+  98          {
+  99   1          setSegData(0, 16);  //F
+ 100   1          setSegData(1, 10);
+ 101   1          setSegData(2, 10);
+ 102   1              
+ 103   1              if(frq_error_flag == 1){
+ 104   2                      setSegData(3, 10);
+ 105   2                      setSegData(4, 10);
+ 106   2                      setSegData(5, 10);
+ 107   2                      setSegData(6, 14);
+ 108   2                      setSegData(7, 14);
+ 109   2                      
+ 110   2              }else{
+ 111   2                      setSegData(3, frq_adjust > 10000   ? frq_adjust/10000      :   10);
+ 112   2                      setSegData(4, frq_adjust > 1000    ? frq_adjust%10000/1000 :   10);
+ 113   2                      setSegData(5, frq_adjust > 100     ? frq_adjust%1000/100   :   10);
+ 114   2                      setSegData(6, frq_adjust > 10      ? frq_adjust%100/10     :   10);   
+ 115   2                      setSegData(7, frq_adjust % 10); 
+ 116   2              }
+C51 COMPILER V9.60.7.0   UI                                                                04/01/2024 20:53:22 PAGE 3   
+
+ 117   1      }
+ 118          
+ 119          //
+ 120          void uiRTC(void)
+ 121          {
+ 122   1          
+ 123   1          setSegData(0, rtcTime[0]);
+ 124   1          setSegData(1, rtcTime[1]);
+ 125   1          setSegData(2, 12);
+ 126   1          setSegData(3, rtcTime[2]);
+ 127   1          setSegData(4, rtcTime[3]);
+ 128   1          setSegData(5, 12);
+ 129   1          setSegData(6, rtcTime[4]);
+ 130   1          setSegData(7, rtcTime[5]);
+ 131   1      }
+ 132          
+ 133          //
+ 134          void uiPara(unsigned char para_num)
+ 135          {
+ 136   1          setSegData(0, 13);  //P
+ 137   1          setSegData(1, para_num);
+ 138   1          setSegData(2, 10);
+ 139   1          setSegData(3, 10);
+ 140   1      
+ 141   1          if(para_num == 0x1){
+ 142   2              setSegData(4, paraMax/1000);
+ 143   2              setSegData(5, 0);
+ 144   2              setSegData(6, 0);
+ 145   2              setSegData(7, 0);  
+ 146   2          }else if(para_num == 0x2){
+ 147   2              if(paraOffset > 0){
+ 148   3                  //正数符号位熄灭
+ 149   3                  setSegData(4, 10);
+ 150   3                  setSegData(5, paraOffset/100);
+ 151   3                  setSegData(6, 0);
+ 152   3              }else if(paraOffset < 0){
+ 153   3                  //负数显示符号好
+ 154   3                  setSegData(4, 12); 
+ 155   3                  setSegData(5, -paraOffset/100); 
+ 156   3                  setSegData(6, 0);
+ 157   3              }else{
+ 158   3                  setSegData(4, 10);
+ 159   3                  setSegData(5, 10);
+ 160   3                  setSegData(6, 10);
+ 161   3              }
+ 162   2      
+ 163   2              setSegData(7, 0); 
+ 164   2          }
+ 165   1      }
+ 166          
+ 167          
+ 168          //
+ 169          void uiDsp(void)
+ 170          {
+ 171   1          //
+ 172   1          if((flag & 0x01) == 0)
+ 173   1              return;
+ 174   1          flag &= ~0x02;
+ 175   1      
+ 176   1          switch(uiIndex){
+ 177   2              case 0:
+ 178   2                  uiFrq();
+C51 COMPILER V9.60.7.0   UI                                                                04/01/2024 20:53:22 PAGE 4   
+
+ 179   2                  break;
+ 180   2              case 1:
+ 181   2                  uiPara(uiParaIndex);
+ 182   2                  break;
+ 183   2              case 2:
+ 184   2                  uiRTC();
+ 185   2                  break;
+ 186   2              case 3:
+ 187   2                  uiRecd(uiRecdIndex);
+ 188   2                  break;
+ 189   2          }
+ 190   1      }
+ 191          
+ 192          //
+ 193          void uiLed(void)
+ 194          {       
+ 195   1          //LED ---- 100ms
+ 196   1          if((flag & 4) == 0)
+ 197   1              return;
+ 198   1          flag &= ~4;
+ 199   1      
+ 200   1          //LD1 -- 频率界面指示灯
+ 201   1          if(uiIndex == 0){
+ 202   2              led ^= 1;
+ 203   2          }else{
+ 204   2              led |= 1;
+ 205   2          }
+ 206   1              
+ 207   1              //LD2指示灯控制
+ 208   1              if((frq_adjust > paraMax) && (frq_error_flag == 0)){
+ 209   2                      led ^= 2;               
+ 210   2              }else{
+ 211   2                      if(frq_adjust <= paraMax){
+ 212   3                              led |= 2;
+ 213   3                      }else{
+ 214   3                              led &= ~2;
+ 215   3                      }
+ 216   2              }
+ 217   1          LED(led);
+ 218   1      }
+ 219          
+ 220          //
+ 221          void uiKey(void)
+ 222          {
+ 223   1          if(keyGet() == 4){
+ 224   2              keySet(255);
+ 225   2              if(++uiIndex >= 4){
+ 226   3                  uiIndex = 0;
+ 227   3              }
+ 228   2              if(uiIndex == 1){
+ 229   3                  //参数的默认界面
+ 230   3                  uiParaIndex = 1;
+ 231   3              }
+ 232   2              if(uiIndex == 3){
+ 233   3                  //回显的默认界面
+ 234   3                  uiRecdIndex = 1;
+ 235   3              }
+ 236   2          }else if(keyGet() == 5){
+ 237   2              keySet(255);
+ 238   2              if(uiIndex == 1){
+ 239   3                  if(++uiParaIndex == 3){
+ 240   4                      uiParaIndex = 1;
+C51 COMPILER V9.60.7.0   UI                                                                04/01/2024 20:53:22 PAGE 5   
+
+ 241   4                  }
+ 242   3              }
+ 243   2              if(uiIndex == 3){
+ 244   3                  if(++uiRecdIndex == 3){
+ 245   4                      uiRecdIndex = 1;
+ 246   4                  }
+ 247   3              }
+ 248   2          }else if(keyGet() == 8){
+ 249   2              keySet(255);
+ 250   2              if(uiIndex == 1){
+ 251   3                  //超限参数
+ 252   3                  if(uiParaIndex == 1){
+ 253   4                      paraMax += 1000;
+ 254   4                      if(paraMax == 10000){
+ 255   5                          paraMax = 1000;
+ 256   5                      }
+ 257   4                  }
+ 258   3                  //校准值参数
+ 259   3                  if(uiParaIndex == 2){
+ 260   4                      paraOffset += 100;
+ 261   4                      if(paraOffset == 1000){
+ 262   5                          paraOffset = -900;
+ 263   5                      }
+ 264   4                  }
+ 265   3              }
+ 266   2          }else if(keyGet() == 9){
+ 267   2              keySet(255);
+ 268   2              if(uiIndex == 1){
+ 269   3                  //超限参数
+ 270   3                  if(uiParaIndex == 1){
+ 271   4                      paraMax -= 1000;
+ 272   4                      if(paraMax == 0){
+ 273   5                          paraMax = 9000;
+ 274   5                      }
+ 275   4                  }
+ 276   3                  //校准值参数
+ 277   3                  if(uiParaIndex == 2){
+ 278   4                      paraOffset -= 100;
+ 279   4                      if(paraOffset == -1000){
+ 280   5                          paraOffset = 900;
+ 281   5                      }
+ 282   4                  }
+ 283   3              }
+ 284   2          }
+ 285   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1420    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     25       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,17 @@
+".\Objects\STARTUP.obj",
+".\Objects\main.obj",
+".\Objects\sys.obj",
+".\Objects\app.obj",
+".\Objects\seg.obj",
+".\Objects\led.obj",
+".\Objects\otr.obj",
+".\Objects\fre.obj",
+".\Objects\key.obj",
+".\Objects\rtc.obj",
+".\Objects\dis.obj",
+".\Objects\temp.obj",
+".\Objects\iic.obj",
+".\Objects\pwm.obj",
+".\Objects\uart.obj" 
+TO ".\Objects\kj5" 
+PRINT(".\Listings\kj5.m51") RAMSIZE(256) 

@@ -1,0 +1,6 @@
+Build target 'Target 1'
+linking...
+Program Size: data=79.0 xdata=0 code=2801
+creating hex file from ".\Objects\SCM_15PA"...
+".\Objects\SCM_15PA" - 0 Error(s), 0 Warning(s).
+Build Time Elapsed:  00:00:00

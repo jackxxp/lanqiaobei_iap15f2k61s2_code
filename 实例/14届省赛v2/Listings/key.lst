@@ -1,10 +1,10 @@
-C51 COMPILER V9.60.7.0   KEY                                                               03/26/2026 18:30:38 PAGE 1   
+C51 COMPILER V9.60.7.0   KEY                                                               04/01/2026 20:02:31 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE KEY
 OBJECT MODULE PLACED IN .\Objects\key.obj
-COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE key.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT
-                    -(.\Listings\key.lst) TABS(2) OBJECT(.\Objects\key.obj)
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE key.c COMPACT OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTE
+                    -ND PRINT(.\Listings\key.lst) TABS(2) OBJECT(.\Objects\key.obj)
 
 line level    source
 
@@ -62,7 +62,7 @@ line level    source
   52   4                      i++;
   53   4                      if (i > 100) {
   54   5                          i = 0;
-C51 COMPILER V9.60.7.0   KEY                                                               03/26/2026 18:30:38 PAGE 2   
+C51 COMPILER V9.60.7.0   KEY                                                               04/01/2026 20:02:31 PAGE 2   
 
   55   5                          state = 3;
   56   5                      }
@@ -92,11 +92,11 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    191    ----
+   CODE SIZE        =    229    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
-   PDATA SIZE       =   ----    ----
-   DATA SIZE        =      3       2
+   PDATA SIZE       =      3       2
+   DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

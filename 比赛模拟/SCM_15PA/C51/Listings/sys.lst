@@ -1,0 +1,120 @@
+C51 COMPILER V9.60.7.0   SYS                                                               04/01/2024 17:18:00 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE SYS
+OBJECT MODULE PLACED IN .\Objects\sys.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\Code\sys.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listin
+                    -gs\sys.lst) OBJECT(.\Objects\sys.obj)
+
+line level    source
+
+   1          #include "sys.h"
+   2          
+   3          //
+   4          unsigned int frq = 0;
+   5          static unsigned int ms[7];
+   6          bdata unsigned char flag = 0;
+   7          
+   8          
+   9          
+  10          //
+  11          void buzOff(void)
+  12          {
+  13   1          LED(0xFF);
+  14   1          BUZ(0x00);
+  15   1      }
+  16          
+  17          void delay10Ms(void)
+  18          {
+  19   1              unsigned char i, j;
+  20   1      
+  21   1              i = 108;
+  22   1              j = 145;
+  23   1              do
+  24   1              {
+  25   2                      while (--j);
+  26   2              } while (--i);
+  27   1      }
+  28          
+  29          //Timer0 as frquency timer
+  30          void initFrqTimer(void)
+  31          {
+  32   1              AUXR &= 0x7F;
+  33   1      
+  34   1              TMOD |= 0x04;
+  35   1              TH0 = 0;
+  36   1              TL0 = 0;
+  37   1              TR0 = 1;
+  38   1              TF0 = 0;
+  39   1      }
+  40          
+  41          void calFrq(void)
+  42          {
+  43   1              
+  44   1              TR0 = 0;        //暂停计数器
+  45   1              frq = ((TH0 << 8) | TL0);
+  46   1              frq *= 5;
+  47   1      
+  48   1              TH0 = 0;
+  49   1              TL0 = 0;
+  50   1              TR0 = 1;
+  51   1      }
+  52          
+  53          //Timer2 as system tick timer
+  54          void initSysTick(void)
+C51 COMPILER V9.60.7.0   SYS                                                               04/01/2024 17:18:00 PAGE 2   
+
+  55          {
+  56   1          AUXR |= 0x04;
+  57   1          T2L = 0x20;
+  58   1              T2H = 0xD1;
+  59   1              AUXR |= 0x10;
+  60   1          IE2 |= 0x04;
+  61   1              EA = 1;
+  62   1      }
+  63          
+  64          //
+  65          void isrSysTick(void)    interrupt 12
+  66          {
+  67   1              segDsp();
+  68   1      
+  69   1          //KEY
+  70   1              if(++ms[0] == 10){
+  71   2                      ms[0] = 0;  flag |= 0x01;       
+  72   2              }
+  73   1          //DSP update
+  74   1              if(++ms[1] == 100){
+  75   2                      ms[1] = 0;  flag |= 0x02;
+  76   2              }
+  77   1          //LED update
+  78   1              if(++ms[2] == 200){
+  79   2                      ms[2] = 0;  flag |= 0x04;
+  80   2              }
+  81   1          //
+  82   1              if(++ms[3] == 200){
+  83   2                      ms[3] = 0;  flag |= 0x08;
+  84   2              }
+  85   1          //FRQ-CAL
+  86   1              if(++ms[4] == 200){
+  87   2                      ms[4] = 0;
+  88   2              calFrq();
+  89   2              }
+  90   1          //RTC-FRQ Data
+  91   1              if(++ms[5] == 200){
+  92   2                      ms[5] = 0;  flag |= 0x20;
+  93   2              }
+  94   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    291    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     17    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,88 @@
+C51 COMPILER V9.60.7.0   APP                                                               04/06/2026 12:51:18 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE APP
+OBJECT MODULE PLACED IN .\Objects\app.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE app.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT
+                    -(.\Listings\app.lst) TABS(2) OBJECT(.\Objects\app.obj)
+
+line level    source
+
+   1          #include "app.h"
+   2          
+   3          #include "key.h"
+   4          #include "rtc.h"
+   5          #include "dis.h"
+   6          #include "temp.h"
+   7          #include "iic.h"
+   8          #include "pwm.h"
+   9          #include "uart.h"
+  10          
+  11          static u8 aaa = 0;
+  12          static u8 bbb = 0;
+  13          
+  14          void app_init()
+  15          {
+  16   1          static bit initok = 0;
+  17   1          if(initok != 1)
+  18   1          {
+  19   2              initok = 1;
+  20   2            dis_init();
+  21   2          }
+  22   1      }
+  23          
+  24          void ui_display()
+  25          {
+  26   1        aaa = dis_get();
+  27   1        seg_set(aaa/100,aaa%100/10,aaa%10,16,16,16,16,16);
+  28   1        
+  29   1      }
+  30          
+  31          
+  32          void app_100ms_task()
+  33          {  
+  34   1      
+  35   1        app_init();
+  36   1      
+  37   1        
+  38   1          ui_display();
+  39   1      
+  40   1        
+  41   1        
+  42   1      
+  43   1      
+  44   1      
+  45   1      }
+  46          void app_10ms_task()
+  47          {
+  48   1          u8 key_now =key_get();
+  49   1        if(key_now != 255)
+  50   1        {
+  51   2              switch(key_now)
+  52   2              {
+  53   3      
+  54   3              }
+C51 COMPILER V9.60.7.0   APP                                                               04/06/2026 12:51:18 PAGE 2   
+
+  55   2        }
+  56   1        
+  57   1           
+  58   1      }
+  59          void app_500ms_task()
+  60          {
+  61   1      
+  62   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     93    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

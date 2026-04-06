@@ -1,0 +1,91 @@
+C51 COMPILER V9.60.7.0   DIS                                                               04/06/2026 12:51:19 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE DIS
+OBJECT MODULE PLACED IN .\Objects\dis.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE dis.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT
+                    -(.\Listings\dis.lst) TABS(2) OBJECT(.\Objects\dis.obj)
+
+line level    source
+
+   1          #include "dis.h"
+   2          
+   3          void Delay12us(void)    // @12.000MHz，实测12.166μs
+   4          {
+   5   1          unsigned char i;
+   6   1          _nop_();
+   7   1          _nop_();
+   8   1          i = 33;
+   9   1          while (--i);
+  10   1      }
+  11          
+  12          
+  13          
+  14          void Send40kHz(void)
+  15          {
+  16   1          u8 i;
+  17   1          
+  18   1          EA = 0;                     // 关中断，保证时序
+  19   1          for(i = 0; i < 8; i++) {
+  20   2              SONIC_TX = 1;
+  21   2              Delay12us();            // 高电平 12.166μs
+  22   2              SONIC_TX = 0;
+  23   2              Delay12us();            // 低电平 12.166μs
+  24   2          }
+  25   1          EA = 1;
+  26   1      }
+  27          
+  28          
+  29          
+  30          void dis_init()
+  31          {
+  32   1        AUXR &= 0xBF;     //定时器时钟12T模式
+  33   1        TMOD &= 0x0F;     //设置定时器模式
+  34   1        TL1 = 0x00;       //设置定时初始值
+  35   1        TH1 = 0x00;       //设置定时初始值
+  36   1        TF1 = 0;        //清除TF1标志
+  37   1        TR1 = 0;        //定时器1tz计时
+  38   1          ET1 = 0;
+  39   1      }
+  40          u8 dis_get()
+  41          {
+  42   1          u8 distance = 0;
+  43   1          u16 time = 0;
+  44   1      
+  45   1          TR1 = 0;
+  46   1        TL1 = 0;TH1 = 0;
+  47   1          TF1 = 0;
+  48   1      
+  49   1          Send40kHz();
+  50   1      
+  51   1          while(SONIC_RX == 0);
+  52   1      
+  53   1          TR1 = 1;
+  54   1        
+C51 COMPILER V9.60.7.0   DIS                                                               04/06/2026 12:51:19 PAGE 2   
+
+  55   1      
+  56   1          while(SONIC_RX == 1 && TF1 == 0);
+  57   1          
+  58   1          TR1 = 0;
+  59   1          
+  60   1          if(TF1 == 1) {return 255;}
+  61   1      
+  62   1          time = (TH1 << 8) | TL1;
+  63   1          return (unsigned int)(time * 0.017);
+  64   1      
+  65   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    110    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

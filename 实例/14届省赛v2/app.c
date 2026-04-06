@@ -35,7 +35,6 @@ static u8  f_times = 0;
 u8 f_h = 12;
 u8 f_m = 48;
 
-u16 fr = 0;
 u16 fr_out = 0;
 
 u8 adc = 0;
@@ -43,11 +42,11 @@ u8 adc = 0;
 rtc_type rtc;
 
 
-Timer0_Isr(void) interrupt 1
-{
-	fr++;
+//Timer0_Isr(void) interrupt 1
+//{
+//	fr++;
 
-}
+//}
 
 
 void init()
@@ -103,8 +102,8 @@ void seg_display()
 				led_set(4,0);
 			}else
 			{
-				//seg_set(14,16,16,temp_now/100,temp_now%100/10,17,10,10);
-				seg_set(14,16,16,fr_out/10000,fr_out%10000/1000,fr_out%1000/100,fr_out%100/10,fr_out%10);
+				seg_set(14,16,16,temp_now/100,temp_now%100/10,17,10,10);
+				//seg_set(14,16,16,fr_out/10000,fr_out%10000/1000,fr_out%1000/100,fr_out%100/10,fr_out%10);
 				led_set(4,1);
 			}
 			}break;
@@ -309,8 +308,7 @@ void adc_f_run()
 
 void app_task_1000ms()
 {
-	fr_out= fr;
-	fr = 0;
+
 }
 
 void app_task_100ms()

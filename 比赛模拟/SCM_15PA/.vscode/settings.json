@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "main.h": "c",
+        "sys.h": "c",
+        "seg.h": "c",
+        "ds1302.h": "c",
+        "ui.h": "c",
+        "rtc.h": "c",
+        "dac.h": "c"
+    }
+}

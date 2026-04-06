@@ -18,7 +18,7 @@ Hex Converter:   OH51.exe V2.7.0.0
 CPU DLL:         S8051.DLL V3.125.1.0
 Dialog DLL:      DP51.DLL V2.69.0.0 
 <h2>Project:</h2>
-C:\Users\Jackx\Desktop\lanqiaobei_iap15f2k61s2_code\¿ò¼Ü\v3¿ò¼Ü\v3¿ò¼Ü.uvproj
+C:\Users\Jackx\Desktop\lanqiaobei_iap15f2k61s2_code\²âÊÔÏîÄ¿\v3¿ò¼Ü\v3¿ò¼Ü.uvproj
 Project File Date:  03/10/2026
 
 <h2>Output:</h2>
@@ -32,6 +32,8 @@ compiling drv_seg.c...
 compiling drv_key.c...
 compiling drv_other.c...
 compiling app_main.c...
+compiling drv_temp.c...
+compiling drv_rtc.c...
 linking...
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?DRV_LED_SET0?DRV_LED
@@ -43,10 +45,20 @@ linking...
     SEGMENT: ?PR?_DRV_SEG_SET_ALL?DRV_SEG
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?DRV_KEY_GET?DRV_KEY
-Program Size: data=85.1 xdata=0 code=1425
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?TEMP_INIT?DRV_TEMP
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_TEMP_INT?DRV_TEMP
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?RTC_INIT?DRV_RTC
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_RTC_SETTIME?DRV_RTC
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_RTC_GETTIME?DRV_RTC
+Program Size: data=109.2 xdata=0 code=2358
 creating hex file from ".\Objects\¿ò¼Üv3"...
-".\Objects\¿ò¼Üv3" - 0 Error(s), 5 Warning(s).
-Build Time Elapsed:  00:00:03
+".\Objects\¿ò¼Üv3" - 0 Error(s), 10 Warning(s).
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

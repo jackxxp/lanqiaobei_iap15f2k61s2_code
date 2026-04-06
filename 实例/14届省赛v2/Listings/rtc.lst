@@ -1,10 +1,10 @@
-C51 COMPILER V9.60.7.0   RTC                                                               03/26/2026 18:30:39 PAGE 1   
+C51 COMPILER V9.60.7.0   RTC                                                               04/01/2026 20:02:31 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE RTC
 OBJECT MODULE PLACED IN .\Objects\rtc.obj
-COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE rtc.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT
-                    -(.\Listings\rtc.lst) TABS(2) OBJECT(.\Objects\rtc.obj)
+COMPILER INVOKED BY: C:\Program Files (x86)\keil\C51\BIN\C51.EXE rtc.c COMPACT OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTE
+                    -ND PRINT(.\Listings\rtc.lst) TABS(2) OBJECT(.\Objects\rtc.obj)
 
 line level    source
 
@@ -62,7 +62,7 @@ line level    source
   52          {
   53   1          return (hex/10*16)+(hex%10);
   54   1      }
-C51 COMPILER V9.60.7.0   RTC                                                               03/26/2026 18:30:39 PAGE 2   
+C51 COMPILER V9.60.7.0   RTC                                                               04/01/2026 20:02:31 PAGE 2   
 
   55          u8 bcd_to_hex(bcd)
   56          {
@@ -89,11 +89,11 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    258    ----
+   CODE SIZE        =    288    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
-   PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----       7
+   PDATA SIZE       =   ----       7
+   DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

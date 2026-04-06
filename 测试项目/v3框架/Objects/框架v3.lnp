@@ -6,6 +6,8 @@
 ".\Objects\drv_seg.obj",
 ".\Objects\drv_key.obj",
 ".\Objects\drv_other.obj",
-".\Objects\app_main.obj" 
+".\Objects\app_main.obj",
+".\Objects\drv_temp.obj",
+".\Objects\drv_rtc.obj" 
 TO ".\Objects\¿ò¼Üv3" 
 PRINT(".\Listings\¿ò¼Üv3.m51") RAMSIZE(256) 
